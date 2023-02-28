@@ -40,37 +40,41 @@ import { EditYarnmasterComponent } from './edit-yarnmaster/edit-yarnmaster.compo
 
 
 import { ColorPickerModule } from 'ngx-color-picker';
-import { AddInvoiceComponent } from "./add-invoice/add-invoice.component";
-import { NewyarnComponent } from "./add-invoice/newyarn/newyarn.component";
+import { InvMillComponent } from "./inv-mill/inv-mill.component";
+import { InvMillMasterComponent } from "./inv-mill/inv-mill-master/inv-mill-master.component";
+import { EditMillmasterComponent } from "./inv-mill/edit-millmaster/edit-millmaster.component";
+
 
 const appRoutes: Routes = [
     {
         path: "**",
         component: InvoiceListComponent
     },
-    // {
-    //     // Yarn
-    //     path: "InventoryMaster/Yarn",
-    //     loadChildren: () =>
-    //     //  import("./clients-list/clients-list.module").then((m) => m.ClientsListModule),
-    //     InvoiceListComponent
-    // },
+    {
+        // Yarn
+         path: "InventoryMaster/Yarn",
+         loadChildren: () =>
+        //  import("./invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
+        InvoiceListComponent
+     },
+
+   
 ];
 @NgModule({
     declarations: [
         InvoiceListComponent,
-        AddInvoiceComponent,
-        NewyarnComponent,
+        // AddInvoiceComponent,
+        // NewyarnComponent,
         // InvQualityComponent,
         // InvShadeComponent,
-        // InvMillComponent,
+        InvMillComponent,
         // InvItemComponent,
         
         NewYarnMasterComponent,
         EditYarnmasterComponent,
         // NewItemMasterComponent,
-        // InvMillMasterComponent,
-        // EditMillmasterComponent,
+        InvMillMasterComponent,
+        EditMillmasterComponent,
         // UpdateShademasterComponent,
         // InvShademasterComponent,
         // // NewQualityMasterComponent,

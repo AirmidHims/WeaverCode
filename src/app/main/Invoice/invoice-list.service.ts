@@ -16,6 +16,8 @@ export class InvoiceListService {
     Millform:FormGroup;
   mySearchform:FormGroup;
 
+  Today=[new Date().toISOString()];
+
   constructor(public _httpClient: HttpClient,
     private _formBuilder: FormBuilder) {
     this.Itemform = this.ItemForm();
@@ -112,10 +114,11 @@ export class InvoiceListService {
       blend: '',
       Actualcnt: '',
       deniercnt: '',
-
       shadeNumber:'',
       shadeColour:'',
-    });
+      createdOn:[new Date().toISOString()],
+
+          });
   }
 
   
@@ -183,6 +186,9 @@ export class InvoiceListService {
   populateForm4(employee){
     this.Itemform.patchValue(employee);
   }
+
+  
+ 
 
   public InvoiceInsert(employee) {
     return this._httpClient.post("Invoice/InvoiceSave", employee);

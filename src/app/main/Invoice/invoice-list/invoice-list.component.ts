@@ -25,6 +25,7 @@ import { PartyAccountComponent } from 'app/main/Master/party-account/party-accou
 import { NewYarnMasterComponent } from './new-yarn-master/new-yarn-master.component';
 import Swal from 'sweetalert2';
 import { EditYarnmasterComponent } from './edit-yarnmaster/edit-yarnmaster.component';
+import { RegisterComponent } from 'app/main/auth/register/register.component';
 
 // declare const require: any;
 // const jsPDF = require('jspdf');
@@ -174,7 +175,7 @@ export class InvoiceListComponent implements OnInit {
 
 
   NewYarnmaster() {
-    const dialogRef = this._matDialog.open(NewYarnMasterComponent,
+    const dialogRef = this._matDialog.open(RegisterComponent,
       {
         maxWidth: "45vw",
         height: '450px',
@@ -188,68 +189,6 @@ export class InvoiceListComponent implements OnInit {
   }
 
 
-  // NewShademaster() {
-  //   debugger;
-  //   const dialogRef = this._matDialog.open(InvShadeComponent,
-  //     {
-  //       maxWidth: "100%",
-  //       height: '100%',
-  //       width: '100%',
-  //       // height: "100%"
-  //     });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed - Insert Action', result);
-  //     this.getYarnList();
-  //   });
-  // }
-
-
-  // NewMillmaster() {
-  //   debugger;
-  //   const dialogRef = this._matDialog.open(InvMillComponent,
-  //     {
-  //       maxWidth: "100%",
-  //       height: '100%',
-  //       width: '100%',
-  //       // height: "100%"
-  //     });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed - Insert Action', result);
-  //     this.getYarnList();
-  //   });
-  // }
-
-  
-  // NewItemmaster() {
-  //   debugger;
-  //   const dialogRef = this._matDialog.open(InvItemComponent,
-  //     {
-  //       maxWidth: "100%",
-  //       height: '100%',
-  //       width: '100%',
-  //       // height: "100%"
-  //     });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed - Insert Action', result);
-  //     this.getYarnList();
-  //   });
-  // }
-
-
-  // NewQualityaster() {
-  //   debugger;
-  //   const dialogRef = this._matDialog.open(InvQualityComponent,
-  //     {
-  //       maxWidth: "100%",
-  //       height: '100%',
-  //       width: '100%',
-  //       // height: "100%"
-  //     });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed - Insert Action', result);
-  //     this.getYarnList();
-  //   });
-  // }
 
 
   toggleSidebar(name): void {

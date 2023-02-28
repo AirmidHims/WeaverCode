@@ -30,6 +30,7 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SpinnerInterceptor } from "./core/spinner.interceptor";
 
 
+
 const appRoutes: Routes = [
     {
         path: "auth",
@@ -51,17 +52,26 @@ const appRoutes: Routes = [
             import("./main/setup/setup.module").then((m) => m.SetupModule),
     },
 
-    // {
-    //     path: "Masters",
-    //     loadChildren: () =>
-    //         import("./main/Master/master.module").then((m) => m.MasterModule),
-    // },
+    {
+        path: "Masters",
+        loadChildren: () =>
+            import("./main/Master/master.module").then((m) => m.MasterModule),
+    },
     {
         path: "Invoice",
         loadChildren: () =>
-            import("./main/Invoice/invoice.module").then((m) => m.InvoiceModule),
-    },
+            // import("./main/Invoice/invoice.module").then((m) => m.InvoiceModule),
 
+            import("./main/dashboards/analytics/analytics.module").then((m) => m.AnalyticsDashboardModule),
+    },
+    
+
+    {
+        path: "InventoryMaster",
+        loadChildren: () =>
+            //  import("./main/Invoice/invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
+             import("./main/Inventory_Master/inventory-master.module").then((m) => m.InventoryMasterModule),
+    },
     {
         path:"Beam Inventory",
         loadChildren: () =>
@@ -124,7 +134,8 @@ export const PICK_FORMATS = {
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
+        
         
     ],
     imports: [

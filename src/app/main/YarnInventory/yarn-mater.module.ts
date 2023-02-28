@@ -44,91 +44,30 @@ import { YarnOutwardComponent } from './yarn-outward/yarn-outward.component';
 
 const appRoutes: Routes = [
 
+ 
     {
-      path: "**",
-      component: YarnOutwardComponent
-  },
-    {
-        path: "Yarn Inventory/YarnInward",
-        loadChildren: () =>
-            // import("./yarninward").then((m) => m.AuthModule),
-            YarnInwardComponent
+        path: "YarnInward",
+        loadChildren: () => import("./yarn-inward/yarn-inward.module").then((m) => m.YarnInwardModule),
+            
     },
    
     {
-        path: 'Yarn Inventory/YarnIssue',
-        loadChildren: () => 
-        // import('./main/dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
-        YarnIssueComponent
+        path: 'YarnIssue',
+        loadChildren: () =>  import('./yarn-issue/yarn-issue.module').then(m => m.YarnIssueModule)
+        
     },
     {
-      path: 'Yarn Inventory/YarnOutward',
-      loadChildren: () => 
-      // import('./main/dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
-      YarnOutwardComponent
+      path: 'YarnOutward',
+      loadChildren: () =>  import('./yarn-outward/yarn-outward.module').then(m => m.YarnOutwardModule)
+      
   },
      
   
   ];
-@NgModule({
-    declarations: [
-    
-    YarnInwardComponent,
-    
-    YarnIssueComponent,
-    
-    YarnOutwardComponent],
+  @NgModule({
+    declarations: [],
     imports: [
         RouterModule.forChild(appRoutes),
-        MatButtonModule,
-        MatCheckboxModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatMenuModule,
-        MatRippleModule,
-        MatTableModule,
-        MatToolbarModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatTabsModule,
-        MatCardModule,
-        MatDividerModule,  
-        MatProgressSpinnerModule,
-        FuseSharedModule,
-        FuseConfirmDialogModule,
-        FuseSidebarModule,
-        MatDialogModule,
-        MatGridListModule,
-        MatSnackBarModule,
-        MatSlideToggleModule ,
-        MatDividerModule,
-        MatDialogModule,
-        FuseSharedModule,
-        FuseConfirmDialogModule,
-        FuseSidebarModule,
-        ReactiveFormsModule,
-        MatSnackBarModule,
-        MatStepperModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
-        FuseSharedModule,
-        NgxMatSelectSearchModule,
-        MatBadgeModule,
-        MatTooltipModule,
-        MatExpansionModule
-      
-    ],
-    providers: [
-      YarninwardService,
-        // NotificationServiceService ,
-        DatePipe
-    ],
-    entryComponents: [
-      YarnOutwardComponent
     ]
 })
 export class YarnMaterModule { }

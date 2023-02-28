@@ -44,86 +44,30 @@ import { DailyProductionService } from './daily-production.service';
 const appRoutes: Routes = [
 
   {
-    path: "**",
-    component: TagaFoldingComponent
-},
-  {
-      path: "Daily Production/TagaFolding",
-      loadChildren: () =>
-          // import("./yarninward").then((m) => m.AuthModule),
-      TagaFoldingComponent
+      path: "TagaFolding",
+      loadChildren: () =>  import("./taga-folding/taga-folding.module").then((m) => m.TagaFoldingModule),
+      
   },
  
   {
-      path: 'Daily Production/PackingSlip',
-      loadChildren: () => 
-      // import('./main/dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
-      PackagingSlipComponent
+      path: 'PackingSlip',
+      loadChildren: () =>  import('./packaging-slip/packaging-slip.module').then(m => m.PackagingSlipModule)
+      
   },
   {
-      path: 'Daily Production/OpeningFolding',
-      loadChildren: () =>
-      //  import('./main/dashboards/project/project.module').then(m => m.ProjectDashboardModule)
-      OpeningFoldingComponent
+      path: 'OpeningFolding',
+      loadChildren: () =>  import('./opening-folding/opening-folding.module').then(m => m.OpeningFoldingModule)
+      
   },
 
 
 ];
 
+
 @NgModule({
   declarations: [],
-
   imports: [
-    RouterModule.forChild(appRoutes),
-    MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatMenuModule,
-    MatRippleModule,
-    MatTableModule,
-    MatToolbarModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatTabsModule,
-    MatCardModule,
-    MatDividerModule,  
-    MatProgressSpinnerModule,
-    FuseSharedModule,
-    FuseConfirmDialogModule,
-    FuseSidebarModule,
-    MatDialogModule,
-    MatGridListModule,
-    MatSnackBarModule,
-    MatSlideToggleModule ,
-    MatDividerModule,
-    MatDialogModule,
-    FuseSharedModule,
-    FuseConfirmDialogModule,
-    FuseSidebarModule,
-    ReactiveFormsModule,
-    MatSnackBarModule,
-    MatStepperModule,
-    MatAutocompleteModule,
-    MatProgressSpinnerModule,
-    FuseSharedModule,
-    NgxMatSelectSearchModule,
-    MatBadgeModule,
-    MatTooltipModule,
-    MatExpansionModule
-  
-],
-providers: [
-  DailyProductionService,
-    // NotificationServiceService ,
-    DatePipe
-],
-entryComponents: [
-  TagaFoldingComponent
-]
+      RouterModule.forChild(appRoutes),
+  ]
 })
 export class DailyproductionModule { }

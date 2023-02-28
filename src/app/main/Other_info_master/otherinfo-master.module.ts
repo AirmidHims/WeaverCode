@@ -35,134 +35,62 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { OtherinfoMasterService } from "./otherinfo-master.service";
 import { OtherAddlessComponent } from './other-addless/other-addless.component';
-import { LoomComponent } from './loom/loom.component';
-import { LoomtypeComponent } from './loomtype/loomtype.component';
 import { DefectComponent } from './defect/defect.component';
 import { RollTypeComponent } from './roll-type/roll-type.component';
 import { TransportComponent } from './transport/transport.component';
-import { BeamComponent } from './beam/beam.component';
+
 
 
 
 
 const appRoutes: Routes = [
 
-    {
-      path: "**",
-      component: TransportComponent
-  },
-    {
-        path: "Other Info Master/Loom",
-        loadChildren: () =>
-            // import("./yarninward").then((m) => m.AuthModule),
-        LoomComponent
-    },
+    // {
+    //     path: "Loom",
+    //     loadChildren: () => import("./loom/loom-master.module").then((m) => m.LoomMasterModule),
+        
+    // },
    
     {
-        path: 'Other Info Master/Transport',
-        loadChildren: () => 
-        // import('./main/dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
-        TransportComponent
+        path: 'Transport',
+        loadChildren: () =>  import('./transport/transport-master.module').then(m => m.TransportMasterModule)
+        
     },
     {
-        path: 'Other Info Master/Addless',
-        loadChildren: () =>
-        //  import('./main/dashboards/project/project.module').then(m => m.ProjectDashboardModule)
-        OtherAddlessComponent
+        path: 'Addless',
+        loadChildren: () =>  import('./other-addless/addless-master.module').then(m => m.AddlessMasterModule)
+        
     },
   
     {
-        path: "Other Info Master/Defect",
-        loadChildren: () =>
-            // import("./yarninward").then((m) => m.AuthModule),
-        DefectComponent
+        path: "Defect",
+        loadChildren: () =>  import("./defect/defect-master.module").then((m) => m.DefectMasterModule),
+        
     },
    
-    {
-        path: 'Other Info Master/Beam',
-        loadChildren: () => 
-        // import('./main/dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
-        BeamComponent
-    },
-    {
-        path: 'Other Info Master/RollType',
-        loadChildren: () =>
-        //  import('./main/dashboards/project/project.module').then(m => m.ProjectDashboardModule)
-        RollTypeComponent
-    },
+    // {
+    //     path: 'Beam',
+    //     loadChildren: () =>  import('./beam/beam-master.module').then(m => m.BeamMasterModule)
+        
+    // },
+    // {
+    //     path: 'RollType',
+    //     loadChildren: () =>  import('./roll-type/rolltype-master.module').then(m => m.  RolltypeMasterModule)
+        
+    // },
 
-    {
-        path: 'Other Info Master/LoomType',
-        loadChildren: () => 
-        // import('./main/dashboards/analytics/analytics.module').then(m => m.AnalyticsDashboardModule)
-        LoomtypeComponent
-    },
+    // {
+    //     path: 'LoomType',
+    //     loadChildren: () => import('./loomtype/loomtype-master.module').then(m => m.LoomtypeMasterModule)
+        
+    // },
      
   
   ];
-@NgModule({
-    declarations: [
-       
-        OtherAddlessComponent,
-        LoomComponent,
-        LoomtypeComponent,
-        DefectComponent,
-        RollTypeComponent,
-        TransportComponent,
-        BeamComponent,
-      
-    ],
+  @NgModule({
+    declarations: [],
     imports: [
         RouterModule.forChild(appRoutes),
-        MatButtonModule,
-        MatCheckboxModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatMenuModule,
-        MatRippleModule,
-        MatTableModule,
-        MatToolbarModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatTabsModule,
-        MatCardModule,
-        MatDividerModule,  
-        MatProgressSpinnerModule,
-        FuseSharedModule,
-        FuseConfirmDialogModule,
-        FuseSidebarModule,
-        MatDialogModule,
-        MatGridListModule,
-        MatSnackBarModule,
-        MatSlideToggleModule ,
-        MatDividerModule,
-        MatDialogModule,
-        FuseSharedModule,
-        FuseConfirmDialogModule,
-        FuseSidebarModule,
-        ReactiveFormsModule,
-        MatSnackBarModule,
-        MatStepperModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
-        FuseSharedModule,
-        NgxMatSelectSearchModule,
-        MatBadgeModule,
-        MatTooltipModule,
-        MatExpansionModule
-      
-    ],
-    providers: [
-      OtherinfoMasterService,
-        // NotificationServiceService ,
-        DatePipe
-    ],
-    entryComponents: [
-        LoomComponent
     ]
 })
 export class OtherinfoMasterModule { }

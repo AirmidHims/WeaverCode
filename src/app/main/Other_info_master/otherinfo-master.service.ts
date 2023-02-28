@@ -9,15 +9,32 @@ export class OtherinfoMasterService {
 
   otherallform: FormGroup;
   transportform: FormGroup;
-
+  Searchform:FormGroup;
+  LoomForm:FormGroup;
+  
   constructor(public _httpClient: HttpClient,
     private _formBuilder: FormBuilder) {
 
     this.otherallform = this.createotherallForm();
     this.transportform = this.transportForm();
+    this.Searchform = this.SearchFormall();
+    this.LoomForm = this.creamLoomForm();
 
   }
 
+
+
+ 
+  SearchFormall() {
+    return this._formBuilder.group({
+    
+      BeamCode:'',
+      BeamNumber:'',
+      LoomCode:'',
+      start: [new Date().toISOString()],
+      end: [new Date().toISOString()],
+    });
+  }
 
 
   createotherallForm() {
@@ -31,7 +48,27 @@ export class OtherinfoMasterService {
       BeamNo:'',
       emptybeamwt:'',
 
+      BeamID:'',
+      BeamNumber:'',
+      EmptyBeamWt :''
     });
+}
+
+
+creamLoomForm(){
+  return this._formBuilder.group({
+  LoomId:'',
+  LoomCode:'',
+  CompanyName:'',
+  LoomNo:'',
+  RPM:'',
+  MfgCompany:'',
+  MfgSrno:'',
+  LoomTypeId:'',
+  StdEfficiency:'',
+  ReadingFactor:'',
+});
+
 }
 
 
@@ -53,8 +90,8 @@ transportForm(): FormGroup {
 }
 
 
-populateForm3(employee) {
-
+populateFormBeam(employee) {
+this.otherallform.patchValue(employee);
 }
 populateForm2(employee) {
   // this.myInvoiceFormGroup.patchValue(employee);
@@ -63,14 +100,24 @@ populateForm2(employee) {
   return this._httpClient.post("Invoice/InvoiceSave", employee);
 }
 
-
-
-  public getCityList() {
-  return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
+populateFormLoom(employee){
+  this.LoomForm.patchValue(employee);
 }
 
-  public getStateList(CityId) {
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_StateMasterForCombo_Conditional", { "Id": CityId })
+  public getBeamList(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_BeamList",employee)
+}
+
+  public getBeamListdatewise(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_BeamlistbyDate", employee)
+}
+
+public getLoomList(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Loomlist",employee)
+}
+
+  public getLoomListdatewise(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LoomlistbyDate", employee)
 }
 
   public getCountryList(StateId) {
@@ -80,6 +127,21 @@ populateForm2(employee) {
 
   ///Weaver project
 
+
+
+  public beamInsert(employee) {
+    return this._httpClient.post("Weaver/NewBeamInsert", employee);
+  }
+  public BeamUpdate(employee) {
+    return this._httpClient.post("Weaver/BeamUpdate", employee);
+  }
+
+  public LoomInsert(employee) {
+    return this._httpClient.post("Weaver/NewBeamInsert", employee);
+  }
+  public LoomUpdate(employee) {
+    return this._httpClient.post("Weaver/BeamUpdate", employee);
+  }
   public accountInsert(employee) {
   return this._httpClient.post("Invoice/InvoiceUpdate", employee);
 }

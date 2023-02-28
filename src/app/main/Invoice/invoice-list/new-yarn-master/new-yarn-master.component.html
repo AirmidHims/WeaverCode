@@ -33,7 +33,7 @@
   
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Today Date</mat-label>
-                <input matInput [matDatepicker]="picker" placeholder="Choose a Date" name="InvoiceDate" [(ngModel)]="Today" formControlName="Today">
+                <input matInput [matDatepicker]="picker" placeholder="Choose a Date" name="createdOn" [(ngModel)]="Today" formControlName="createdOn">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>

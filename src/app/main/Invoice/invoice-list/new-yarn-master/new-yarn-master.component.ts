@@ -24,6 +24,8 @@ export class NewYarnMasterComponent implements OnInit {
 
   Today=[new Date().toISOString()];
 
+ 
+
   now = Date.now();
   yID:any;
   YarnName:any;
@@ -52,26 +54,7 @@ export class NewYarnMasterComponent implements OnInit {
   ngOnInit(): void {
    debugger
        
-    if (this.data) {
-      console.log(this.data);
-      this.yID=this.data.registerObj.yID;
-      this.YarnName=this.data.registerObj.yName;
-      this.count=this.data.registerObj.yCount;
-      this.ply=this.data.registerObj.yPly;
-      this.type=this.data.registerObj.yType;
-      this.blend=this.data.registerObj.yBlend;
-      this.Actualcnt=this.data.registerObj.yActualCount;
-      this.deniercnt=this.data.registerObj.yDenierCount;
-     
-    }
-
-    // setTimeout(function () {
-
-    //   let element: HTMLElement = document.getElementById('auto_trigger') as HTMLElement;
-    //   element.click();
-
-    // }, 1000);
-
+    
   }
 
  
