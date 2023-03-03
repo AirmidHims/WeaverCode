@@ -35,6 +35,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { ContractbookingService } from './contractbooking.service';
+import { ContractBookingComponent } from './contract-booking/contract-booking.component';
 
 
 
