@@ -35,9 +35,9 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
 import { YarninwardService } from "./yarninward.service";
-import { YarnInwardComponent } from './yarn-inward/yarn-inward.component';
 import { YarnIssueComponent } from './yarn-issue/yarn-issue.component';
 import { YarnOutwardComponent } from './yarn-outward/yarn-outward.component';
+// import { NewYarnInwardyComponent } from './new-yarn-inwardy/new-yarn-inwardy.component';
 
 
 
@@ -45,11 +45,11 @@ import { YarnOutwardComponent } from './yarn-outward/yarn-outward.component';
 const appRoutes: Routes = [
 
  
-    {
-        path: "YarnInward",
-        loadChildren: () => import("./yarn-inward/yarn-inward.module").then((m) => m.YarnInwardModule),
+    // {
+    //     path: "YarnInward",
+    //     loadChildren: () => import("./yarn-inward/yarn-inward.module").then((m) => m.YarnInwardModule),
             
-    },
+    // },
    
     {
         path: 'YarnIssue',

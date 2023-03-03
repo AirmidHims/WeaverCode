@@ -4,19 +4,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
     
-    {
-        path: "party",
-        loadChildren: () => import("./party-account/party-account.module").then((m) => m.PartyAccountModule),
-    },
-    {
-        path: "Brokers",
-       loadChildren: () => import("./brokers/broker-master.module").then((m) => m.BrokerMasterModule),
+    // {
+    //     path: "party",
+    //     loadChildren: () => import("./party-account/party-account.module").then((m) => m.PartyAccountModule),
+    // },
+    // {
+    //     path: "Brokers",
+    //    loadChildren: () => import("./brokers/broker-master.module").then((m) => m.BrokerMasterModule),
        
-    },
-    {
-        path: "Sizings",
-        loadChildren: () => import("./sizing/sizing.module").then((m) => m.SizingModule),
-    },
+    // },
+    // {
+    //     path: "Sizings",
+    //     loadChildren: () => import("./sizing/sizing.module").then((m) => m.SizingModule),
+    // },
   
 
 ];

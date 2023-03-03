@@ -173,18 +173,18 @@ app-item-master{
   }
   
  
-  .mat-column-isActive {
-    width: 100px;
-    max-width:100px;
-    min-width:100px;
-    text-align: left;
-    // white-space: nowrap; 
-    //     overflow: hidden; 
-    //  overflow: hidden !important;
-    //  display: inline-block; 
+  // .mat-column-isActive {
+  //   width: 100px;
+  //   max-width:100px;
+  //   min-width:100px;
+  //   text-align: left;
+  //   // white-space: nowrap; 
+  //   //     overflow: hidden; 
+  //   //  overflow: hidden !important;
+  //   //  display: inline-block; 
    
-  }
-  .mat-column-createdBy {
+  // }
+  .mat-column-updatedBy {
     width: 100px;
     max-width: 100px;
     min-width: 100px;
@@ -193,10 +193,10 @@ app-item-master{
    
   }
 
-  .mat-column-createdOn {
-    width: 80px;
-    max-width: 80px;
-    min-width: 80px;
+  .mat-column-updatedOn {
+    width: 100px;
+    max-width: 100px;
+    min-width: 100px;
     text-align: center;
     margin-right: 7px;
    

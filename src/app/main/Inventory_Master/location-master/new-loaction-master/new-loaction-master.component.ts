@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthenticationService } from 'app/core/services/authentication.service';
@@ -19,9 +19,6 @@ import { InventoryMasterService } from '../../inventory-master.service';
 export class NewLoactionMasterComponent implements OnInit {
 
   submitted = false;
-  Invdate: any;
-
-  invoicedate: Date;
   screenFromString = 'admission-form';
   isLoading: string = '';
   
@@ -31,6 +28,7 @@ export class NewLoactionMasterComponent implements OnInit {
   LocationID:any;
   
   Today=[new Date().toISOString()];
+  date1 = new FormControl(new Date())
  
   // @Output() parentFunction: EventEmitter<any> = new EventEmitter();
  

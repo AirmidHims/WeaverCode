@@ -29,12 +29,12 @@
             <form [formGroup]="_InvoiceListService.mySearchform">
                 <div class="dialog-content-wrapper" fxFlex fxLayoutAlign="space-between-center">
 
-                    <mat-form-field appearance="outline" style="margin-left:50%">
+                    <mat-form-field appearance="outline" style="margin-left:50%;">
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="start" placeholder="Start date"  >
-                            <input matEndDate formControlName="end" placeholder="End date" (dateChange)="getMillMasterDatewiseList($event.value)">
-                        </mat-date-range-input>
+                            <input matEndDate formControlName="end" placeholder="End date" (dateChange)="getMillMasterList()">
+                        </mat-date-range-input>t.valu
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
                     </mat-form-field>
@@ -42,7 +42,7 @@
 
                     <mat-form-field appearance="outline" style="padding-right: 10px;">
                         <mat-label>Search Mill Data</mat-label>
-                        <input name="millCode" formControlName="millCode" matInput (keyup)="getMillMasterList()">
+                        <input name="Keyword" formControlName="Keyword" matInput (keyup)="getMillMasterList()">
                         <!-- <span class="error"
                           *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
                           required Enter only Alphabets</span> -->
@@ -88,7 +88,7 @@
 
             <ng-container matColumnDef="millID">
                 <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                  MillID
+                  Mill ID
                 </mat-header-cell>
                 <mat-cell *matCellDef="let contact"  fxShow.gt-sm>
                     {{contact.millID}}
@@ -96,7 +96,7 @@
             </ng-container>
 
             <ng-container matColumnDef="millCode">
-                <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>MillCode
+                <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Mill Code
                 </mat-header-cell>
                 <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                     {{contact.millCode}}
@@ -106,34 +106,34 @@
             <ng-container matColumnDef="millName" fxLayoutAlign="start center">
                 <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm
                     style=" margin-top: 8px; ">
-                    MillName</mat-header-cell>
+                    Mill Name</mat-header-cell>
                 <mat-cell *matCellDef="let contact" fxShow.gt-md>
                     {{contact.millName}}
                 </mat-cell>
             </ng-container>
 
 
-            <!-- <ng-container matColumnDef="createdBy">
+             <ng-container matColumnDef="updatedBy">
                 <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                    CreatedBy
+                    Updated By
                 </mat-header-cell>
                 <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                    {{contact.createdBy}}
+                    {{contact.updatedBy}}
                 </mat-cell>
-            </ng-container> -->
+            </ng-container> 
 
-            <ng-container matColumnDef="Created">
+            <ng-container matColumnDef="updatedOn">
                 <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                    Created
+                    Updated On
                 </mat-header-cell>
                 <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                    {{contact.Created}}
+                    {{contact.updatedOn | date:'shortDate'}}
                 </mat-cell>
             </ng-container>
 
           
 
-
+<!-- 
             <ng-container matColumnDef="isActive" sticky>
                 <mat-header-cell *matHeaderCellDef fxShow.gt-sm
                     style="color: white;">ISActive/Not
@@ -148,7 +148,7 @@
                         *ngIf="contact.isActive=='0' " matTooltip="NotAvtive"
                         class="orange-600 s-16 ">circle</mat-icon>
                 </mat-cell>
-            </ng-container>
+            </ng-container> -->
 
 
 
@@ -192,7 +192,7 @@
 
 
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="16" showFirstLastButtons></mat-paginator>
-            <div fxlayout="row" style="margin-top: 10px;background-color: white;">
+            <!-- <div fxlayout="row" style="margin-top: 10px;background-color: white;">
                 <div style="margin-top: 2px; padding: 5px;width: 44%;">
                     <span style="font-weight: bold;"> Help :</span>&nbsp;
                     <mat-icon
@@ -202,7 +202,7 @@
                         style="font-size: 50px;width: 15px !important; margin-bottom: 5px; height:15px !important;border-radius:100% ;"
                         class=" orange-600 s-16">circle</mat-icon>&nbsp;Not Active&nbsp;&nbsp;
                 </div>
-            </div> 
+            </div>  -->
         </div>
     </div>
     <div class="content" style="display: none;">

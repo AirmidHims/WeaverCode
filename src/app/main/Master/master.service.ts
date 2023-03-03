@@ -14,49 +14,28 @@ export class MasterService {
 
   constructor(public _httpClient:HttpClient,
     private _formBuilder: FormBuilder) {
-      this.myFilterform=this.filterForm();
+      this.myFilterform=this.filterSearchForm();
      
       this.accountmasterform=this.accountMasterForm();
+
       
      }                       
 
 
  
 
-    filterInvoiceForm(): FormGroup {
+    filterSearchForm(): FormGroup {
       return this._formBuilder.group({
       
-        SearchBy: '',
+        
         Keyword : '',
-        ClientID : '',
-        ConsultedBy: '',
-        UserId:'',
-        SubmittedIn: '',
-        Quarter: '',
-        InvoiceStatus: '',
-       
-        // start: [new Date().toISOString()],
-        // end: [new Date().toISOString()],
+        
+        start: [new Date().toISOString()],
+        end: [new Date().toISOString()],
       });
     }
 
 
-
-
-  filterForm(): FormGroup {
-    return this._formBuilder.group({
-     
-    //   FirstName: ['', [
-    //      Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
-    //   ]],
-    //   LastName:['', [
-    //     Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
-    //  ]],
-      start: [(new Date()).toISOString()],
-      end: [(new Date()).toISOString()],
-     
-    });
-  }
 
   
   accountMasterForm(): FormGroup {
@@ -87,6 +66,7 @@ export class MasterService {
     });
   }
 
+  
 
   populateForm3(employee) {
     // this.myClientFormGroup.patchValue(employee);

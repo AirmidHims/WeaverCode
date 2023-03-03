@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { ContractBookingComponent } from './contract-booking/contract-booking.component';
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,10 +40,18 @@ import { ContractbookingService } from './contractbooking.service';
 
 
 const appRoutes: Routes = [
-    {
-        path: "**",
-        component: ContractBookingComponent
-    },
+
+  {
+    path: "**",
+    component: ContractBookingComponent
+},
+// {
+//   // Yarn
+//    path: "Contract Booking",
+//    loadChildren: () =>
+//   //  import("./invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
+//   ContractBookingComponent
+// },
 ];
 @NgModule({
   declarations: [ContractBookingComponent],

@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from 'app/core/services/authentication.service';
 import { Subject } from 'rxjs';
@@ -29,7 +29,7 @@ export class NewShademasterComponent implements OnInit {
 
 
 
-  
+  date1 = new FormControl(new Date())
   submitted = false;
   Invdate: any;
 

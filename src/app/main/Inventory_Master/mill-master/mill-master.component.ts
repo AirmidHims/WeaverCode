@@ -46,10 +46,10 @@ export class MillMasterComponent implements OnInit {
     'millID',
     'millCode',
     'millName',
-    // 'createdBy',
-    // 'createdOn',
-    'Created',
-    'isActive',
+    'updatedBy',
+    'updatedOn',
+    // 'Created',
+    // 'isActive',
     //'updatedO',
     'action'
   ];
@@ -73,7 +73,10 @@ export class MillMasterComponent implements OnInit {
   ngOnInit(): void {
     
     var D_data = {
-      "millCode": this._InvoiceListService.mySearchform.get("millCode").value + '%' || '%',
+      "Keyword": '',// this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" : '',//this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" :'',// this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "", 
+    
        }
     console.log(D_data);
     this.D_data1 = D_data;
@@ -96,47 +99,47 @@ export class MillMasterComponent implements OnInit {
 
 
   getMillMasterList() {
-    //  debugger;
+     debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "millCode": this._InvoiceListService.mySearchform.get("millCode").value + '%' || '%',
-     
-    }
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '%',
+      "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "", 
     
+    }
+    console.log(D_data);
     this._InvoiceListService.getMilllist(D_data).subscribe(Visit => {
       this.dataSource.data = Visit as Millmaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-
+      console.log(this.dataSource.data);
       this.sIsLoading = '';
     },
       error => {
         this.sIsLoading = '';
       });
-      this._InvoiceListService.mySearchform.get('millCode').reset();
+      this._InvoiceListService.mySearchform.get('Keyword').reset();
   }
 
-  getMillMasterDatewiseList(e) {
-    //  debugger;
-    this.sIsLoading = 'loading-data';
-    var D_data = {
+  // getMillMasterDatewiseList(e) {
+  //   //  debugger;
+  //   this.sIsLoading = 'loading-data';
+  //   var D_data = {
      
-    "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
-    "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+   
+  //   }
     
-    }
-    
-    this._InvoiceListService.getMilllistDatewise(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Millmaster[];
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+  //   this._InvoiceListService.getMilllistDatewise(D_data).subscribe(Visit => {
+  //     this.dataSource.data = Visit as Millmaster[];
+  //     this.dataSource.sort = this.sort;
+  //     this.dataSource.paginator = this.paginator;
 
-      this.sIsLoading = '';
-    },
-      error => {
-        this.sIsLoading = '';
-      });
-  }
+  //     this.sIsLoading = '';
+  //   },
+  //     error => {
+  //       this.sIsLoading = '';
+  //     });
+  // }
 
   onSearch() {
     this.getMillMasterList();
@@ -191,7 +194,7 @@ export class MillMasterComponent implements OnInit {
       
       const dialogRef = this._matDialog.open(EditMillmasterComponent, 
         {   maxWidth: "45vw",
-            height: '450px',
+            height: '400px',
             width: '100%',
              data : {
             registerObj : m_data,
@@ -209,7 +212,7 @@ export class MillMasterComponent implements OnInit {
 
   onClear() {
 
-    this._InvoiceListService.mySearchform.get('millCode').reset();
+    this._InvoiceListService.mySearchform.get('Keyword').reset();
 
   }
 

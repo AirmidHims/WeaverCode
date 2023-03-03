@@ -38,7 +38,7 @@
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="start" placeholder="Start date"
-                                (dateChange)="getShadeDatewiseList($event.value)">
+                                (dateChange)="getShadeMasterList()">
                             <input matEndDate formControlName="end" placeholder="End date">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -48,7 +48,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Search Location Data</mat-label>
-                        <input name="LocationCode" formControlName="LocationCode" matInput (keyup)="getShadeMasterList()">
+                        <input name="Keyword" formControlName="Keyword" matInput (keyup)="getShadeMasterList()">
                         <!-- <span class="error"
                           *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
                           required Enter only Alphabets</span> -->
@@ -100,7 +100,7 @@
               
                 <ng-container matColumnDef="shadeID">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        shadeID
+                        Shade ID
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.shadeID}}
@@ -108,7 +108,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="shadeCode">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>shadeCode
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Shade Code
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.shadeCode}}
@@ -119,7 +119,7 @@
 
                 <ng-container matColumnDef="shadeNumber">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        shadeNumber
+                        Shade Number
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.shadeNumber}}
@@ -128,33 +128,33 @@
 
                 <ng-container matColumnDef="shadeColour">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        shadeColour
+                        Shade Colour
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.shadeColour}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="createdBy">
+                <ng-container matColumnDef="updatedBy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        CreatedBy
+                        Updated By
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.createdBy}}
+                        {{contact.updatedBy}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="createdOn">
+                <ng-container matColumnDef="updatedOn">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        CreatedOn
+                        Updated On
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.createdOn | date:'shortDate'}}
+                        {{contact.updatedOn | date:'shortDate'}}
                     </mat-cell>
                 </ng-container>
 
 
-
+<!-- 
                 <ng-container matColumnDef="isActive" sticky>
                     <mat-header-cell *matHeaderCellDef fxShow.gt-sm style="color: white;">ISActive/Not
                     </mat-header-cell>
@@ -168,7 +168,7 @@
                             *ngIf="contact.isActive=='0' " matTooltip="NotAvtive"
                             class="orange-600 s-16 ">circle</mat-icon>
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="action" stickyEnd>
                     <mat-header-cell *matHeaderCellDef style="color: white;"> Action
@@ -211,7 +211,7 @@
 
 
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="16" showFirstLastButtons></mat-paginator>
-            <div fxlayout="row" style="margin-top: 10px;background-color: white;">
+            <!-- <div fxlayout="row" style="margin-top: 10px;background-color: white;">
                 <div style="margin-top: 2px; padding: 5px;width: 44%;">
                     <span style="font-weight: bold;"> Help :</span>&nbsp;
                     <mat-icon
@@ -221,7 +221,7 @@
                         style="font-size: 50px;width: 15px !important; margin-bottom: 5px; height:15px !important;border-radius:100% ;"
                         class=" orange-600 s-16">circle</mat-icon>&nbsp;Not Active&nbsp;&nbsp;
                 </div>
-            </div> 
+            </div>  -->
         </div>
     </div>
     <div class="content" style="display: none;">

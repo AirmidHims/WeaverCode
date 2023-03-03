@@ -25,23 +25,15 @@ import { NewYarnMasterComponent } from './new-yarn-master/new-yarn-master.compon
 })
 export class YarnMasterComponent implements OnInit {
 
-  step = 0;
-  setStep(index: number) {
-    this.step = index;
-  }
-  Range: boolean = true;
-  VisitList: any;
-  msg: any;
+
+
   sIsLoading: string = '';
   isLoading = true;
-  isRateLimitReached = false;
+  
   screenFromString = 'admission-form';
-  PatientTypeList: any = [];
-  registerObj:any;
-  // menuActions:Array<string> = [];
-  hasSelectedContacts: boolean;
-  doctorNameCmbList: any = [];
-
+  
+  registerObj: any;
+  
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() dataArray: any;
@@ -56,9 +48,11 @@ export class YarnMasterComponent implements OnInit {
     'yBlend',
     'yActualCount',
     'yDenierCount',
-    'Created',
-    'isActive',
-  'action'
+    'updatedBy',
+    'updatedOn',
+   
+    // 'isActive',
+    'action'
   ];
   dataSource = new MatTableDataSource<YarnMaster>();
   menuActions: Array<string> = [];
@@ -78,11 +72,12 @@ export class YarnMasterComponent implements OnInit {
   ) { }
   D_data1: any;
   ngOnInit(): void {
-    
-    var D_data = {
-      "yCode": this._InvoiceListService.mySearchform.get("yCode").value + '%' || '%',
-     // "yName": this._InvoiceListService.mySearchform.get("yName").value + '%' || '%',
 
+    var D_data = {
+      "Keyword": '',//this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" :'',// this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
+      "To_Dt" :'',// this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
+    
 
     }
     console.log(D_data);
@@ -101,18 +96,19 @@ export class YarnMasterComponent implements OnInit {
 
   }
 
-  
+
 
 
   getYarnList() {
     //  debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "yCode": this._InvoiceListService.mySearchform.get("yCode").value + '%' || '%',
-    //  "yName": this._InvoiceListService.mySearchform.get("yName").value + '%' || '%',
-
-    }
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
     
+    }
+
     this._InvoiceListService.getYarnlist(D_data).subscribe(Visit => {
       this.dataSource.data = Visit as YarnMaster[];
       this.dataSource.sort = this.sort;
@@ -126,30 +122,9 @@ export class YarnMasterComponent implements OnInit {
   }
 
 
-  
 
-  getYarnListbydate($event) {
-     debugger;
-    this.sIsLoading = 'loading-data';
-    var D_data = {
-   
-    "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
-    "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
-    
 
-    }
-    console.log(D_data);
-    this._InvoiceListService.getYarnlistbydate(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as YarnMaster[];
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
-      this.sIsLoading = '';
-    },
-      error => {
-        this.sIsLoading = '';
-      });
-  }
+ 
 
   onSearch() {
     this.getYarnList();
@@ -162,7 +137,7 @@ export class YarnMasterComponent implements OnInit {
     const dialogRef = this._matDialog.open(NewYarnMasterComponent,
       {
         maxWidth: "45vw",
-        height: '450px',
+        height: '490px',
         width: '100%',
         // height: "100%"
       });
@@ -191,64 +166,65 @@ export class YarnMasterComponent implements OnInit {
 
 
 
-  onEdit(row){
+  onEdit(row) {
     console.log(row);
-      var m_data = {
-        "yID":row.yID,
-        "yName":row.yName,
-        "yCode":row.yCode,
-        "yCount":row.yCount,
-        "yPly":row.yPly,
-        "yType":row.yType,
-        "yBlend":row.yBlend,
-        "yActualCount":row.yActualCount,
-        "yDenierCount":row.yDenierCount,
-    
-      }
-    
-      console.log(m_data);
-      this._InvoiceListService.populateForm2(m_data);
-      
-      const dialogRef = this._matDialog.open(EditeYarnMasterComponent, 
-        {   maxWidth: "45vw",
-            height: '450px',
-            width: '100%',
-             data : {
-            registerObj : m_data,
-          }
-      });
-      
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed - Insert Action', result);
-        this.getYarnList();
-      });
+    var m_data = {
+      "yID": row.yID,
+      "yName": row.yName,
+      "yCode": row.yCode,
+      "yCount": row.yCount,
+      "yPly": row.yPly,
+      "yType": row.yType,
+      "yBlend": row.yBlend,
+      "yActualCount": row.yActualCount,
+      "yDenierCount": row.yDenierCount,
+
     }
+
+    console.log(m_data);
+    this._InvoiceListService.populateForm2(m_data);
+
+    const dialogRef = this._matDialog.open(EditeYarnMasterComponent,
+      {
+        maxWidth: "45vw",
+        height: '490px',
+        width: '100%',
+        data: {
+          registerObj: m_data,
+        }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed - Insert Action', result);
+      this.getYarnList();
+    });
+  }
 
 
   onClear() {
 
-    this._InvoiceListService.mySearchform.get('yCode').reset();
- 
+    this._InvoiceListService.mySearchform.get('Keyword').reset();
+
 
   }
-// Delete row in datatable level
-  ondelete(element){
- 
-debugger;
-//  let Query = "Select DischargeId from Discharge where  AdmissionID=" + this.selectedAdvanceObj.AdmissionID + " ";
+  // Delete row in datatable level
+  ondelete(element) {
 
- let Query ="update YarnMaster set isActive=0 where yID=" +element.yID + "";
-console.log(Query);
- this._InvoiceListService.getDeleteYarnmaster(Query).subscribe(data => {
-  if(data)
-  Swal.fire('Success !', 'ChargeList Row Deleted Successfully', 'success');
-  
-  //  console.log(this.DischargeId);
- });
+    debugger;
+    //  let Query = "Select DischargeId from Discharge where  AdmissionID=" + this.selectedAdvanceObj.AdmissionID + " ";
+
+    let Query = "update YarnMaster set isActive=0 where yID=" + element.yID + "";
+    console.log(Query);
+    this._InvoiceListService.getDeleteYarnmaster(Query).subscribe(data => {
+      if (data)
+        Swal.fire('Success !', 'ChargeList Row Deleted Successfully', 'success');
+
+      //  console.log(this.DischargeId);
+    });
   }
 
 
-  onExport(exprtType){
+  onExport(exprtType) {
     // debugger;
     // let columnList=[];
     // if(this.dataSource.data.length == 0){
@@ -262,7 +238,7 @@ console.log(Query);
     //     let singleEntry = {
     //       // "Sr No":a+i,
 
-      
+
     //       "yID" :this.dataSource.data[i]["yID"],
     //       "yName" :this.dataSource.data[i]["yName"] ? this.dataSource.data[i]["yName"]:"N/A",
     //       "yCode" :this.dataSource.data[i]["yCode"] ? this.dataSource.data[i]["yCode"]:"N/A",
@@ -339,7 +315,7 @@ console.log(Query);
 export class YarnMaster {
   yID: number;
   yName: string;
-  yCount:any;
+  yCount: any;
   yCode: any;
   yPly: string;
   yType: any;
@@ -347,7 +323,7 @@ export class YarnMaster {
   yActualCount: any;
   yDenierCount: any;
   isActive: boolean;
- 
+
   Created: any;
   /**
    * Constructor
@@ -366,7 +342,7 @@ export class YarnMaster {
       this.yActualCount = YarnMaster.yActualCount || '';
       this.yDenierCount = YarnMaster.yDenierCount || '';
       this.isActive = YarnMaster.isActive || '';
-       this.Created = YarnMaster.Created || '';
+      this.Created = YarnMaster.Created || '';
 
     }
   }

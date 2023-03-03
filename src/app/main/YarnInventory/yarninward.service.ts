@@ -8,41 +8,63 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class YarninwardService {
 
   yarninventoryform: FormGroup;
-
+  yarnsearchform:FormGroup;
   constructor(public _httpClient: HttpClient,
     private _formBuilder: FormBuilder) {
   
     this.yarninventoryform = this.yarnInventoryForm();
+    this.yarnsearchform=this.YARNSearchForm();
 
   }
 
 
+   
+  YARNSearchForm() {
+    return this._formBuilder.group({
+    
+      yCode:'',
+      yName:'',
+      itemCode:'',
+         
+      // millCode:'',
+           
+      // shadeCode:'',
+     
+      // LocationCode:'',
+      // QualityCode:'',
+      
+      start: [new Date().toISOString()],
+      end: [new Date().toISOString()],
+    });
+  }
+
  yarnInventoryForm(): FormGroup {
     return this._formBuilder.group({
-      entrydate:'',
-      challanno:'',
-      challandate:'',
-      lotno:'',
-      partyname:'',
-      yarncount:'',
-      Millname:'',
-      shade:'',
-      wtbag:'',
-      conebag:'',
-      totalbags:'',
-      totalgrwt:'',
-      totalntwt:'',
-      category:'',
-      scale:'',
-      rate:'',
-      amount:'',
-      totalweight:'',
-      totalamount:'',
-      authorisedby:'',
-      checkedby:'',
-      tanspoerttype:'',
-      vechicleno:'',
-      remark:'',
+      Entrydate:'',
+      ChallanNo:'',
+      ChallanDate:'',
+      LotNo:'',
+      PartyName:'',
+      YarnCount:'',
+      MillName:'',
+      Shade:'',
+      Wtbag:'',
+      Conebag:'',
+      Totalbags:'',
+      Totalgrwt:'',
+      Totalntwt:'',
+      Category:'',
+      Scale:'',
+      Rate:'',
+      Amount:'',
+      TotalBag:'',
+      Totalweight:'',
+      Totalamount:'',
+      Authorisedby:'',
+      Checkedby:'',
+      Tanspoerttype:'',
+      Vechicleno:'',
+      Remark:'',
 
      
     });
@@ -59,7 +81,28 @@ export class YarninwardService {
     return this._httpClient.post("Invoice/InvoiceSave", employee);
   }
 
+  public YarnInwardInsert(employee) {
+    return this._httpClient.post("Invoice/InvoiceSave", employee);
+  }
+  public YarnInwardUpdate(employee) {
+    return this._httpClient.post("Invoice/InvoiceSave", employee);
+  }
 
+
+  public YarnOutwardInsert(employee) {
+    return this._httpClient.post("Invoice/InvoiceSave", employee);
+  }
+  public YarnOutwardUpdate(employee) {
+    return this._httpClient.post("Invoice/InvoiceSave", employee);
+  }
+
+  
+  public YarnIssueInsert(employee) {
+    return this._httpClient.post("Invoice/InvoiceSave", employee);
+  }
+  public YarnIssueUpdate(employee) {
+    return this._httpClient.post("Invoice/InvoiceSave", employee);
+  }
 
   public getCityList() {
     return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
@@ -73,7 +116,9 @@ export class YarninwardService {
     return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional", { "Id": StateId })
   }
 
-
+  getYarnInventorylist(employee){
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Yarnlist", employee)
+  }
   ///Weaver project
 
   public accountInsert(employee) {

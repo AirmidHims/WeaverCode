@@ -3,7 +3,7 @@
 
     <div class="header">
         <div>
-            <span style="font-size: xx-large;color: aliceblue;padding: 5px;"> Yarn Search </span>
+            <span style="font-size:x-large;color: aliceblue;padding: 5px;"> Yarn Search </span>
         </div>
       
       
@@ -39,7 +39,7 @@
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="start" placeholder="Start date" >
-                            <input matEndDate formControlName="end" placeholder="End date"  (dateChange)="getYarnListbydate($event.value)">
+                            <input matEndDate formControlName="end" placeholder="End date"  (dateChange)="getYarnList()">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
@@ -48,7 +48,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Search Yarn Data</mat-label>
-                        <input name="yCode" formControlName="yCode" matInput (keyup)="getYarnList()">
+                        <input name="Keyword" formControlName="Keyword" matInput (keyup)="getYarnList()">
                         <!-- <span class="error"
                           *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
                           required Enter only Alphabets</span> -->
@@ -96,7 +96,7 @@
 
                 <ng-container matColumnDef="yID">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        YarnID
+                        Yarn ID
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.yID}}
@@ -104,7 +104,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="yName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>YarnName
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Yarn Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.yName}}
@@ -113,14 +113,14 @@
 
                 <ng-container matColumnDef="yCode" fxLayoutAlign="start center">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm style=" margin-top: 8px; ">
-                        YarnCode</mat-header-cell>
+                        Yarn Code</mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.yCode}}
                     </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="yPly">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">YarnPly
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">Yarn Ply
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.yPly}}
@@ -128,7 +128,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="yType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>YarnType
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Yarn Type
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.yType}}
@@ -137,7 +137,7 @@
 
                 <ng-container matColumnDef="yBlend">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">
-                        YarnBlend
+                        Yarn Blend
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.yBlend}}
@@ -146,7 +146,7 @@
 
                 <ng-container matColumnDef="yActualCount">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">
-                        YActualCount
+                        Actual Count
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.yActualCount}}
@@ -154,26 +154,35 @@
                 </ng-container>
 
                 <ng-container matColumnDef="yDenierCount">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>YDenierCount
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Denier Count
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.yDenierCount}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Created">
+             
+
+                <ng-container matColumnDef="updatedBy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        CreatedBy(OnDate)
+                    UpdatedBy
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.Created}}
+                        {{contact.updatedBy}}
                     </mat-cell>
                 </ng-container>
 
-               
+              
 
-
-                <ng-container matColumnDef="isActive" sticky>
+                <ng-container matColumnDef="updatedOn">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
+                        UpdatedOn
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.updatedOn | date:'shortDate'}}
+                    </mat-cell>
+                </ng-container>
+                <!-- <ng-container matColumnDef="isActive" sticky>
                     <mat-header-cell *matHeaderCellDef fxShow.gt-sm style="color: white;">ISActive/Not
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact">
@@ -186,7 +195,7 @@
                             *ngIf="contact.isActive=='0' " matTooltip="NotAvtive"
                             class="orange-600 s-16 ">circle</mat-icon>
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
 
 
@@ -229,7 +238,7 @@
 
 
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="16" showFirstLastButtons></mat-paginator>
-            <div fxlayout="row" style="margin-top: 10px;background-color: white;">
+            <!-- <div fxlayout="row" style="margin-top: 10px;background-color: white;">
                 <div style="margin-top: 2px; padding: 5px;width: 44%;">
                     <span style="font-weight: bold;"> Help :</span>&nbsp;
                     <mat-icon
@@ -239,7 +248,7 @@
                         style="font-size: 50px;width: 15px !important; margin-bottom: 5px; height:15px !important;border-radius:100% ;"
                         class=" orange-600 s-16">circle</mat-icon>&nbsp;Not Active&nbsp;&nbsp;
                 </div>
-            </div> 
+            </div>  -->
         </div>
     </div>
     <div class="content" style="display: none;">

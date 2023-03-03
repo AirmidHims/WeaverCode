@@ -27,10 +27,14 @@ export class OtherinfoMasterService {
  
   SearchFormall() {
     return this._formBuilder.group({
-    
+      Keyword:'',
       BeamCode:'',
-      BeamNumber:'',
       LoomCode:'',
+      LoomTypeCode:'',
+      TransportCode:'',
+      RollTypeCode:'',
+      DefectCode:'',
+      AddLessCode:'',
       start: [new Date().toISOString()],
       end: [new Date().toISOString()],
     });
@@ -48,9 +52,29 @@ export class OtherinfoMasterService {
       BeamNo:'',
       emptybeamwt:'',
 
-      BeamID:'',
+      BeamId:'',
       BeamNumber:'',
-      EmptyBeamWt :''
+      EmptyBeamWt :'',
+
+
+      LoomTypeId:'',
+      LoomTypeCode:'',
+      LoomType:'',
+
+      RollTypeId:'',
+      RollTypeCode:'',
+      RollType:'',
+
+      DefectId:'',
+      DefectName:'',
+      EntNo:'',
+
+      AddLessID:'',
+      AddLessName:'',
+      StdEfficiency:'',
+      ReadingFactor:'',
+
+      // Date: [new Date().toISOString()]
     });
 }
 
@@ -77,13 +101,14 @@ transportForm(): FormGroup {
 
     TransportidL: '',
     TransportName: '',
-    Tagarate: '',
-    Bagrate: '',
-    loadedbeamrate: '',
-    Emptybeamrate: '',
-    otherrate: '',
-    cutpeicerate: '',
-    rollrate: '',
+    TransportCode:'',
+    TagaRate: '',
+    BagRate: '',
+    LoadedBeamRate: '',
+    EmptyBeamRate: '',
+    OtherRate: '',
+    CutePeiceRate: '',
+    RollRate: '',
 
 
   });
@@ -93,8 +118,8 @@ transportForm(): FormGroup {
 populateFormBeam(employee) {
 this.otherallform.patchValue(employee);
 }
-populateForm2(employee) {
-  // this.myInvoiceFormGroup.patchValue(employee);
+populateFormAll(employee) {
+  this.otherallform.patchValue(employee);
 }
   public InvoiceInsert(employee) {
   return this._httpClient.post("Invoice/InvoiceSave", employee);
@@ -120,10 +145,49 @@ public getLoomList(employee) {
   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LoomlistbyDate", employee)
 }
 
-  public getCountryList(StateId) {
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional", { "Id": StateId })
+public getLoomTypeList(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LoomTypeList",employee)
 }
 
+  public getLoomTypeListdatewise(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LoomTypelistbyDate",employee)
+  }
+
+  public getTransportTypeList(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_TransportList",employee)
+  }
+  
+    public getTransportListdatewise(employee) {
+      return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LoomTypelistbyDate",employee)
+    }
+
+  public getRollTypeList(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_RollTypeList",employee)
+}
+
+public getRollTypeListdatewise(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_RollTypelistbyDate",employee)
+}
+
+
+public getDefectList(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_DefectList",employee)
+}
+
+public getDefectListdatewise(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_RollTypelistbyDate",employee)
+}
+
+public getAddLesstList(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_AddLessList",employee)
+}
+
+public getAddLessListdatewise(employee) {
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_RollTypelistbyDate",employee)
+}
+public getCountryList(StateId) {
+return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional", { "Id": StateId })
+}
 
   ///Weaver project
 
@@ -137,11 +201,49 @@ public getLoomList(employee) {
   }
 
   public LoomInsert(employee) {
-    return this._httpClient.post("Weaver/NewBeamInsert", employee);
+    return this._httpClient.post("Weaver/NewLoomInsert", employee);
   }
   public LoomUpdate(employee) {
-    return this._httpClient.post("Weaver/BeamUpdate", employee);
+    return this._httpClient.post("Weaver/NewLoomUpdate", employee);
   }
+
+  public LoomTypeInsert(employee) {
+    return this._httpClient.post("Weaver/NewLoomTypeInsert", employee);
+  }
+  public LoomTypeUpdate(employee) {
+    return this._httpClient.post("Weaver/LoomTypeUpdate", employee);
+  }
+
+  public TransportInsert(employee) {
+    return this._httpClient.post("Weaver/NewTransportInsert", employee);
+  }
+  public TransportUpdate(employee) {
+    return this._httpClient.post("Weaver/TransportUpdate", employee);
+  }
+
+  public RolltypeInsert(employee) {
+    return this._httpClient.post("Weaver/NewRollTypeInsert", employee);
+  }
+  public RolltypeUpdate(employee) {
+    return this._httpClient.post("Weaver/RollTypeUpdate", employee);
+  }
+
+  public DefectInsert(employee) {
+    return this._httpClient.post("Weaver/NewDefectInsert", employee);
+  }
+  public DefectUpdate(employee) {
+    return this._httpClient.post("Weaver/DefectUpdate", employee);
+  }
+
+  public AddlessInsert(employee) {
+    return this._httpClient.post("Weaver/NewAddlessInsert", employee);
+  }
+  public AddlessUpdate(employee) {
+    return this._httpClient.post("Weaver/NewAddlessUpdate", employee);
+  }
+
+
+
   public accountInsert(employee) {
   return this._httpClient.post("Invoice/InvoiceUpdate", employee);
 }

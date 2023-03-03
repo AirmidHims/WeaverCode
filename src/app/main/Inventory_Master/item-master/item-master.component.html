@@ -39,7 +39,7 @@
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="start" placeholder="Start date"
                                >
-                            <input matEndDate formControlName="end" placeholder="End date"  (dateChange)="getItemDatewiseList($event.value)">
+                            <input matEndDate formControlName="end" placeholder="End date"  (dateChange)="getItemList()">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
@@ -48,7 +48,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Search Item Data</mat-label>
-                        <input name="itemCode" formControlName="itemCode" matInput (keyup)="getItemList()">
+                        <input name="Keyword" formControlName="Keyword" matInput (keyup)="getItemList()">
                         <!-- <span class="error"
                           *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
                           required Enter only Alphabets</span> -->
@@ -99,7 +99,7 @@
 
                 <ng-container matColumnDef="itemID">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        ItemID
+                        Item ID
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.itemID}}
@@ -107,7 +107,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="itemCode">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>ItemCodde
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Item Codde
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.itemCode}}
@@ -118,7 +118,7 @@
 
                 <ng-container matColumnDef="itemName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        ItemName
+                        Item Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.itemName}}
@@ -126,7 +126,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="itemMaker">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>ItemMaker
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Item Maker
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.itemMaker}}
@@ -136,7 +136,7 @@
 
 
                 <ng-container matColumnDef="itemCategory">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>ItemCategory
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Item Category
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.itemCategory}}
@@ -144,7 +144,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="itemUnit">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>ItemUnit
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Item Unit
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.itemUnit}}
@@ -153,7 +153,7 @@
 
                 <ng-container matColumnDef="itemPartNumber">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        ItemPartNumber
+                        Item PartNo
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.itemPartNumber}}
@@ -162,7 +162,7 @@
 
                 <ng-container matColumnDef="itemRate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        ItemRate
+                        Item Rate
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
                         {{contact.itemRate}}
@@ -171,26 +171,26 @@
 
 
 
-                <ng-container matColumnDef="createdBy">
+                <ng-container matColumnDef="updatedBy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        createdBy
+                        Updated By
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.createdBy}}
+                        {{contact.updatedBy}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="createdOn">
+                <ng-container matColumnDef="updatedOn">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        createdOn
+                        Updated On
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.createdOn | date:'shortDate'}}
+                        {{contact.updatedOn | date:'shortDate'}}
                     </mat-cell>
                 </ng-container>
 
 
-
+<!-- 
                 <ng-container matColumnDef="isActive" sticky>
                     <mat-header-cell *matHeaderCellDef fxShow.gt-sm style="color: white;">ISActive/Not
                     </mat-header-cell>
@@ -204,7 +204,7 @@
                             *ngIf="contact.isActive=='0' " matTooltip="NotAvtive"
                             class="orange-600 s-16 ">circle</mat-icon>
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="action" stickyEnd>
                     <mat-header-cell *matHeaderCellDef style="color: white;"> Action
@@ -247,7 +247,7 @@
 
 
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="16" showFirstLastButtons></mat-paginator>
-            <div fxlayout="row" style="margin-top: 10px;background-color: white;">
+            <!-- <div fxlayout="row" style="margin-top: 10px;background-color: white;">
                 <div style="margin-top: 2px; padding: 5px;width: 44%;">
                     <span style="font-weight: bold;"> Help :</span>&nbsp;
                     <mat-icon
@@ -257,7 +257,7 @@
                         style="font-size: 50px;width: 15px !important; margin-bottom: 5px; height:15px !important;border-radius:100% ;"
                         class=" orange-600 s-16">circle</mat-icon>&nbsp;Not Active&nbsp;&nbsp;
                 </div>
-            </div> 
+            </div>  -->
         </div>
     </div>
     <div class="content" style="display: none;">

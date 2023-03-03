@@ -28,29 +28,15 @@ const appRoutes: Routes = [
         path: "Location",
         loadChildren: () => import("./location-master/location-master.module").then((m) => m.LocationMasterModule),
     },
-    // {
-    //     path: "Quality",
-    //     loadChildren: () => import("./inv-quality/quality-master.module").then((m) => m.QualityMasterModule),
-    // },
+    {
+        path: "Quality",
+        loadChildren: () => import("./inv-quality/quality-master.module").then((m) => m.QualityMasterModule),
+    },
     {
         path: "Shade",
         loadChildren: () => import("./shade-master/shade-master.module").then((m) => m.ShadeMasterModule),
     },
-    // {
-    //     path: "bill",
-    //     loadChildren: () => import("./op-search-list/op-search-list.module").then((m) => m.OpSearchListModule),
-    //     // loadChildren: () => import("./op-bill/op-bill.module").then((m) => m.OpBillModule),
-    // },
-    // {
-    //     path: "refund",
-    //     loadChildren: () =>import("./op-refundbill/refundofbill.module").then((m) => m.RefundofbillModule),
-        
-    // },
-    // {
-    //     path: "brows-opd-refund",
-    //     loadChildren: () =>
-    //     import("./brows-opd-refund/brows-opd-refund.module").then((m) => m.BrowsOpdRefundModule),
-    // },
+   
    
 
 ];

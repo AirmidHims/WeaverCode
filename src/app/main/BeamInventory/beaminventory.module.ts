@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { BeanInwardComponent } from './bean-inward/bean-inward.component';
 import { BeamIssueComponent } from './beam-issue/beam-issue.component';
 import { BeamActionComponent } from './beam-action/beam-action.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -45,11 +44,11 @@ import { BeaminventoryService } from './beaminventory.service';
 const approtes: Routes = [
 
   
-  {
-    path: "BeamInward",
-    loadChildren: () =>import("./bean-inward/beam-inward.module").then((m) => m.BeamInwardModule),
+  // {
+  //   path: "BeamInward",
+  //   loadChildren: () =>import("./bean-inward/beam-inward.module").then((m) => m.BeamInwardModule),
        
-  },  
+  // },  
   
   {
     path: "BeamIssue",

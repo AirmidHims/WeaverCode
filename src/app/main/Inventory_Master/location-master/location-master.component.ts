@@ -51,11 +51,11 @@ export class LocationMasterComponent implements OnInit {
    'LocationId',  
     'LocationCode',
     'LocationName',
-    'CreatedBy',
-    // 'updatedBy',
-    'CreatedOn',
-    'IsActive',
-    //'updatedO',
+    // 'CreatedBy',
+    'UpdatedBy',
+    // 'CreatedOn',
+    // 'IsActive',
+    'UpdatedOn',
     'action'
   ];
   dataSource = new MatTableDataSource<Locationmaster>();
@@ -78,8 +78,10 @@ export class LocationMasterComponent implements OnInit {
   ngOnInit(): void {
 
     var D_data = {
-      "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
-
+      "Keyword": '',//this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" : '',//this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" : '',//this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "", 
+    
     }
     console.log(D_data);
     this.D_data1 = D_data;
@@ -103,7 +105,10 @@ export class LocationMasterComponent implements OnInit {
      debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
+    
     }
     console.log(D_data);
     this._InvoiceListService.getLocationlist(D_data).subscribe(Visit => {
@@ -120,29 +125,7 @@ export class LocationMasterComponent implements OnInit {
   }
 
 
-  getLocationDatewiseList(eve) {
-     debugger;
-    this.sIsLoading = 'loading-data';
-    var D_data = {
-     
-    "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
-    "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
-    
-    }
-    console.log(D_data);
-    this._InvoiceListService.getLocationlistDatewise(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Locationmaster[];
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
-      this.sIsLoading = '';
-    },
-      error => {
-        this.sIsLoading = '';
-      });
-
-  }
-
+  
   onSearch() {
     this.getLocationMasterList();
 
@@ -214,7 +197,7 @@ export class LocationMasterComponent implements OnInit {
   onClear() {
 
 
-    this._InvoiceListService.mySearchform.get('LocationName').reset();
+    this._InvoiceListService.mySearchform.get('Keyword').reset();
    
 
   }

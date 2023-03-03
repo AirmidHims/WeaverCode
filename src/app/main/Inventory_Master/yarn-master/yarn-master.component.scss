@@ -69,7 +69,7 @@ app-yarn-master {
   .mat-header-row {
     background-color: #165c7f !important;
     // font-family: 'Times New Roman', Times, serif;
-    font-size: x-large;
+    font-size: xx-large;
     width: 100%;
     max-width: 1550px;
     min-width: 1550px;  
@@ -93,6 +93,7 @@ app-yarn-master {
     max-width:110px;
     min-width:110px;
     text-align: left;
+    display: inline-block; 
       
   }
   .mat-column-yCode {
@@ -100,6 +101,7 @@ app-yarn-master {
     max-width: 110px;
     min-width: 110px;
     text-align: left;
+    display: inline-block; 
   }
 
   .mat-column-yName {
@@ -107,7 +109,7 @@ app-yarn-master {
     max-width:400px;
     min-width:400px;
     text-align: left;
-    // display: inline-block; 
+    display: inline-block; 
     white-space: nowrap; 
       text-overflow: ellipsis; 
      overflow: hidden !important;  
@@ -120,7 +122,7 @@ app-yarn-master {
     max-width:110px;
     min-width:110px;
     text-align: left;
-    //  display: inline-block; 
+     display: inline-block; 
     // white-space: nowrap; 
     // // overflow: hidden;
     // // text-overflow: ellipsis; 
@@ -134,11 +136,7 @@ app-yarn-master {
     max-width:110px;
     min-width:110px;
     text-align: left;
-    white-space: nowrap; 
-    
-    // overflow: hidden; 
-    //  overflow: hidden !important;
-    //  display: inline-block; 
+    display: inline-block; 
         
   }
 
@@ -146,8 +144,8 @@ app-yarn-master {
     width:110px;
     max-width: 110px;
     min-width: 110px;
-    text-align: center;
-    
+    text-align: left;
+    display: inline-block; 
 
 
   }
@@ -156,12 +154,8 @@ app-yarn-master {
     width:110px;
     max-width: 110px;
     min-width: 110px;
-    text-align: center;
-    white-space: nowrap; 
-    //  overflow: hidden; 
-    //  overflow: hidden !important;
-    //  display: inline-block; 
-  
+    text-align: left;
+    display: inline-block; 
   }
   
   
@@ -169,36 +163,35 @@ app-yarn-master {
     width: 110px;
     max-width: 110px;
     min-width: 110px;
-    text-align: center;
+    text-align: left;
+    display: inline-block; 
+  }
+  // .mat-column-isActive {
+  //   width: 110px;
+  //   max-width:110px;
+  //   min-width:110px;
+  //   text-align: center;
+  //   // white-space: nowrap; 
+  //   //     overflow: hidden; 
+  //   //  overflow: hidden !important;
+  //   //  display: inline-block; 
+   
+  // }
   
-  }
-  .mat-column-isActive {
-    width: 110px;
-    max-width:110px;
-    min-width:110px;
-    text-align: center;
-    // white-space: nowrap; 
-    //     overflow: hidden; 
-    //  overflow: hidden !important;
-    //  display: inline-block; 
-   
-  }
-  .mat-column-Created {
-    width: 160px;
-    max-width: 160px;
-    min-width: 160px;
-    text-align: center;
-    margin-right: 7px;
-   
+  .mat-column-updatedBy {
+    width: 120px;
+    max-width: 120px;
+    min-width: 12px;
+    text-align: left;
+    display: inline-block; 
   }
 
-  .mat-column-createdOn {
-    width: 100px;
-    max-width:100px;
-    min-width: 100px;
-    text-align: center;
-    margin-right: 7px;
-   
+  .mat-column-updatedOn {
+    width: 110px;
+    max-width:110px;
+    min-width: 110px;
+    text-align: left;
+    display: inline-block; 
   }
   .mat-column-action{
     width:100px;

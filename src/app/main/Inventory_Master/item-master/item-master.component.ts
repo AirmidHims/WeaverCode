@@ -63,11 +63,11 @@ export class ItemMasterComponent implements OnInit {
     'itemPartNumber',
     'itemRate',
 
-    'createdBy',
-    // 'updatedBy',
-    'createdOn',
-    'isActive',
-    //'updatedO',
+    // 'createdBy',
+    'updatedBy',
+    // 'createdOn',
+    // 'isActive',
+    'updatedOn',
     'action'
   ];
   dataSource = new MatTableDataSource<Itemmaster>();
@@ -90,8 +90,10 @@ export class ItemMasterComponent implements OnInit {
   ngOnInit(): void {
 
     var D_data = {
-      "itemCode": this._InvoiceListService.mySearchform.get("itemCode").value + '%' || '%',
-
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '%',
+      "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
     }
     console.log(D_data);
     this.D_data1 = D_data;
@@ -115,8 +117,10 @@ export class ItemMasterComponent implements OnInit {
     //  debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "itemCode": this._InvoiceListService.mySearchform.get("itemCode").value + '%' || '%',
-
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '%',
+      "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
     }
 
     this._InvoiceListService.getItemlist(D_data).subscribe(Visit => {
@@ -133,27 +137,27 @@ export class ItemMasterComponent implements OnInit {
   }
 
 
-  getItemDatewiseList(eve) {
-    //  debugger;
-    this.sIsLoading = 'loading-data';
-    var D_data = {
-      "From_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value, "MM-dd-yyyy") || "01/01/1900",
-      "To_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value, "MM-dd-yyyy") || "01/01/1900",
+  // getItemDatewiseList(eve) {
+  //   //  debugger;
+  //   this.sIsLoading = 'loading-data';
+  //   var D_data = {
+  //     "From_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value, "MM-dd-yyyy") || "01/01/1900",
+  //     "To_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value, "MM-dd-yyyy") || "01/01/1900",
 
-    }
+  //   }
 
-    this._InvoiceListService.getItemlistDatewise(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Itemmaster[];
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+  //   this._InvoiceListService.getItemlistDatewise(D_data).subscribe(Visit => {
+  //     this.dataSource.data = Visit as Itemmaster[];
+  //     this.dataSource.sort = this.sort;
+  //     this.dataSource.paginator = this.paginator;
 
-      this.sIsLoading = '';
-    },
-      error => {
-        this.sIsLoading = '';
-      });
+  //     this.sIsLoading = '';
+  //   },
+  //     error => {
+  //       this.sIsLoading = '';
+  //     });
 
-  }
+  // }
 
   onSearch() {
     this.getItemList();
@@ -231,14 +235,8 @@ export class ItemMasterComponent implements OnInit {
   onClear() {
 
 
-    this._InvoiceListService.Itemform.get('itemName').reset();
-    this._InvoiceListService.Itemform.get('itemMaker').reset();
-    this._InvoiceListService.Itemform.get('itemCategory').reset();
-    this._InvoiceListService.Itemform.get('itemUnit').reset();
-    this._InvoiceListService.Itemform.get('itemPartNumber').reset();
-    this._InvoiceListService.Itemform.get('itemRate').reset();
-
-
+    this._InvoiceListService.Itemform.get('Keyword').reset();
+  
   }
   // Delete row in datatable level
   ondelete(element) {

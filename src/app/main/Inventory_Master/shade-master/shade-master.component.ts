@@ -50,11 +50,11 @@ export class ShadeMasterComponent implements OnInit {
     'shadeCode',
     'shadeNumber',
     'shadeColour',
-    'createdBy',
-    // 'updatedBy',
-    'createdOn',
-    'isActive',
-    //'updatedO',
+    // 'createdBy',
+    'updatedBy',
+    // 'createdOn',
+    // 'isActive',
+    'updatedOn',
     'action'
   ];
   dataSource = new MatTableDataSource<Locationmaster>();
@@ -77,8 +77,10 @@ export class ShadeMasterComponent implements OnInit {
   ngOnInit(): void {
 
     var D_data = {
-      "shadeCode": this._InvoiceListService.mySearchform.get("shadeCode").value + '%' || '%',
-
+      "Keyword": '',// this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '%',
+      "From_Dt" :'',// this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : ''//this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
     }
     console.log(D_data);
     this.D_data1 = D_data;
@@ -102,7 +104,10 @@ export class ShadeMasterComponent implements OnInit {
      debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "shadeCode": this._InvoiceListService.mySearchform.get("shadeCode").value + '%' || '%',
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
+    
     }
 
     this._InvoiceListService.getShadelist(D_data).subscribe(Visit => {
@@ -115,32 +120,11 @@ export class ShadeMasterComponent implements OnInit {
       error => {
         this.sIsLoading = '';
       });
-    this._InvoiceListService.mySearchform.get('itemCode').reset();
+    // this._InvoiceListService.mySearchform.get('Keyword').reset();
   }
 
 
-  getShadeDatewiseList(eve) {
-    //  debugger;
-    this.sIsLoading = 'loading-data';
-    var D_data = {
-      "From_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value, "MM-dd-yyyy") || "01/01/1900",
-      "To_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value, "MM-dd-yyyy") || "01/01/1900",
-
-    }
-
-    this._InvoiceListService.getShadelistDatewise(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Locationmaster[];
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
-      this.sIsLoading = '';
-    },
-      error => {
-        this.sIsLoading = '';
-      });
-
-  }
-
+  
   onSearch() {
     this.getShadeMasterList();
 
@@ -213,7 +197,7 @@ export class ShadeMasterComponent implements OnInit {
   onClear() {
 
 
-    this._InvoiceListService.mySearchform.get('LocationName').reset();
+    this._InvoiceListService.mySearchform.get('Keyword').reset();
    
 
   }

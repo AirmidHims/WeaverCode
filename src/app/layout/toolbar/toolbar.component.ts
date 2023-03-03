@@ -15,11 +15,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { fuseAnimations } from '@fuse/animations';
 import { NotificationServiceService } from 'app/core/notification-service.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { ProfieComponent } from '../../../main/administration/profie/profie.component';
-import { ChangePasswordComponent } from '../../../main/administration/change-password/change-password.component';
+// import { ProfieComponent } from '../../../main/administration/profie/profie.component';
+// import { ChangePasswordComponent } from '../../../main/administration/change-password/change-password.component';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-import { CreateUserComponent } from "app/main/administration/create-user/create-user.component";
-import { UserDetailsComponent } from "app/main/administration/user-details/user-details.component";
+// import { CreateUserComponent } from "app/main/administration/create-user/create-user.component";
+// import { UserDetailsComponent } from "app/main/administration/user-details/user-details.component";
 import { MyprofileComponent } from "app/main/administration/myprofile/myprofile.component";
 
 

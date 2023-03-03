@@ -34,22 +34,17 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { OtherinfoMasterService } from "./otherinfo-master.service";
-import { OtherAddlessComponent } from './other-addless/other-addless.component';
 import { DefectComponent } from './defect/defect.component';
-import { RollTypeComponent } from './roll-type/roll-type.component';
-import { TransportComponent } from './transport/transport.component';
-
-
 
 
 
 const appRoutes: Routes = [
 
-    // {
-    //     path: "Loom",
-    //     loadChildren: () => import("./loom/loom-master.module").then((m) => m.LoomMasterModule),
+    {
+        path: "Loom",
+        loadChildren: () => import("./loom/loom-master.module").then((m) => m.LoomMasterModule),
         
-    // },
+    },
    
     {
         path: 'Transport',
@@ -68,23 +63,23 @@ const appRoutes: Routes = [
         
     },
    
-    // {
-    //     path: 'Beam',
-    //     loadChildren: () =>  import('./beam/beam-master.module').then(m => m.BeamMasterModule)
+    {
+        path: 'Beam',
+        loadChildren: () =>  import('./beam/beam-master.module').then(m => m.BeamMasterModule)
         
-    // },
-    // {
-    //     path: 'RollType',
-    //     loadChildren: () =>  import('./roll-type/rolltype-master.module').then(m => m.  RolltypeMasterModule)
+    },
+    {
+        path: 'RollType',
+        loadChildren: () =>  import('./roll-type/rolltype-master.module').then(m => m.  RolltypeMasterModule)
         
-    // },
+    },
 
-    // {
-    //     path: 'LoomType',
-    //     loadChildren: () => import('./loomtype/loomtype-master.module').then(m => m.LoomtypeMasterModule)
+    {
+        path: 'LoomType',
+        loadChildren: () => import('./loomtype/loomtype-master.module').then(m => m.LoomtypeMasterModule)
         
-    // },
-     
+    },
+   
   
   ];
   @NgModule({

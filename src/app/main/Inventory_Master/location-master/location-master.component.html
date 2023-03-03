@@ -39,7 +39,7 @@
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="start" placeholder="Start date"
                                 >
-                            <input matEndDate formControlName="end" placeholder="End date" (dateChange)="getLocationDatewiseList($event.value)">
+                            <input matEndDate formControlName="end" placeholder="End date" (dateChange)="getLocationMasterList()">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
@@ -48,7 +48,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Search Location Data</mat-label>
-                        <input name="LocationCode" formControlName="LocationCode" matInput (keyup)="getLocationMasterList()">
+                        <input name="Keyword" formControlName="Keyword" matInput (keyup)="getLocationMasterList()">
                         <!-- <span class="error"
                           *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
                           required Enter only Alphabets</span> -->
@@ -99,7 +99,7 @@
               
                 <ng-container matColumnDef="LocationId">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        LocationId
+                        Location Id
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.LocationId}}
@@ -107,7 +107,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="LocationCode">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>LocationCode
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Location Code
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.LocationCode}}
@@ -118,7 +118,7 @@
 
                 <ng-container matColumnDef="LocationName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        LocationName
+                        Location Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
                         {{contact.LocationName}}
@@ -126,24 +126,24 @@
                 </ng-container>
 
             
-                <ng-container matColumnDef="CreatedBy">
+                <ng-container matColumnDef="UpdatedBy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        CreatedBy
+                        Updated By
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.CreatedBy}}
+                        {{contact.UpdatedBy}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="CreatedOn">
+                <ng-container matColumnDef="UpdatedOn">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
-                        CreatedOn
+                        Updated On
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.CreatedOn | date:'shortDate'}}
+                        {{contact.UpdatedOn | date:'shortDate'}}
                     </mat-cell>
                 </ng-container>
-
+<!-- 
 
                     <ng-container matColumnDef="IsActive" sticky>
                     <mat-header-cell *matHeaderCellDef fxShow.gt-sm style="color: white;">ISActive/Not
@@ -158,7 +158,7 @@
                             *ngIf="contact.IsActive=='0' " matTooltip="NotAvtive"
                             class="orange-600 s-16 ">circle</mat-icon>
                     </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <ng-container matColumnDef="action" stickyEnd>
                     <mat-header-cell *matHeaderCellDef style="color: white;"> Action
@@ -201,7 +201,7 @@
 
 
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="16" showFirstLastButtons></mat-paginator>
-            <div fxlayout="row" style="margin-top: 10px;background-color: white;">
+            <!-- <div fxlayout="row" style="margin-top: 10px;background-color: white;">
                 <div style="margin-top: 2px; padding: 5px;width: 44%;">
                     <span style="font-weight: bold;"> Help :</span>&nbsp;
                     <mat-icon
@@ -211,7 +211,7 @@
                         style="font-size: 50px;width: 15px !important; margin-bottom: 5px; height:15px !important;border-radius:100% ;"
                         class=" orange-600 s-16">circle</mat-icon>&nbsp;Not Active&nbsp;&nbsp;
                 </div>
-            </div> 
+            </div>  -->
         </div>
     </div>
     <div class="content" style="display: none;">

@@ -8,13 +8,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ContractbookingService {
 
   contractbookingform: FormGroup;
-  qualityform: FormGroup;
+  Searchform: FormGroup;
+  
 
   constructor(public _httpClient: HttpClient,
     private _formBuilder: FormBuilder) {
    
     this.contractbookingform = this.contractbookingForm();
-    this.qualityform = this.filteryarninvForm();
+    this.Searchform = this.filterForm();
 
   }
 
@@ -43,13 +44,7 @@ export class ContractbookingService {
 
   filterForm(): FormGroup {
     return this._formBuilder.group({
-
-      //   FirstName: ['', [
-      //      Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
-      //   ]],
-      //   LastName:['', [
-      //     Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
-      //  ]],
+      Keyword:'',
       start: [(new Date()).toISOString()],
       end: [(new Date()).toISOString()],
 
@@ -61,20 +56,20 @@ export class ContractbookingService {
     return this._formBuilder.group({
 
       Bookingno:'',
-      bookdate:'',
-      partyname:'',
-      brokername:'',
-      sizingname:'',
-      brokerage:'',
-      quality:'',
-      design:'',
-      noofbeam:'',
-      pick:'',
-      jobrate:'',
-      totalm:'',
-      completedate:'',
-
-     
+      Bookdate:'',
+      Partyname:'',
+      Brokername:'',
+      Sizingname:'',
+      Brokerage:'',
+      Quality:'',
+      Design:'',
+      Noofbeam:'',
+      Pick:'',
+      Jobrate:'',
+      Totalm:'',
+      Completedate:'',
+     PaymentTerm:'',
+     Remark:''
     });
   }
 
@@ -90,8 +85,8 @@ export class ContractbookingService {
   }
 
 
-  public getCityList() {
-    return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
+  public getBookingList(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo",employee)
   }
 
   public getStateList(CityId) {
@@ -104,6 +99,13 @@ export class ContractbookingService {
 
 
   ///Weaver project
+
+  public ContractBookingInsert(employee) {
+    return this._httpClient.post("Invoice/InvoiceUpdate", employee);
+  }
+  public ContractBookingUpdate(employee) {
+    return this._httpClient.post("Invoice/InvoiceUpdate", employee);
+  }
 
   public accountInsert(employee) {
     return this._httpClient.post("Invoice/InvoiceUpdate", employee);

@@ -14,6 +14,7 @@ export class InventoryMasterService {
   qualityform: FormGroup;
     Millform:FormGroup;
   mySearchform:FormGroup;
+  designForm:FormGroup;
 
   Today=[new Date().toISOString()];
 
@@ -22,7 +23,7 @@ export class InventoryMasterService {
     this.Itemform = this.ItemForm();
     this.InvallFormGroup = this.createInvallForm();
     this.invyarnform = this.filteryarninvForm();
-    this.accountmasterform = this.accountMasterForm();
+    this.designForm = this.designMasterForm();
     this.qualityform = this.createQualityForm();
    this.Millform = this.invMillForm();
    this.mySearchform = this.SearchForm();
@@ -33,18 +34,8 @@ export class InventoryMasterService {
  
   SearchForm() {
     return this._formBuilder.group({
-    
-      yCode:'',
-      yName:'',
-      itemCode:'',
-         
-      millCode:'',
-           
-      shadeCode:'',
-     
-      LocationCode:'',
-      QualityCode:'',
-      
+      Keyword:'',
+          
       start: [new Date().toISOString()],
       end: [new Date().toISOString()],
     });
@@ -101,7 +92,7 @@ export class InventoryMasterService {
       Type: '0',
       Remark: '',
       construction:'',
-      weftsort1:''
+      IsDesign:''
     });
   }
 
@@ -153,26 +144,45 @@ export class InventoryMasterService {
   }
 
 
-  accountMasterForm(): FormGroup {
+  designMasterForm(): FormGroup {
     return this._formBuilder.group({
 
-      PartyName: '',
-      Paystatus: '',
-      OPeningbal: '',
-      BrokerName: '',
-      Contactperson: '',
-      Mobile: '',
-      EMail: '',
-      website: '',
-      BAddress: '',
-      City: '',
-      pin: '',
-      Disctrict: '',
-      State: '',
-      Country: '',
-      GSTno: '',
-      PanNo: '',
-      CINNo: '',
+      ChallanNo:'',
+      Rspace:'',
+      Reed:'',
+      Quality:'',
+      Pick:'',
+      Waste:'',
+      HSNNo:'',
+      Width:'',
+      Stdgmmt:'',
+      
+      WarapCount:'',
+      WarapShade:'',
+      WarapDnrCount:'',
+      WarapEnds:'',
+      WarapEndsPer:'',
+      WarapRepeat:'',
+      WarapWastage:'',
+      WarapExpWt:'',
+      TotalEnds:'',
+      TotalExpWt:'',
+      
+      WeftCount:'',
+      WeftShade:'',
+      ActCount:'',
+      WeftDnrCount:'',
+      Percentage:'',
+      RepeatPic:'',
+      DesignPic:'',
+      DesignPer:'',
+      WeftWastagePer:'',
+      ExpWt:'',
+      Rate:'',
+      Costing:'',
+      TotalRepeatPick:'',
+      TotalDEsignPic:'',
+      ExpGms:''
 
      
     });
@@ -209,26 +219,18 @@ public getItemlist(employee){
   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Itemlist", employee)
 }
 
-public getItemlistDatewise(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ItemlistbyDate", employee)
-}
+
 
 public getMilllist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Milllist", employee)
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_MillList", employee)
 }
 
-public getMilllistDatewise(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_MilllistbyDate", employee)
-}
 
 
 public getLocationlist(employee){
   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LocationList", employee)
 }
 
-public getLocationlistDatewise(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LocationlistbyDate", employee)
-}
 
 
 
@@ -236,17 +238,11 @@ public getDesignlist(employee){
   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Milllist", employee)
 }
 
-public getDesignlistDatewise(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Milllist", employee)
-}
 
 public getShadelist(employee){
   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ShadeList", employee)
 }
 
-public getShadelistDatewise(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ShadelistbyDate", employee)
-}
 
   public getCityList() {
     return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
