@@ -1,26 +1,21 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { fuseAnimations } from '@fuse/animations';
 import { AuthenticationService } from 'app/core/services/authentication.service';
-import { InvoiceListService } from 'app/main/Invoice/invoice-list.service';
-// import { NotificationServiceService } from 'app/main/opd/notification-service.service';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { MasterService } from '../../master.service';
 
 @Component({
-  selector: 'app-new-party-account',
-  templateUrl: './new-party-account.component.html',
-  styleUrls: ['./new-party-account.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
+  selector: 'app-edit-account',
+  templateUrl: './edit-account.component.html',
+  styleUrls: ['./edit-account.component.scss']
 })
-export class NewPartyAccountComponent implements OnInit {
+export class EditAccountComponent implements OnInit {
 
   Account:any;
    
@@ -43,12 +38,12 @@ export class NewPartyAccountComponent implements OnInit {
   registerObj:any;
   screenFromString = 'registration';
 
+  AccountId:any;
+  AccountType:any;
   Name:any;  
   PartyName:any;
-  Paystatus:any;
-  OPeningbal:any;
   BrokerName:any;
-  Contactperson:any;
+  ContactPerson:any;
   Mobile:any;
   EMail:any;
   Website:any;
@@ -65,8 +60,9 @@ export class NewPartyAccountComponent implements OnInit {
   CountryId:any;
   CityId:any;
   OpeningBalance:any;
+  CreditDebit
   //registerObj = new RegInsert({});
-  // prefix filter
+  
   date1 = new FormControl(new Date())
   Today=[new Date().toISOString()];
 
@@ -94,7 +90,7 @@ export class NewPartyAccountComponent implements OnInit {
     // public notification: NotificationServiceService,
     public _matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<NewPartyAccountComponent>,
+    public dialogRef: MatDialogRef<EditAccountComponent>,
     private _snackBar: MatSnackBar,
     public datePipe: DatePipe,
     private router: Router)  
@@ -103,6 +99,31 @@ export class NewPartyAccountComponent implements OnInit {
 
   ngOnInit(): void {
   console.log(this.data)
+
+  if(this.data)
+  {
+
+    this.AccountId=this.data.registerObj.AccountId;
+    this.AccountType=this.data.registerObj.AccountType;
+    this.Name=this.data.registerObj.Name;
+    this.PartyName=this.data.registerObj.Name;
+  
+    this.ContactPerson=this.data.registerObj.ContactPerson;
+    this.Mobile=this.data.registerObj.Mobile;
+    this.EMail=this.data.registerObj.EMail;
+    this.Website=this.data.registerObj.Website;
+    this.BAddress=this.data.registerObj.BAddress;
+    this.City=this.data.registerObj.City;
+    this.pin=this.data.registerObj.pin;
+    this.District=this.data.registerObj.District;
+    this.State=this.data.registerObj.State;
+    this.Country=this.data.registerObj.Country;
+    this.GSTno=this.data.registerObj.GSTno;
+    this.PanNo=this.data.registerObj.PanNo;
+    this.CINNo=this.data.registerObj.CINNo;
+    this.CreditDebit=this.data.registerObj.CreditDebit;
+    this.OpeningBalance=this.data.registerObj.OpeningBalance;
+  }
     this.getcityList();
   
   
@@ -268,14 +289,16 @@ export class NewPartyAccountComponent implements OnInit {
 
   onSubmit(){
 
+  
     this.isLoading = 'submit';
 
     console.log()
   
-      
+     
         var m_data = {
-         "insertPartyAccount": {
-            "AccountId": 0,
+         "updatePartyAccount": {
+          "operation": "UPDATE",
+            "AccountId":this.data.registerObj.AccountId,
             "AccountType": this._MasterService.accountmaster.get('AccountType').value || '',
             "Name": this._MasterService.accountmaster.get('PartyName').value || 0,
             "ContactPerson": this._MasterService.accountmaster.get('ContactPerson').value || '',
@@ -297,7 +320,7 @@ export class NewPartyAccountComponent implements OnInit {
             "CreditDebit": this._MasterService.accountmaster.get('CreditDebit').value || 0,
             "OpeningBalance": this._MasterService.accountmaster.get('OpeningBalance').value || 0,
 
-            "CreatedBy": this.accountService.currentUserValue.user.id,
+          
             "UpdatedBy":this.accountService.currentUserValue.user.id,
          
           }
@@ -316,9 +339,9 @@ export class NewPartyAccountComponent implements OnInit {
           }
 
         });
-            
+      
+      
   }
 
 
 }
-

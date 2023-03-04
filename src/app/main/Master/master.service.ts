@@ -9,14 +9,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class MasterService {
   
   myFilterform: FormGroup ;
-  accountmasterform:FormGroup;
+  accountmaster:FormGroup;
 
 
   constructor(public _httpClient:HttpClient,
     private _formBuilder: FormBuilder) {
       this.myFilterform=this.filterSearchForm();
      
-      this.accountmasterform=this.accountMasterForm();
+      this.accountmaster=this.accountMasterForm();
 
       
      }                       
@@ -29,7 +29,7 @@ export class MasterService {
       
         
         Keyword : '',
-        
+        AccountType:'',
         start: [new Date().toISOString()],
         end: [new Date().toISOString()],
       });
@@ -40,19 +40,18 @@ export class MasterService {
   
   accountMasterForm(): FormGroup {
     return this._formBuilder.group({
-      
+      AccountType:'',
       PartyName:'',
       Paystatus:'',
-      OPeningbal:'',
-      BrokerName:'',
-      Contactperson:'',
+       Name:'',
+       ContactPerson:'',
       Mobile:'',
       EMail:'',
-      website:'',
+      Website:'',
       BAddress:'',
       City:'',
       pin:'',
-      Disctrict:'',
+      District:'',
       State:'',
       Country:'',
       GSTno:'',
@@ -61,15 +60,17 @@ export class MasterService {
       StateId:'',
       CountryId:'',
       CityId:'',
-      AadharCardNo:''
-     
+      AadharCardNo:'',
+      OpeningBalance:'0',
+      CreditDebit:''
+
     });
   }
 
   
 
-  populateForm3(employee) {
-    // this.myClientFormGroup.patchValue(employee);
+  populateFormAccountMaster(employee) {
+    this.accountmaster.patchValue(employee);
   }
   populateForm2(employee) {
     // this.myInvoiceFormGroup.patchValue(employee);
@@ -94,16 +95,19 @@ export class MasterService {
     return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional",{"Id": StateId})
   }
 
+  public getAccountList(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_AccountList",employee)
+  }
 
   ///Weaver project
 
   public accountInsert(employee)
 {    
-  return this._httpClient.post("Invoice/InvoiceUpdate",employee);
+  return this._httpClient.post("Weaver/NewAccountInsert",employee);
 }
 public accountUpdate(employee)
 {    
-  return this._httpClient.post("Invoice/InvoiceUpdate",employee);
+  return this._httpClient.post("Weaver/AccountUpdate",employee);
 }
 
 

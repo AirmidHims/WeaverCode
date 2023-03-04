@@ -46,13 +46,13 @@ const appRoutes: Routes = [
     path: "**",
     component: ContractBookingComponent
 },
-// {
-//   // Yarn
-//    path: "Contract Booking",
-//    loadChildren: () =>
-//   //  import("./invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
-//   ContractBookingComponent
-// },
+{
+  // Yarn
+   path: "Contract Booking",
+   loadChildren: () =>
+  //  import("./invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
+  ContractBookingComponent
+},
 ];
 @NgModule({
   declarations: [ContractBookingComponent],
