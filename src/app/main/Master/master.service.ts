@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +41,23 @@ export class MasterService {
   accountMasterForm(): FormGroup {
     return this._formBuilder.group({
       AccountType:'',
-      PartyName:'',
+      PartyName: ['', [
+        Validators.required,
+        Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
+      ]],
+      
       Paystatus:'',
        Name:'',
-       ContactPerson:'',
-      Mobile:'',
+       ContactPerson: ['', [
+        Validators.required,
+        Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
+      ]],
+      Mobile: ['', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ]],
       EMail:'',
       Website:'',
       BAddress:'',
@@ -60,10 +72,15 @@ export class MasterService {
       StateId:'',
       CountryId:'',
       CityId:'',
-      AadharCardNo:'',
+      
       OpeningBalance:'0',
-      CreditDebit:''
-
+      CreditDebit:'',
+      AadharCardNo:['', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.minLength(12),
+        Validators.maxLength(12),
+      ]],
     });
   }
 

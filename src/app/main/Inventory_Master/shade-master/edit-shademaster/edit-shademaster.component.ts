@@ -95,7 +95,7 @@ export class EditShademasterComponent implements OnInit {
 
   onSubmit() {
     debugger;
-    let millID = 0//this.registerObj1.OTCathLabBokingID;
+    
     this.isLoading = 'submit';
 
     console.log()
@@ -104,18 +104,18 @@ export class EditShademasterComponent implements OnInit {
         var m_data = {
          "shadeUpdate": {
             "operation":'UPDATE',
-            "shadeID": 0,
-            "shadeNumber": this._InvoiceListService.Millform.get('shadeNumber').value || '',
-            "shadeColour": this._InvoiceListService.Millform.get('shadeColour').value || '',
+            "shadeID": this.data.registerObj.shadeID,
+            "shadeNumber": this._InvoiceListService.InvallFormGroup.get('shadeNumber').value || '',
+            "shadeColour": this._InvoiceListService.InvallFormGroup.get('shadeColour').value || '',
             "createdBy": this.accountService.currentUserValue.user.id,
             "updatedBy":this.accountService.currentUserValue.user.id,
          
           }
         }
         console.log(m_data);
-        this._InvoiceListService.ShadeInsert(m_data).subscribe(response => {
+        this._InvoiceListService.ShadeUpdate(m_data).subscribe(response => {
           if (response) {
-            Swal.fire('Congratulations !', 'Shade Master  Data  save Successfully !', 'success').then((result) => {
+            Swal.fire('Congratulations !', 'Shade Master  Data  Updated Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {
                 this._matDialog.closeAll();
 

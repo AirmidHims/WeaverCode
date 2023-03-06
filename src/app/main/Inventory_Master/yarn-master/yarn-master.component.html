@@ -103,6 +103,14 @@
                     </mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="yCode" fxLayoutAlign="start center">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm style=" margin-top: 8px; ">
+                        Yarn Code</mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.yCode}}
+                    </mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="yName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Yarn Name
                     </mat-header-cell>
@@ -111,13 +119,7 @@
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yCode" fxLayoutAlign="start center">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm style=" margin-top: 8px; ">
-                        Yarn Code</mat-header-cell>
-                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yCode}}
-                    </mat-cell>
-                </ng-container>
+              
 
                 <ng-container matColumnDef="yPly">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">Yarn Ply

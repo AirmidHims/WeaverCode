@@ -97,9 +97,9 @@ export class EditAddlessComponent implements OnInit {
           }
         }
         console.log(m_data);
-        this._OtherinfoMasterService.AddlessInsert(m_data).subscribe(response => {
+        this._OtherinfoMasterService.AddlessUpdate(m_data).subscribe(response => {
           if (response) {
-            Swal.fire('Congratulations !', 'Addless Master  Data  save Successfully !', 'success').then((result) => {
+            Swal.fire('Congratulations !', 'Addless Master  Data  Updated Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {
                 this._matDialog.closeAll();
 

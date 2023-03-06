@@ -94,7 +94,7 @@ export class EditLocationMasterComponent implements OnInit {
          }
         }
         console.log(m_data1);
-        this._InvoiceListService.ItemUpdate(m_data1).subscribe(response => {
+        this._InvoiceListService.LocationUpdate(m_data1).subscribe(response => {
           if (response) {
             Swal.fire('Congratulations !', 'Location Master  Updated  save Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {

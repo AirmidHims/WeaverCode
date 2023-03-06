@@ -82,17 +82,16 @@ export class EditRolltypeComponent implements OnInit {
         var m_data = {
          "updateRollTypemaster": {
           "operation": "UPDATE",
-            "RollTypeId ": 0,
+            "RollTypeID": this.data.registerObj.RollTypeId,
             "RollType": this._OtherinfoMasterService.otherallform.get('RollType').value ||  0,
-            "createdBy": this.accountService.currentUserValue.user.id,
             "updatedBy":this.accountService.currentUserValue.user.id,
          
           }
         }
         console.log(m_data);
-        this._OtherinfoMasterService.RolltypeInsert(m_data).subscribe(response => {
+        this._OtherinfoMasterService.RolltypeUpdate(m_data).subscribe(response => {
           if (response) {
-            Swal.fire('Congratulations !', 'RollType Master  Data  save Successfully !', 'success').then((result) => {
+            Swal.fire('Congratulations !', 'RollType Master  Data  Updated Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {
                 this._matDialog.closeAll();
 

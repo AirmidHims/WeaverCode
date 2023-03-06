@@ -120,7 +120,7 @@ export class EditLoommasterComponent implements OnInit {
           }
         }
         console.log(m_data);
-        this._OtherinfoMasterService.LoomInsert(m_data).subscribe(response => {
+        this._OtherinfoMasterService.LoomUpdate(m_data).subscribe(response => {
           if (response) {
             Swal.fire('Congratulations !', 'Loom Master  Data  save Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {

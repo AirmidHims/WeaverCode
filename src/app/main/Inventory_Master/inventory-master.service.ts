@@ -285,7 +285,7 @@ public getShadelist(employee){
   public ShadeInsert(employee) {
     return this._httpClient.post("Weaver/NewShadeInsert", employee);
   }
-  public Shadepdate(employee) {
+  public ShadeUpdate(employee) {
     return this._httpClient.post("Weaver/ShadeUpdate", employee);
   }
 
@@ -300,7 +300,7 @@ public getShadelist(employee){
     return this._httpClient.post("Weaver/NewItemInsert", employee);
   }
   public ItemUpdate(employee) {
-    return this._httpClient.post("Weaver/NewItemUpdate", employee);
+    return this._httpClient.post("Weaver/ItemUpdate", employee);
   }
 
   public LocationInsert(employee) {

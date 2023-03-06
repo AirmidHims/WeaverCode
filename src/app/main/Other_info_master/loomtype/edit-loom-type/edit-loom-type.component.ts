@@ -92,7 +92,7 @@ export class EditLoomTypeComponent implements OnInit {
           }
         }
         console.log(m_data);
-        this._OtherinfoMasterService.LoomTypeInsert(m_data).subscribe(response => {
+        this._OtherinfoMasterService.LoomTypeUpdate(m_data).subscribe(response => {
           if (response) {
             Swal.fire('Congratulations !', 'LoomType Master  Data  Updated Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {

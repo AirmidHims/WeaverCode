@@ -130,7 +130,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
                         Shade Colour
                     </mat-header-cell>
-                    <mat-cell *matCellDef="let contact" fxShow.gt-sm>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-sm style="background-color:{{contact.shadeColour}}">
                         {{contact.shadeColour}}
                     </mat-cell>
                 </ng-container>

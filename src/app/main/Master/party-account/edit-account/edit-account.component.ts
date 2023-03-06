@@ -318,7 +318,7 @@ export class EditAccountComponent implements OnInit {
             "CIN": this._MasterService.accountmaster.get('CINNo').value || 0,
 
             "CreditDebit": this._MasterService.accountmaster.get('CreditDebit').value || 0,
-            "OpeningBalance": this._MasterService.accountmaster.get('OpeningBalance').value || 0,
+            "OpeningBalance": parseInt(this._MasterService.accountmaster.get('OpeningBalance').value) || 0,
 
           
             "UpdatedBy":this.accountService.currentUserValue.user.id,
@@ -326,7 +326,7 @@ export class EditAccountComponent implements OnInit {
           }
         }
         console.log(m_data);
-        this._MasterService.accountInsert(m_data).subscribe(response => {
+        this._MasterService.accountUpdate(m_data).subscribe(response => {
           if (response) {
             Swal.fire('Congratulations !', 'Account Master  Data  save Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {

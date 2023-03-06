@@ -105,7 +105,7 @@ export class NewTransportMasterComponent implements OnInit {
          "insertTransport": {
             "TransportID": 0,
             "TransportName": this._OtherinfoMasterService.transportform.get('TransportName').value || '',
-            "TransportCode": this._OtherinfoMasterService.transportform.get('TransportCode').value || '',
+           // "TransportCode": this._OtherinfoMasterService.transportform.get('TransportCode').value || '',
             "TagaRate": this._OtherinfoMasterService.transportform.get('TagaRate').value || 0,
             "BagRate": this._OtherinfoMasterService.transportform.get('BagRate').value || 0,
             "LoadedBeamRate": this._OtherinfoMasterService.transportform.get('LoadedBeamRate').value || 0,

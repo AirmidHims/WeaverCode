@@ -41,8 +41,9 @@ export class YarnMasterComponent implements OnInit {
   displayedColumns = [
 
     'yID',
-    'yName',
+    
     'yCode',
+    'yName',
     'yPly',
     'yType',
     'yBlend',
@@ -137,7 +138,7 @@ export class YarnMasterComponent implements OnInit {
     const dialogRef = this._matDialog.open(NewYarnMasterComponent,
       {
         maxWidth: "45vw",
-        height: '490px',
+        height: '495px',
         width: '100%',
         // height: "100%"
       });
@@ -187,7 +188,7 @@ export class YarnMasterComponent implements OnInit {
     const dialogRef = this._matDialog.open(EditeYarnMasterComponent,
       {
         maxWidth: "45vw",
-        height: '490px',
+        height: '495px',
         width: '100%',
         data: {
           registerObj: m_data,

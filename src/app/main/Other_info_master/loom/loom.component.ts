@@ -318,7 +318,7 @@ export class Loommaster {
   MfgSrno:any;
   StdEfficiency: any;
   ReadingFactor: any;
-  LoomTypeId:any;
+  LoomTypeId:number;
   IsActive:any;
   CreatedBy: any;
   CreatedOn: any;

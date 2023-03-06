@@ -18,7 +18,7 @@
         <form [formGroup]="_InvoiceListService.invyarnform">
 
           <div style="float:right;color: blue;font-weight: bold;">
-            <h3>Todays Date : {{Today}}</h3>
+            <h3>Todays Date : {{Today | date :'shortDate'}}</h3>
           </div>
           <div style="padding: 7px;">
             <div fxFlexFill fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
@@ -42,13 +42,13 @@
 
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>count</mat-label>
-                <input name="count" [(ngModel)]="count" formControlName="count" placeholder="count" matInput>
+                <input name="count" [(ngModel)]="count" formControlName="count" placeholder="Yarn Count" matInput type="nu">
               </mat-form-field>
 
 
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>ply</mat-label>
-                <input name="ply" [(ngModel)]="ply" formControlName="ply" placeholder="ply" matInput>
+                <input name="ply" [(ngModel)]="ply" formControlName="ply" placeholder="Yarn Ply" matInput>
               </mat-form-field>
 
             </div>
@@ -56,12 +56,12 @@
 
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label> Type</mat-label>
-                <input name="type" [(ngModel)]="type" formControlName="type" placeholder="type" matInput>
+                <input name="type" [(ngModel)]="type" formControlName="type" placeholder="V Type" matInput>
               </mat-form-field>
 
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label> blend</mat-label>
-                <input name="blend" [(ngModel)]="blend" formControlName="blend" placeholder="blend" matInput>
+                <input name="blend" [(ngModel)]="blend" formControlName="blend" placeholder="Yarn Blend" matInput>
               </mat-form-field>
             </div>
 
@@ -69,14 +69,14 @@
 
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>Actual count</mat-label>
-                <input name="Actualcnt" formControlName="Actualcnt" [(ngModel)]="Actualcnt" placeholder=" Actualcnt"
-                  matInput>
+                <input name="Actualcnt" formControlName="Actualcnt" [(ngModel)]="Actualcnt" placeholder="Yarn Actual Count"
+                  matInput type="nu">
               </mat-form-field>
 
 
               <mat-form-field appearance="outline" fxFlex>
                 <mat-label>deniercnt </mat-label>
-                <input name="deniercnt" formControlName="deniercnt" [(ngModel)]="deniercnt" placeholder=" deniercnt"
+                <input name="deniercnt" formControlName="deniercnt" [(ngModel)]="deniercnt" placeholder="Yarn Denier Count"
                   matInput>
               </mat-form-field>
 
@@ -84,12 +84,11 @@
             </div>
 
 
-            <br>
             <div style="float: right;margin-top: 30px;">
               <button class="next-btn" (click)="onSubmit()" style="border-radius: 16px;">Update</button>
               <button class="footer-btn" (click)="onClose()">Cancel</button>
             </div>
-            <br>
+
           </div>
         </form>
       </mat-card>

@@ -13,7 +13,7 @@
       </button> -->
     <div class="form-div">
 
-      <br />
+      <br/>
 
       <form [formGroup]="_MasterService.accountmaster">
 
@@ -49,8 +49,14 @@
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>PartyName</mat-label>
-              <input name="PartyName" [(ngModel)]="PartyName" formControlName="PartyName" placeholder="Party Name "
-                matInput>
+              <input name="PartyName" [(ngModel)]="PartyName" formControlName="PartyName" placeholder="Party Name " 
+              [ngClass]="{ 'is-invalid': submitted && _MasterService.accountmaster.get('PartyName').errors }"
+                matInput  onkeypress=" (event.charCode > 64 && 
+                event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                <mat-error class="error"
+                  *ngIf="_MasterService.accountmaster.get('PartyName').invalid && _MasterService.accountmaster.get('PartyName').touched">
+                  Party Name is required Enter
+                  only Alphabets</mat-error>
             </mat-form-field>
 
             <!-- <select name="demo" id="#" formControlName="CreatedOn" style="width: 200px;">
@@ -89,17 +95,23 @@
           <div fxFlexFill fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
 
             <mat-form-field appearance="outline" fxFlex>
-              <mat-label>Contactperson</mat-label>
-              <input name="Contactperson" [(ngModel)]="Contactperson" formControlName="Contactperson"
-                placeholder="Contactperson Name " matInput onkeypress=" (event.charCode > 64 && 
+              <mat-label>ContactPerson</mat-label>
+              <input name="ContactPerson" [(ngModel)]="ContactPerson" formControlName="ContactPerson"
+                placeholder="ContactPerson Name " matInput onkeypress=" (event.charCode > 64 && 
                 event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
             </mat-form-field>
 
+           
             <mat-form-field appearance="outline" fxFlex>
-              <mat-label>Mobile</mat-label>
-              <input name="Mobile" formControlName="Mobile" [(ngModel)]="Mobile" placeholder=" Mobile Number" matInput type="number">
+              <mat-label>Mobile Number</mat-label>
+              <input name="Mobile" formControlName="Mobile" placeholder="Mobile Number" matInput required
+                [(ngModel)]="Mobile" max="9999999999" min="1000000000" maxlength="10"
+                required="required" type="number" value="9876658688">
+              <mat-error class="error"
+                *ngIf="_MasterService.accountmaster.get('Mobile').invalid && _MasterService.accountmaster.get('Mobile').touched">10
+                digits Mobile number is
+                required</mat-error>
             </mat-form-field>
-
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>EMail </mat-label>

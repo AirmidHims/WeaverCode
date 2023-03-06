@@ -108,13 +108,11 @@ export class PartyAccountComponent implements OnInit {
     this.sIsLoading = 'loading-data';
     var D_data = {
       "Keyword": this._MasterService.myFilterform.get("Keyword").value + '%' || '%',
-      "AccountType": this._MasterService.myFilterform.get("Keyword").value + '%' || '%',
-      "From_Dt" :this.datePipe.transform(this._MasterService.myFilterform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
-      "To_Dt" : this.datePipe.transform(this._MasterService.myFilterform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
-    
- 
+      "AccountType": this._MasterService.myFilterform.get("AccountType").value + '%' || '%',
+      "From_Dt" :this.datePipe.transform(this._MasterService.myFilterform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" : this.datePipe.transform(this._MasterService.myFilterform.get("end").value,"MM-dd-yyyy") || "", 
     }
-    
+    console.log(D_data);
     this._MasterService.getAccountList(D_data).subscribe(Visit => {
       this.dataSource.data = Visit as Accountmaster[];
       this.dataSource.sort = this.sort;
@@ -356,7 +354,7 @@ export class Accountmaster {
   CIN:any;
   CreditDebit: any;
  
-  OpeningBalance: any;
+  OpeningBalance: number;
 
   IsActive: any;
   CreatedBy:any;

@@ -42,13 +42,13 @@ export class NewPartyAccountComponent implements OnInit {
   
   registerObj:any;
   screenFromString = 'registration';
-
+  submitted = false;
   Name:any;  
   PartyName:any;
   Paystatus:any;
   OPeningbal:any;
   BrokerName:any;
-  Contactperson:any;
+  ContactPerson:any;
   Mobile:any;
   EMail:any;
   Website:any;
@@ -102,6 +102,8 @@ export class NewPartyAccountComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    
   console.log(this.data)
     this.getcityList();
   
@@ -125,7 +127,7 @@ export class NewPartyAccountComponent implements OnInit {
  
 
 
-  // get f() { return this._registerService.mySaveForm.controls }
+  get f() { return this._MasterService.accountmaster.controls }
 
  
   // City filter code
@@ -274,33 +276,29 @@ export class NewPartyAccountComponent implements OnInit {
   
       
         var m_data = {
-         "insertPartyAccount": {
+
+         "insertPartyAccount":{
             "AccountId": 0,
             "AccountType": this._MasterService.accountmaster.get('AccountType').value || '',
-            "Name": this._MasterService.accountmaster.get('PartyName').value || 0,
+            "Name": this._MasterService.accountmaster.get('PartyName').value || '',
             "ContactPerson": this._MasterService.accountmaster.get('ContactPerson').value || '',
-            "ContactNo": this._MasterService.accountmaster.get('Mobile').value || '',
+            "ContactNo": this._MasterService.accountmaster.get('Mobile').value || 0,
             "EmailAddress": this._MasterService.accountmaster.get('EMail').value || '',
-            
             "Website": this._MasterService.accountmaster.get('Website').value || 0,
             "BussAddress": this._MasterService.accountmaster.get('BAddress').value || 0,
-
             "City":  this._MasterService.accountmaster.get('City').value || '',
             "District": this._MasterService.accountmaster.get('District').value || '',
-            "State": this._MasterService.accountmaster.get('State').value || 0,
+            "State": this._MasterService.accountmaster.get('State').value || '',
             "Country": this._MasterService.accountmaster.get('Country').value || '',
             "PinCode": this._MasterService.accountmaster.get('pin').value || 0,
-            "GSTN": this._MasterService.accountmaster.get('GSTno').value || '',
-            "PAN": this._MasterService.accountmaster.get('PanNo').value || 0,
-            "CIN": this._MasterService.accountmaster.get('CINNo').value || 0,
-
-            "CreditDebit": this._MasterService.accountmaster.get('CreditDebit').value || 0,
-            "OpeningBalance": this._MasterService.accountmaster.get('OpeningBalance').value || 0,
-
+            "gstn": this._MasterService.accountmaster.get('GSTno').value || '',
+            "pan": this._MasterService.accountmaster.get('PanNo').value || '',
+            "cin": this._MasterService.accountmaster.get('CINNo').value || '',
+            "CreditDebit": this._MasterService.accountmaster.get('CreditDebit').value || '',
+            "OpeningBalance": parseInt(this._MasterService.accountmaster.get('OpeningBalance').value) || 0,
             "CreatedBy": this.accountService.currentUserValue.user.id,
             "UpdatedBy":this.accountService.currentUserValue.user.id,
-         
-          }
+                  }
         }
         console.log(m_data);
         this._MasterService.accountInsert(m_data).subscribe(response => {

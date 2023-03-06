@@ -84,11 +84,10 @@ export class EditDefectComponent implements OnInit {
   
         var m_data = {
           "updateDefect": {
-            "operation": "Update",
-            "DefectID ": this.data.registerObj.DefectID,
+            "operation": "UPDATE",
+            "DefectID": this.data.registerObj.DefectID,
             "DefectName": this._OtherinfoMasterService.otherallform.get('DefectName').value ||  0,
             "EntNo": this._OtherinfoMasterService.otherallform.get('EntNo').value || 0,
-            "createdBy": this.accountService.currentUserValue.user.id,
             "updatedBy":this.accountService.currentUserValue.user.id,
          
           }
@@ -96,7 +95,7 @@ export class EditDefectComponent implements OnInit {
         console.log(m_data);
         this._OtherinfoMasterService.DefectUpdate(m_data).subscribe(response => {
           if (response) {
-            Swal.fire('Congratulations !', 'Defect Master  Data  save Successfully !', 'success').then((result) => {
+            Swal.fire('Congratulations !', 'Defect Master  Data  Updated Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {
                 this._matDialog.closeAll();
 
