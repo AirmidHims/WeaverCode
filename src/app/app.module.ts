@@ -53,7 +53,7 @@ const appRoutes: Routes = [
     },
 
     {
-        path: "Masters",
+        path: "Account Master",
         loadChildren: () =>
             import("./main/Master/master.module").then((m) => m.MasterModule),
     },

@@ -36,6 +36,8 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { ContractbookingService } from './contractbooking.service';
 import { ContractBookingComponent } from './contract-booking/contract-booking.component';
+import { NewContractBookingComponent } from './contract-booking/new-contract-booking/new-contract-booking.component';
+import { EditContractBookingComponent } from './contract-booking/edit-contract-booking/edit-contract-booking.component';
 
 
 
@@ -55,7 +57,10 @@ const appRoutes: Routes = [
 },
 ];
 @NgModule({
-  declarations: [ContractBookingComponent],
+  declarations: [ContractBookingComponent,
+    NewContractBookingComponent,
+    EditContractBookingComponent
+  ],
   imports: [
     RouterModule.forChild(appRoutes),
     MatButtonModule,

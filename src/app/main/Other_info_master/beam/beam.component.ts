@@ -189,7 +189,26 @@ export class BeamComponent implements OnInit {
   onClear() {
 
     this._OtherinfoMasterService.Searchform.get('Keyword').reset();
- 
+    var D_data = {
+      "Keyword": '',//this._OtherinfoMasterService.Searchform.get("Keyword").value + '%' || '%',
+      "From_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
+
+    }
+    console.log(D_data);
+    this.D_data1 = D_data;
+    this._OtherinfoMasterService.getBeamList(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as Beammaster[];
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.dataSource.data);
+      this.sIsLoading = '';
+    },
+      error => {
+        this.sIsLoading = '';
+      });
+
 
   }
 // Delete row in datatable level

@@ -124,7 +124,7 @@ export class EditAccountComponent implements OnInit {
     this.CreditDebit=this.data.registerObj.CreditDebit;
     this.OpeningBalance=this.data.registerObj.OpeningBalance;
   }
-    this.getcityList();
+    // this.getcityList();
   
   
     this.cityFilterCtrl.valueChanges
@@ -180,66 +180,6 @@ export class EditAccountComponent implements OnInit {
   }
 
  
-
-
- 
-  getCityList() {
-    this._MasterService.getCityList().subscribe(data => {
-      this.cityList = data;
-      this.filteredCity.next(this.cityList.slice());
-    });
-  }
-
-
-  getcityList() {
-    this._MasterService.getCityList().subscribe(data => {
-      this.cityList = data;
-      this.filteredCity.next(this.cityList.slice());
-     if(this.data){
-      const ddValue = this.cityList.find(c => c.CityId == this.data.registerObj.CityId);
-     this._MasterService.accountmaster.get('CityId').setValue(ddValue); 
-     this.onChangeCityList(this.data.registerObj.CityId)
-     }
-    });
-  }
-
-  onChangeStateList(CityId) {
-    if (CityId > 0) {
-      this._MasterService.getStateList(CityId).subscribe(data => {
-        this.stateList = data;
-        this.selectedState = this.stateList[0].StateName;
-        //  this._AdmissionService.myFilterform.get('StateId').setValue(this.selectedState);
-      });
-    }
-  }
-  onChangeCityList(CityId) {
-    if (CityId > 0) {
-      this._MasterService.getStateList(CityId).subscribe(data => {
-        this.stateList = data;
-        this.selectedState = this.stateList[0].StateName;
-        this.selectedStateID = this.stateList[0].StateId;
-        // const stateListObj = this.stateList.find(s => s.StateId == this.selectedStateID);
-        // this._MasterService.accountmaster.get('StateId').setValue(this.stateList[0]);
-        this.onChangeCountryList(this.selectedStateID);
-      });
-    } else {
-      this.selectedState = null;
-      this.selectedStateID = null;
-      this.selectedCountry = null;
-      this.selectedCountryID = null;
-    }
-  }
-  onChangeCountryList(StateId) {
-    if (StateId > 0) {
-      this._MasterService.getCountryList(StateId).subscribe(data => {
-        this.countryList = data;
-        this.selectedCountry = this.countryList[0].CountryName;
-        // this._MasterService.accountmaster.get('CountryId').setValue(this.countryList[0]);
-        // this._MasterService.accountmaster.updateValueAndValidity();
-      });
-    }
-  }
-
 
 
   

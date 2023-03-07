@@ -29,7 +29,7 @@ export class MasterService {
       
         
         Keyword : '',
-        AccountType:'',
+        AccountId:'',
         start: [new Date().toISOString()],
         end: [new Date().toISOString()],
       });
@@ -40,6 +40,7 @@ export class MasterService {
   
   accountMasterForm(): FormGroup {
     return this._formBuilder.group({
+      AccountId:'',
       AccountType:'',
       PartyName: ['', [
         Validators.required,
@@ -75,6 +76,7 @@ export class MasterService {
       
       OpeningBalance:'0',
       CreditDebit:'',
+      DropDownItemId:'',
       AadharCardNo:['', [
         Validators.required,
         Validators.pattern("^[0-9]*$"),
@@ -100,17 +102,20 @@ export class MasterService {
 
 
 
-  public getCityList() {
-    return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo",{})
+  public getPartyaccountList() {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_From_AccountType",{})
   }
 
-  public getStateList(CityId) {
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_StateMasterForCombo_Conditional",{"Id": CityId})
+
+
+
+  public geCreditDebitList() {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_From_CreditDebitType",{})
   }
   
-  public getCountryList(StateId) {
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional",{"Id": StateId})
-  }
+  // public getSizingList(StateId) {
+  //   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_From_Sizingaccount",{})
+  // }
 
   public getAccountList(employee) {
     return this._httpClient.post("Generic/GetByProc?procName=Retrieve_AccountList",employee)

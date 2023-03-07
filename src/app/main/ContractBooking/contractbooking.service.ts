@@ -66,7 +66,7 @@ export class ContractbookingService {
       Noofbeam:'',
       Pick:'',
       Jobrate:'',
-      Totalm:'',
+      Totalmeter:'',
       Completedate:'',
      PaymentTerm:'',
      Remark:''
@@ -78,7 +78,7 @@ export class ContractbookingService {
 
   }
   populateForm2(employee) {
-    // this.myInvoiceFormGroup.patchValue(employee);
+    this.contractbookingform.patchValue(employee);
   }
   public InvoiceInsert(employee) {
     return this._httpClient.post("Invoice/InvoiceSave", employee);
@@ -95,6 +95,10 @@ export class ContractbookingService {
 
   public getCountryList(StateId) {
     return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional", { "Id": StateId })
+  }
+
+  public getQualitywiseList(){
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_QualityDetails",{})
   }
 
 

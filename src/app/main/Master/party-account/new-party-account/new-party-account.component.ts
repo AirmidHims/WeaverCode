@@ -30,9 +30,11 @@ export class NewPartyAccountComponent implements OnInit {
 
   now = Date.now();
   searchFormGroup: FormGroup;
-  cityList: any = [];
-  stateList: any = [];
+
+  PartyList: any = [];
+  CreditList: any = [];
   countryList: any = [];
+  
   selectedState = "";
   VisitTime: String;
   selectedStateID: any;
@@ -73,9 +75,9 @@ export class NewPartyAccountComponent implements OnInit {
 
 
 
-  // city filter
-  public cityFilterCtrl: FormControl = new FormControl();
-  public filteredCity: ReplaySubject<any> = new ReplaySubject<any>(1);
+  // Account filter
+  public PartyFilterCtrl: FormControl = new FormControl();
+  public filteredParty: ReplaySubject<any> = new ReplaySubject<any>(1);
 
   
   private _onDestroy = new Subject<void>();
@@ -105,13 +107,14 @@ export class NewPartyAccountComponent implements OnInit {
 
     
   console.log(this.data)
-    this.getcityList();
+ this.GetCreditList();
+    this.getPartyList();
   
   
-    this.cityFilterCtrl.valueChanges
+    this.PartyFilterCtrl.valueChanges
       .pipe(takeUntil(this._onDestroy))
       .subscribe(() => {
-        this.filterCity();
+        this.filterParty();
       });
 
    
@@ -130,29 +133,39 @@ export class NewPartyAccountComponent implements OnInit {
   get f() { return this._MasterService.accountmaster.controls }
 
  
-  // City filter code
-  private filterCity() {
+  // Party filter code
+  private filterParty() {
 
-    if (!this.cityList) {
+    if (!this.PartyList) {
       return;
     }
     // get the search keyword
-    let search = this.cityFilterCtrl.value;
+    let search = this.PartyFilterCtrl.value;
     if (!search) {
-      this.filteredCity.next(this.cityList.slice());
+      this.filteredParty.next(this.PartyList.slice());
       return;
     }
     else {
       search = search.toLowerCase();
     }
     // filter
-    this.filteredCity.next(
-      this.cityList.filter(bank => bank.CityName.toLowerCase().indexOf(search) > -1)
+    this.filteredParty.next(
+      this.PartyList.filter(bank => bank.AccountType.toLowerCase().indexOf(search) > -1)
     );
   }
   
 
-  
+  GetCreditList() {
+   
+      this._MasterService.geCreditDebitList().subscribe(data => {
+        this.CreditList = data;
+        this._MasterService.accountmaster.get('DropDownItemId').setValue(this.CreditList[0]);
+      });
+    
+  }
+
+
+
   
   dateTimeObj: any;
   getDateTime(dateTimeObj) {
@@ -164,61 +177,12 @@ export class NewPartyAccountComponent implements OnInit {
 
 
  
-  getCityList() {
-    this._MasterService.getCityList().subscribe(data => {
-      this.cityList = data;
-      this.filteredCity.next(this.cityList.slice());
+  getPartyList() {
+    this._MasterService.getPartyaccountList().subscribe(data => {
+      this.PartyList = data;
+      this.filteredParty.next(this.PartyList.slice());
+      this._MasterService.accountmaster.get('AccountId').setValue(this.PartyList[0]);
     });
-  }
-
-
-  getcityList() {
-    this._MasterService.getCityList().subscribe(data => {
-      this.cityList = data;
-      this.filteredCity.next(this.cityList.slice());
-     if(this.data){
-      const ddValue = this.cityList.find(c => c.CityId == this.data.registerObj.CityId);
-     this._MasterService.accountmaster.get('CityId').setValue(ddValue); 
-     this.onChangeCityList(this.data.registerObj.CityId)
-     }
-    });
-  }
-
-  onChangeStateList(CityId) {
-    if (CityId > 0) {
-      this._MasterService.getStateList(CityId).subscribe(data => {
-        this.stateList = data;
-        this.selectedState = this.stateList[0].StateName;
-        //  this._AdmissionService.myFilterform.get('StateId').setValue(this.selectedState);
-      });
-    }
-  }
-  onChangeCityList(CityId) {
-    if (CityId > 0) {
-      this._MasterService.getStateList(CityId).subscribe(data => {
-        this.stateList = data;
-        this.selectedState = this.stateList[0].StateName;
-        this.selectedStateID = this.stateList[0].StateId;
-        // const stateListObj = this.stateList.find(s => s.StateId == this.selectedStateID);
-        // this._MasterService.accountmaster.get('StateId').setValue(this.stateList[0]);
-        this.onChangeCountryList(this.selectedStateID);
-      });
-    } else {
-      this.selectedState = null;
-      this.selectedStateID = null;
-      this.selectedCountry = null;
-      this.selectedCountryID = null;
-    }
-  }
-  onChangeCountryList(StateId) {
-    if (StateId > 0) {
-      this._MasterService.getCountryList(StateId).subscribe(data => {
-        this.countryList = data;
-        this.selectedCountry = this.countryList[0].CountryName;
-        // this._MasterService.accountmaster.get('CountryId').setValue(this.countryList[0]);
-        // this._MasterService.accountmaster.updateValueAndValidity();
-      });
-    }
   }
 
 
@@ -229,32 +193,14 @@ export class NewPartyAccountComponent implements OnInit {
     return option.FirstName + ' ' + option.LastName + ' (' + option.RegId + ')';
   }
 
-  getSelectedObj(obj) {
-    
-    console.log('obj==', obj);
-    
-    let a, b, c;
-
-    a = obj.AgeDay.trim();;
-    b = obj.AgeMonth.trim();
-    c = obj.AgeYear.trim();
-    console.log(a, b, c);
-    obj.AgeDay = a;
-    obj.AgeMonth = b;
-    obj.AgeYear = c;
-
-    this.registerObj = obj;
-
-    // this.setDropdownObjs();
-  }
-
+  
 
   setDropdownObjs1() {
     debugger;
     
     
-    const toSelectCity = this.cityList.find(c => c.CityId == this.registerObj.CityId);
-    this._MasterService.accountmaster.get('CityId').setValue(toSelectCity);
+    const toSelectCity = this.PartyList.find(c => c.AccountId == this.registerObj.AccountId);
+    this._MasterService.accountmaster.get('AccountId').setValue(toSelectCity);
 //this.onChangeCityList(this.registerObj.CityId);
     
     this._MasterService.accountmaster.updateValueAndValidity();
@@ -263,6 +209,9 @@ export class NewPartyAccountComponent implements OnInit {
   }
 
  
+
+
+  
 
   onClose() {
     this.dialogRef.close();

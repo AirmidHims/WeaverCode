@@ -213,6 +213,24 @@ export class MillMasterComponent implements OnInit {
   onClear() {
 
     this._InvoiceListService.mySearchform.get('Keyword').reset();
+    var D_data = {
+      "Keyword": '',// this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '',
+      "From_Dt" : '',//this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" :'',// this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "", 
+    
+       }
+    console.log(D_data);
+    this.D_data1 = D_data;
+    this._InvoiceListService.getMilllist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as Millmaster[];
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.dataSource.data);
+      this.sIsLoading = '';
+    },
+      error => {
+        this.sIsLoading = '';
+      });
 
   }
 

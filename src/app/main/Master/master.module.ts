@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
     
     {
-        path: "party",
+        path: "Account Master",
         loadChildren: () => import("./party-account/party-account.module").then((m) => m.PartyAccountModule),
     },
     // {

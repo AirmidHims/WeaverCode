@@ -25,27 +25,27 @@
         <div style="padding: 7px;">
           <div fxFlexFill fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
 
-            <select name="demo" id="#" formControlName="AccountType" style="font-size:large;color: rgb(59, 59, 64);width: fit-content;font-weight: bold;border-radius: 16px;align-content: center;" value="1" 
+            <!-- <select name="demo" id="#" formControlName="AccountType" style="font-size:large;color: rgb(59, 59, 64);width: fit-content;font-weight: bold;border-radius: 16px;align-content: center;" value="1" 
             aria-placeholder="Account Type" (change)="submit()">
              
               <option value="" selected disabled hidden>Account Type</option>
               <option selected="selected" value="Party">Party</option>
               <option value="Broker">Broker</option>
               <option value="Sizing">Sizing</option>
-            </select>
+            </select> -->
 
            
           
-            <!-- <mat-form-field appearance="outline" fxFlex>
+            <mat-form-field appearance="outline" fxFlex>
               <mat-label>Account Type</mat-label>
-              <mat-select formControlName="StateId" name="StateId">
-                (selectionChange)="onChangeCountryList($event.value)">
+              <mat-select formControlName="AccountId" name="AccountId">
+                <!-- (selectionChange)="onChangeCountryList($event.value)"> -->
                 <mat-option></mat-option>
-                <mat-option *ngFor="let m of stateList" [value]="m">
-                  {{m.StateName}}
+                <mat-option *ngFor="let m of PartyList" [value]="m">
+                  {{m.AccountType}}
                 </mat-option>
               </mat-select>
-            </mat-form-field> -->
+            </mat-form-field> 
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>PartyName</mat-label>
@@ -59,27 +59,21 @@
                   only Alphabets</mat-error>
             </mat-form-field>
 
-            <!-- <select name="demo" id="#" formControlName="CreatedOn" style="width: 200px;">
-              <label>Cr./Dr.</label>
-              <option selected="selected" value="one">Credit</option>
-              <option value="two">Debit</option>
-
-            </select> -->
-
-            <select name="demo" id="#" formControlName="CreditDebit" style="font-size:large;color: rgb(59, 59, 64);width: fit-content;border-radius: 16px;" value="1" 
-            aria-placeholder="Credit Type">
-             
-              <option value="" selected disabled hidden>Cr./Dr.</option>
-              <option selected="selected" value="Cr">Credit</option>
-              <option value="Dr">Debit</option>
-              
-            </select>
-
-
+            <mat-form-field appearance="outline" fxFlex>
+              <mat-label>Cedit/Debit</mat-label>
+              <mat-select formControlName="DropDownItemId">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let g of CreditList" [value]="g">
+                  {{g.AccountType}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+          
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Opening Balance</mat-label>
               <input name="OpeningBalance" [(ngModel)]="OpeningBalance" formControlName="OpeningBalance" placeholder="Opening Balance"
-                matInput>
+                matInput type="number">
             </mat-form-field>
 
             <mat-form-field>

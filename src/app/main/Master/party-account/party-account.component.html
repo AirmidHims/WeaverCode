@@ -3,7 +3,7 @@
 
     <div class="header">
         <div>
-            <span style="font-size: x-large;color: aliceblue;padding: 5px;"> Account Search </span>
+            <span style="font-size:large;color: aliceblue;padding: 5px;"> Account Search </span>
         </div>
       
       
@@ -45,7 +45,17 @@
                         <mat-date-range-picker #picker></mat-date-range-picker>
                     </mat-form-field>
                 
-
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Account Type</mat-label>
+                        <mat-select formControlName="AccountId" name="AccountId"  (selectionChange)="onChangeAccountList($event.value.AccountId)">
+                          <!-- (selectionChange)="onChangeCountryList($event.value)"> -->
+                          <mat-option></mat-option>
+                          <mat-option *ngFor="let m of PartyList" [value]="m">
+                            {{m.AccountType}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field> 
+          
                     <mat-form-field appearance="outline" style="padding-left:10px;width:150px;"> 
                         <mat-label>Search Keyword Data</mat-label>
                         <input name="Keyword" formControlName="Keyword" matInput (keyup)="getPartymasterList()">
@@ -54,18 +64,11 @@
                           required Enter only Alphabets</span> -->
                     </mat-form-field>
 
+                    
 
-                    <mat-form-field appearance="outline" style="padding-left:10px;width:150px;">
-                        <mat-label>Search Account Type</mat-label>
-                        <input name="AccountType" formControlName="AccountType" matInput (keyup)="getPartymasterList()">
-                        <!-- <span class="error"
-                          *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
-                          required Enter only Alphabets</span> -->
-                    </mat-form-field>
-
-                    <button  mat-raised-button class="searchButton"  (click)="getPartymasterList()"  matTooltip="search" style="margin-left: 5px;width:fit-content;">
+                    <!-- <button  mat-raised-button class="searchButton"  (click)="getPartymasterList()"  matTooltip="search" style="margin-left: 5px;width:fit-content;">
                         <mat-icon  class="searchiconbutton" >search</mat-icon>
-                    </button>
+                    </button> -->
                     <button mat-raised-button class="searchButton" (click)="onClear()"  matTooltip="Clear" style="margin-left: 5px;width:fit-content;">
                          <mat-icon  class="searchiconbutton">clear</mat-icon>
                     </button>&nbsp;&nbsp;

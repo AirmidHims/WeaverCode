@@ -11,6 +11,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { AuthenticationService } from 'app/core/services/authentication.service';
 import { AdvanceDataStored } from 'app/main/Invoice/advance';
 import { ReplaySubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MasterService } from '../master.service';
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import { NewPartyAccountComponent } from './new-party-account/new-party-account.component';
@@ -30,7 +31,7 @@ export class PartyAccountComponent implements OnInit {
   sIsLoading:any;
   registerObj:any;
   // menuActions:Array<string> = [];
- 
+  PartyList: any = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() dataArray: any;
@@ -61,9 +62,13 @@ export class PartyAccountComponent implements OnInit {
   dataSource = new MatTableDataSource<Accountmaster>();
   menuActions: Array<string> = [];
 
-  public doctorFilterCtrl: FormControl = new FormControl();
-  public filtereddoctor: ReplaySubject<any> = new ReplaySubject<any>(1);
-  private _onDestroy = new Subject<void>();
+ // Account filter
+ public PartyFilterCtrl: FormControl = new FormControl();
+ public filteredParty: ReplaySubject<any> = new ReplaySubject<any>(1);
+
+ 
+ private _onDestroy = new Subject<void>();
+
 
 
   constructor(public _MasterService: MasterService,
@@ -97,11 +102,71 @@ export class PartyAccountComponent implements OnInit {
         this.sIsLoading = '';
       });
 
-
+    
+      // console.log(this.data)
+      this.getPartyList();
+    
+    
+      this.PartyFilterCtrl.valueChanges
+        .pipe(takeUntil(this._onDestroy))
+        .subscribe(() => {
+          this.filterParty();
+        });
   }
 
   
+  // Party filter code
+  private filterParty() {
 
+    if (!this.PartyList) {
+      return;
+    }
+    // get the search keyword
+    let search = this.PartyFilterCtrl.value;
+    if (!search) {
+      this.filteredParty.next(this.PartyList.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+    // filter
+    this.filteredParty.next(
+      this.PartyList.filter(bank => bank.AccountType.toLowerCase().indexOf(search) > -1)
+    );
+  }
+  
+ 
+  getPartyList() {
+    this._MasterService.getPartyaccountList().subscribe(data => {
+      this.PartyList = data;
+      this.filteredParty.next(this.PartyList.slice());
+    });
+  }
+  onChangeAccountList(AccountId){
+
+    debugger;
+    this.sIsLoading = 'loading-data';
+    var D_data = {
+      "Keyword": this._MasterService.myFilterform.get("Keyword").value + '%' || '%',
+      "AccountType": this._MasterService.myFilterform.get("AccountId").value.AccountType  || '%',
+      "From_Dt" :this.datePipe.transform(this._MasterService.myFilterform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" : this.datePipe.transform(this._MasterService.myFilterform.get("end").value,"MM-dd-yyyy") || "", 
+    }
+    console.log(D_data);
+    this._MasterService.getAccountList(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as Accountmaster[];
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+
+      this.sIsLoading = '';
+    },
+      error => {
+        this.sIsLoading = '';
+      });
+
+  }
+  
 
   getPartymasterList() {
      debugger;
@@ -223,7 +288,27 @@ export class PartyAccountComponent implements OnInit {
 // 
     this._MasterService.myFilterform.get('Keyword').reset();
     this._MasterService.myFilterform.get('AccountType').reset();
- 
+    var D_data = {
+      "Keyword": '',// this._OtherinfoMasterService.Searchform.get("Keyword").value + '%' || '%',
+      "AccountType":'',
+      "From_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : '',//this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
+    }
+    console.log(D_data);
+    this.D_data1 = D_data;
+    this._MasterService.getAccountList(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as Accountmaster[];
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.dataSource.data);
+      this.sIsLoading = '';
+    },
+      error => {
+        this.sIsLoading = '';
+      });
+
+    
 
   }
 // Delete row in datatable level
