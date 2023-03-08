@@ -38,26 +38,29 @@ export class ContractBookingComponent implements OnInit {
 
   displayedColumns = [
 
-    'yID',
-    'yName',
-    'yCode',
-    'yPly',
-    'yType',
-    'yBlend',
-    'yActualCount',
-    'yDenierCount',
-    'updatedBy',
-    'updatedOn',
-   
+    "ContractBookingID",
+    "BookingNo",
+    "BookingDate",
+    "PartyName",
+    "BrokerName",
+    "SizingName",
+    "Brokerage",
+    "QualityName",
+    "TotalBeams",
+    // "Pick",
+    "JobRate",
+    "TotalMeter",
+    "CompleteDate",
+    "PaymentTerms",
+    "Remark",
+    
+    "UpdatedBy",
+    "UpdatedOn",
     // 'isActive',
     'action'
   ];
-  dataSource = new MatTableDataSource<YarnMaster>();
+  dataSource = new MatTableDataSource<ContractMaster>();
   menuActions: Array<string> = [];
-
-  public doctorFilterCtrl: FormControl = new FormControl();
-  public filtereddoctor: ReplaySubject<any> = new ReplaySubject<any>(1);
-  private _onDestroy = new Subject<void>();
 
 
   constructor(public _ContractbookingService: ContractbookingService,
@@ -70,18 +73,18 @@ export class ContractBookingComponent implements OnInit {
   ) { }
   D_data1: any;
   ngOnInit(): void {
-
+  
     var D_data = {
       "Keyword": '',//this._ContractbookingService.mySearchform.get("Keyword").value + '%' || '',
       "From_Dt" :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
-      "To_Dt" :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
+      "To_Dt " :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
     
 
     }
     console.log(D_data);
     this.D_data1 = D_data;
     this._ContractbookingService.getBookingList(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as YarnMaster[];
+      this.dataSource.data = Visit as ContractMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource.data);
@@ -108,7 +111,7 @@ export class ContractBookingComponent implements OnInit {
     }
 
     this._ContractbookingService.getBookingList(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as YarnMaster[];
+      this.dataSource.data = Visit as ContractMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
@@ -165,48 +168,49 @@ export class ContractBookingComponent implements OnInit {
 
 
   onEdit(row) {
-//     console.log(row);
-//     var m_data = {
-        
-//   "Bookingno":row.Bookingno,
-//   "Bookdate":row.Bookingdate,
-//   "Partyname":row.Partyname,
-//   "Brokername":row.Brokername,
-//   "Sizingname":row.Sizingname,
-//   "Brokerage":row.Brokerage,
-//   "Quality":row.Quality,
-//   "QualityId":row.QualityId,
-//   "QualityCode":row.QualityCode,
-//   "QualityName":row.QualityName,
-//   "Design":row.Design,
-//   "Noofbeam":row.Noofbeam,
-//   "Pick":row.Pick,
-//   "Jobrate":row.Jobrate,
-//   "Totalmeter":row.Totalmeter,
-//   "Completedate":row.Completedate,
-//   "PaymentTerm":row.PaymentTerm,
-//  "Remark":row.Remark,
+    console.log(row);
+    var m_data = {
+    
+ 
+      "Bookingno":row.BookingNo,
+      "Bookdate":row.BookingDate,
+      "Partyname":row.PartyName,
+      "Brokername":row.BrokerName,
+      "Sizingname":row.SizingName,
+      "Brokerage":row.Brokerage,
+      "Quality":row.QualityName,
+       "Design":row.Design,
+      "Noofbeam":row.TotalBeams,
+      "Pick":row.Pick,
+      "Jobrate":row.JobRate,
+      "Totalmeter":row.TotalMeter,
+      "Completedate":row.CompleteDate,
+      "PaymentTerm":row.PaymentTerms,
+      "Remark":row.Remark,
+      "PartyID":1,
+      "BrokerID":1,
+      "SizingID":1,
 
 
-//     }
+    }
 
-//     console.log(m_data);
-//     this._ContractbookingService.populateForm2(m_data);
+    console.log(m_data);
+    this._ContractbookingService.populateForm2(m_data);
 
-//     const dialogRef = this._matDialog.open(EditContractBookingComponent,
-//       {
-//         maxWidth: "45vw",
-//         height: '510px',
-//         width: '100%',
-//         data: {
-//           registerObj: m_data,
-//         }
-//       });
+    const dialogRef = this._matDialog.open(EditContractBookingComponent,
+      {
+        maxWidth: "75vw",
+        height: '510px',
+        width: '100%',
+        data: {
+          registerObj: m_data,
+        }
+      });
 
-//     dialogRef.afterClosed().subscribe(result => {
-//       console.log('The dialog was closed - Insert Action', result);
-//       this.getContractbookingList();
-//     });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed - Insert Action', result);
+      this.getContractbookingList();
+    });
   }
 
 
@@ -223,7 +227,7 @@ export class ContractBookingComponent implements OnInit {
     console.log(D_data);
     this.D_data1 = D_data;
     this._ContractbookingService.getBookingList(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as YarnMaster[];
+      this.dataSource.data = Visit as ContractMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource.data);
@@ -240,7 +244,7 @@ export class ContractBookingComponent implements OnInit {
     // debugger;
     // //  let Query = "Select DischargeId from Discharge where  AdmissionID=" + this.selectedAdvanceObj.AdmissionID + " ";
 
-    // let Query = "update YarnMaster set isActive=0 where yID=" + element.yID + "";
+    // let Query = "update ContractMaster set isActive=0 where yID=" + element.yID + "";
     // console.log(Query);
     // this._ContractbookingService.getDeleteYarnmaster(Query).subscribe(data => {
     //   if (data)
@@ -339,38 +343,46 @@ export class ContractBookingComponent implements OnInit {
 }
 
 
-export class YarnMaster {
-  yID: number;
-  yName: string;
-  yCount: any;
-  yCode: any;
-  yPly: string;
-  yType: any;
-  yBlend: string;
-  yActualCount: any;
-  yDenierCount: any;
-  isActive: boolean;
-
-  Created: any;
+export class ContractMaster {
+  ContractBookingID:any;
+  BookingNo:any;
+  BookingDate:any;
+  PartyName:any;
+  BrokerName:any;
+  SizingName:any;
+  Brokerage:any;
+  QualityName:any;
+  
+  DesignId:any;
+  TotalBeams:any;
+  Pick:any;
+  JobRate:any;
+  TotalMeter:any;
+  CompleteDate:any;
+  PaymentTerms:any;
+  Remark:any;
   /**
    * Constructor
    *
    * @param contact
    */
-  constructor(YarnMaster) {
+  constructor(ContractMaster) {
     {
-      this.yID = YarnMaster.yID || '';
-      this.yName = YarnMaster.yName || '';
-      this.yCode = YarnMaster.yCode || '';
-      this.yPly = YarnMaster.yPly || '';
-      this.yCount = YarnMaster.yCount || '';
-      this.yType = YarnMaster.yType || '';
-      this.yBlend = YarnMaster.yBlend || '';
-      this.yActualCount = YarnMaster.yActualCount || '';
-      this.yDenierCount = YarnMaster.yDenierCount || '';
-      this.isActive = YarnMaster.isActive || '';
-      this.Created = YarnMaster.Created || '';
-
-    }
+      this.ContractBookingID = ContractMaster.ContractBookingID || '';
+      this.BookingNo = ContractMaster.BookingNo || '';
+      this.BookingDate = ContractMaster.BookingDate || '';
+      this.PartyName = ContractMaster.PartyName || '';
+      this.BrokerName = ContractMaster.BrokerName || '';
+      this.SizingName = ContractMaster.SizingName || '';
+      this.Brokerage = ContractMaster.Brokerage || '';
+      this.QualityName = ContractMaster.QualityName || '';
+      this.TotalBeams = ContractMaster.TotalBeams || '';
+      this.Pick = ContractMaster.Pick || '';
+      this.JobRate = ContractMaster.JobRate || '';
+      this.TotalMeter = ContractMaster.TotalMeter || '';
+      this.CompleteDate = ContractMaster.CompleteDate || '';
+      this.PaymentTerms = ContractMaster.PaymentTerms || '';
+      this.Remark = ContractMaster.Remark || '';
   }
+}
 }

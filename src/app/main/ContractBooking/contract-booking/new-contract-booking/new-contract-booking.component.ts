@@ -5,7 +5,8 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthenticationService } from 'app/core/services/authentication.service';
-import { Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { ContractbookingService } from '../../contractbooking.service';
 
@@ -25,31 +26,49 @@ export class NewContractBookingComponent implements OnInit {
 
   Today=[new Date().toISOString()];
 
-  date1 = new FormControl(new Date())
+  Bookdate = new FormControl(new Date())
+  Completedate = new FormControl(new Date())
 
   Bookingno:any;
-  Bookdate:any;
-  Partyname:any;
-  Brokername:any;
-  Sizingname:any;
+  
+  PartyID:any;
+  BrokerID:any;
+  SizingID:any;
   Brokerage:any;
   Quality:any;
   QualityId:any;
-  QualityCode:any;
-  QualityName:any;
   Design:any;
   Noofbeam:any;
   Pick:any;
   Jobrate:any;
   Totalmeter:any;
-  Completedate:any;
+  
  PaymentTerm:any;
  Remark:any;
+
+ PartyList: any = [];
+ BrokerList: any = [];
+ SizingList: any = [];
+
+ selectedState:any;
 
  filteredOptions: any;
  noOptionFound: boolean = false;
 
   @Output() parentFunction: EventEmitter<any> = new EventEmitter();
+
+  // / Party filter
+  public partyFilterCtrl: FormControl = new FormControl();
+  public filteredParty: ReplaySubject<any> = new ReplaySubject<any>(1);
+
+  // Broker filter
+  public brokerFilterCtrl: FormControl = new FormControl();
+  public filteredBroker: ReplaySubject<any> = new ReplaySubject<any>(1);
+
+  //Sizing filter
+  public sizingFilterCtrl: FormControl = new FormControl();
+  public filteredSizing: ReplaySubject<any> = new ReplaySubject<any>(1);
+
  
   private _onDestroy = new Subject<void>();
   constructor(
@@ -66,10 +85,140 @@ export class NewContractBookingComponent implements OnInit {
 
   ngOnInit(): void {
    debugger
+
+this.getPartyList();
+this.getBrokerList();
+this.getSizningList();
+
+   this.partyFilterCtrl.valueChanges
+   .pipe(takeUntil(this._onDestroy))
+   .subscribe(() => {
+     this.filterParty();
+   });
+
+ this.brokerFilterCtrl.valueChanges
+   .pipe(takeUntil(this._onDestroy))
+   .subscribe(() => {
+     this.filterBroker();
+   });
+
+ this.sizingFilterCtrl.valueChanges
+   .pipe(takeUntil(this._onDestroy))
+   .subscribe(() => {
+     this.filterSizing();
+   });
      
   }
 
- 
+  // Party filter code
+  private filterParty() {
+
+    if (!this.PartyList) {
+      return;
+    }
+    // get the search keyword
+    let search = this.partyFilterCtrl.value;
+    if (!search) {
+      this.filteredParty.next(this.PartyList.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+    // filter
+    this.filteredParty.next(
+      this.PartyList.filter(bank => bank.PartyName.toLowerCase().indexOf(search) > -1)
+    );
+
+  }
+
+   // Broker filter code
+   private filterBroker() {
+
+    if (!this.BrokerList) {
+      return;
+    }
+    // get the search keyword
+    let search = this.brokerFilterCtrl.value;
+    if (!search) {
+      this.filteredBroker.next(this.BrokerList.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+    // filter
+    this.filteredBroker.next(
+      this.BrokerList.filter(bank => bank.Name.toLowerCase().indexOf(search) > -1)
+    );
+
+  }
+
+   // Sizng filter code
+   private filterSizing() {
+
+    if (!this.SizingList) {
+      return;
+    }
+    // get the search keyword
+    let search = this.sizingFilterCtrl.value;
+    if (!search) {
+      this.filteredSizing.next(this.SizingList.slice());
+      return;
+    }
+    else {
+      search = search.toLowerCase();
+    }
+    // filter
+    this.filteredSizing.next(
+      this.SizingList.filter(bank => bank.Name.toLowerCase().indexOf(search) > -1)
+    );
+
+  }
+
+    
+  getPartyList() {
+debugger
+    this._ContractbookingService.getPartyCombo().subscribe(data => {
+      this.PartyList = data;
+      console.log( this.PartyList);
+      this.filteredParty.next(this.PartyList.slice());
+
+      });
+
+  }
+
+    
+  getBrokerList() {
+
+    this._ContractbookingService.getBrokerCombo().subscribe(data => {
+      this.BrokerList = data;
+      this.filteredBroker.next(this.BrokerList.slice());
+      console.log( this.BrokerList);
+      if(this.data){
+        const ddValue = this.BrokerList.find(c => c.BrokerID == this.data.registerObj.BrokerID);
+        this._ContractbookingService.contractbookingform.get('BrokerID').setValue(ddValue); 
+      }
+    });
+
+      }
+
+    
+  getSizningList() {
+
+    this._ContractbookingService.getSizingCombo().subscribe(data => {
+      this.SizingList = data;
+      this.filteredSizing.next(this.SizingList.slice());
+      console.log( this.SizingList);
+      if(this.data){
+        const ddValue = this.SizingList.find(c => c.SizingID == this.data.registerObj.SizingID);
+        this._ContractbookingService.contractbookingform.get('SizingID').setValue(ddValue); 
+      }
+    });
+
+  
+
+  }
 
   getQualityListCombobox() {
     let tempObj;
@@ -93,9 +242,9 @@ export class NewContractBookingComponent implements OnInit {
     // debugger;
     console.log(obj);
     // console.log('obj==', obj);
-    this.QualityName = obj.QualityCode;
-    this.QualityId = obj.QualityId;
-    this.QualityName = obj.QualityName;
+    // this.QualityName = obj.QualityCode;
+    // this.QualityId = obj.QualityId;
+    // this.QualityName = obj.QualityName;
 
   }
   onScroll(){}
@@ -122,26 +271,33 @@ export class NewContractBookingComponent implements OnInit {
 
   onSubmit() {
     debugger;
-    let YarnId=0;
-    if(this.data){
-    YarnId = this.data.registerObj.yID;
-    }
+   
+   
     this.isLoading = 'submit';
 
-    console.log()
-  
-      if (!YarnId) {
+    
         var m_data = {
-         "yarmInsert": {
-            "yID": 0,
-            "yName": this._ContractbookingService.contractbookingform.get('YarnName').value || '',
-            "yCount": this._ContractbookingService.contractbookingform.get('count').value || 0,
-            "yPly": this._ContractbookingService.contractbookingform.get('ply').value || '',
-            "yType": this._ContractbookingService.contractbookingform.get('type').value || '',
-            "yBlend": this._ContractbookingService.contractbookingform.get('blend').value || '',
+         "insertContractBooking": {
+            "ContractBookingID": 0,
+            "BookingNo": this._ContractbookingService.contractbookingform.get('Bookingno').value || '',
+            "BookingDate": this.datePipe.transform(this._ContractbookingService.contractbookingform.get('date1').value,"yyyy-Mm-dd") || '01/01/1900',
+            "PartyID": parseInt(this._ContractbookingService.contractbookingform.get('PartyID').value.PartyID) || 0,
+            "BrokerID": parseInt(this._ContractbookingService.contractbookingform.get('BrokerID').value.BrokerID) || 0,
+            "SizingID": parseInt(this._ContractbookingService.contractbookingform.get('SizingID').value.SizingID) || 0,
+          
+            "Brokerage": this._ContractbookingService.contractbookingform.get('Brokerage').value || 0,
+            "QualityId": this._ContractbookingService.contractbookingform.get('Quality').value.QualityId || 0,
+            
+            "DesignId": parseInt(this._ContractbookingService.contractbookingform.get('Design').value) || 0,
+            "TotalBeams": this._ContractbookingService.contractbookingform.get('Noofbeam').value || 0,
+            "Pick": this._ContractbookingService.contractbookingform.get('Pick').value || '',
+            "JobRate": this._ContractbookingService.contractbookingform.get('Jobrate').value || 0,
+            "TotalMeter": this._ContractbookingService.contractbookingform.get('Totalmeter').value || 0,
+            
+            "CompleteDate": this.datePipe.transform(this._ContractbookingService.contractbookingform.get('date2').value,"yyyy-Mm-dd") || '01/01/1900',
+            "PaymentTerms": this._ContractbookingService.contractbookingform.get('PaymentTerm').value || 0,
+            "Remark": this._ContractbookingService.contractbookingform.get('Remark').value || '',
             "createdBy": this.accountService.currentUserValue.user.id,
-            "yActualCount": this._ContractbookingService.contractbookingform.get('Actualcnt').value || 0,
-            "yDenierCount": this._ContractbookingService.contractbookingform.get('deniercnt').value || 0,
             "updatedBy":this.accountService.currentUserValue.user.id,
          
           }
@@ -160,7 +316,7 @@ export class NewContractBookingComponent implements OnInit {
           }
 
         });
-      }
+    
       
     
   }

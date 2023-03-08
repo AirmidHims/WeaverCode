@@ -71,8 +71,8 @@ app-contract-booking {
     // font-family: 'Times New Roman', Times, serif;
     font-size: xx-large;
     width: 100%;
-    max-width: 1550px;
-    min-width: 1550px;  
+    max-width: 1900px;
+    min-width: 1900px;  
     min-height: 30px; 
    
        
@@ -80,125 +80,159 @@ app-contract-booking {
   
   .mat-row {
     width: 100%;
-    max-width: 1550px;
-    min-width: 1550px;      
+    max-width: 1900px;
+    min-width: 1900px;      
     min-height: 30px;  
                
   }
 
   
   
-  .mat-column-yID {
+  .mat-column-ContractBookingID {
     width:110px;
     max-width:110px;
     min-width:110px;
     text-align: left;
-    display: inline-block; 
+    
       
   }
-  .mat-column-yCode {
-    width: 110px; 
-    max-width: 110px;
-    min-width: 110px;
+  .mat-column-BookingNo {
+    width: 100px; 
+    max-width:100px;
+    min-width: 100px;
     text-align: left;
-    display: inline-block; 
+    
   }
 
-  .mat-column-yName {
-    width: 400px;
-    max-width:400px;
-    min-width:400px;
-    text-align: left;
-    display: inline-block; 
-    white-space: nowrap; 
-      text-overflow: ellipsis; 
-     overflow: hidden !important;  
-  
     
-  }
-  
-  .mat-column-yPly {
-    width: 110px;
+  .mat-column-BookingDate {
+    width:110px;
     max-width:110px;
     min-width:110px;
     text-align: left;
-     display: inline-block; 
-    // white-space: nowrap; 
-    // // overflow: hidden;
-    // // text-overflow: ellipsis; 
-    //  overflow: hidden !important;  
-  
+    
+      
+  }
+  .mat-column-PartyName {
+    width: 160px; 
+    max-width:160px;
+    min-width: 160px;
+    text-align: left;
     
   }
-  
-  .mat-column-yType {
-    width: 110px;
-    max-width:110px;
-    min-width:110px;
+    
+  .mat-column-BrokerName {
+    width:160px;
+    max-width:160px;
+    min-width:160px;
     text-align: left;
-    display: inline-block; 
         
   }
+  .mat-column-SizingName {
+    width: 160px; 
+    max-width:160px;
+    min-width: 160px;
+    text-align: left;
+    
+  }
+    
+  
+  .mat-column-Brokerage {
+    width:80px;
+    max-width:80px;
+    min-width:80px;
+    text-align: left;
+    
+      
+  }
+  .mat-column-QualityName {
+    width: 110px; 
+    max-width:110px;
+    min-width: 110px;
+    text-align: left;
+    justify-content: left;  }
 
-  .mat-column-yBlend{
+  .mat-column-TotalBeams {
+    width: 80px;
+    max-width:80px;
+    min-width:80px;
+    text-align: left;
+    
+  }
+  
+  .mat-column-Pick {
+    width: 110px;
+    max-width:110px;
+    min-width:110px;
+    text-align: left;
+    
+  }
+  
+  .mat-column-JobRate {
+    width: 110px;
+    max-width:110px;
+    min-width:110px;
+    text-align: left;
+    
+    
+  }
+
+  .mat-column-TotalMeter{
     width:110px;
     max-width: 110px;
     min-width: 110px;
     text-align: left;
-    display: inline-block; 
+    
 
 
   }
  
-  .mat-column-yActualCount {
+  .mat-column-CompleteDate {
     width:110px;
     max-width: 110px;
     min-width: 110px;
     text-align: left;
-    display: inline-block; 
+    
   }
   
   
-  .mat-column-yDenierCount {
+  .mat-column-PaymentTerms {
     width: 110px;
     max-width: 110px;
     min-width: 110px;
     text-align: left;
-    display: inline-block; 
+    
   }
-  // .mat-column-isActive {
-  //   width: 110px;
-  //   max-width:110px;
-  //   min-width:110px;
-  //   text-align: center;
-  //   // white-space: nowrap; 
-  //   //     overflow: hidden; 
-  //   //  overflow: hidden !important;
-  //   //  display: inline-block; 
-   
-  // }
+ 
+  .mat-column-Remark {
+    width: 150px;
+    max-width: 150px;
+    min-width: 150px;
+    text-align: left;
+    
+  }
   
-  .mat-column-updatedBy {
-    width: 120px;
-    max-width: 120px;
+  .mat-column-UpdatedBy {
+    width: 100px;
+    max-width: 110px;
     min-width: 12px;
     text-align: left;
-    display: inline-block; 
+    
   }
 
-  .mat-column-updatedOn {
-    width: 110px;
-    max-width:110px;
-    min-width: 110px;
+  .mat-column-UpdatedOn {
+    width: 100px;
+    max-width:100px;
+    min-width: 100px;
     text-align: left;
-    display: inline-block; 
+    
   }
   .mat-column-action{
     width:100px;
     max-width: 100px;
     min-width: 100px;
     text-align: center;
-    justify-content: center;
+    
     
   }
   

@@ -54,12 +54,12 @@ export class ContractbookingService {
 
   contractbookingForm(): FormGroup {
     return this._formBuilder.group({
-
+      ContractBookingID:'',
       Bookingno:'',
       Bookdate:'',
-      Partyname:'',
-      Brokername:'',
-      Sizingname:'',
+      PartyID:'',
+      BrokerID:'',
+      SizingID:'',
       Brokerage:'',
       Quality:'',
       Design:'',
@@ -86,7 +86,7 @@ export class ContractbookingService {
 
 
   public getBookingList(employee) {
-    return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo",employee)
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ContractBookingList",employee)
   }
 
   public getStateList(CityId) {
@@ -100,15 +100,24 @@ export class ContractbookingService {
   public getQualitywiseList(){
     return this._httpClient.post("Generic/GetByProc?procName=Retrieve_QualityDetails",{})
   }
+public getPartyCombo(){
+  return this._httpClient.post("Generic/GetByProc?procName=Rtrv_PartyName",{})
+}
 
+public getBrokerCombo(){
+  return this._httpClient.post("Generic/GetByProc?procName=Rtrv_BrokerName",{})
+}
 
+public getSizingCombo(){
+  return this._httpClient.post("Generic/GetByProc?procName=Rtrv_SizingName",{})
+}
   ///Weaver project
 
   public ContractBookingInsert(employee) {
-    return this._httpClient.post("Invoice/InvoiceUpdate", employee);
+    return this._httpClient.post("Weaver/NewContractInsert", employee);
   }
   public ContractBookingUpdate(employee) {
-    return this._httpClient.post("Invoice/InvoiceUpdate", employee);
+    return this._httpClient.post("Weaver/ContractInsertUpdate", employee);
   }
 
   public accountInsert(employee) {

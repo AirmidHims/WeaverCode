@@ -14,13 +14,7 @@
                 <mat-icon color="warn" title="New Contract Booking">how_to_reg</mat-icon>
             </button>
 
-            <!-- <button mat-raised-button (click)="NewShademaster()">
-                <mat-icon color="warn" title="New YarnMaster">how_to_reg</mat-icon>
-            </button> -->
-            <!-- <span style="margin-right: 40px;color: black;font-weight: bold;">
-                <app-common-date [screenFrom]="screenFromString"
-                    (dateTimeEventEmitter)="getDateTime($event)"></app-common-date>
-            </span> -->
+           
             &nbsp;&nbsp;&nbsp;
             <span class="material-icons" style="cursor: pointer;" (click)="onClose()">
                 close
@@ -92,94 +86,157 @@
                 <div class="spinner-border text-danger"></div>
 
             </div>
-            <mat-table class="table1" matSort [dataSource]="dataSource" [@animateStagger]="{value:'50'}">
+            <mat-table class="table1" matSort [dataSource]="dataSource" [@animateStagger]="{value:'50'}" style="overflow: auto;">
 
-                <ng-container matColumnDef="yID">
+              
+                <ng-container matColumnDef="ContractBookingID">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
-                        Yarn ID
+                       Booking ID
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
-                        {{contact.yID}}
+                        {{contact.ContractBookingID}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Yarn Name
+                <ng-container matColumnDef="BookingNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm>Booking No
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-sm>
-                        {{contact.yName}}
+                        {{contact.BookingNo}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yCode" fxLayoutAlign="start center">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-sm style=" margin-top: 8px; ">
-                        Yarn Code</mat-header-cell>
+                <ng-container matColumnDef="BookingDate" fxLayoutAlign="start center">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Booking Date</mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yCode}}
+                        {{contact.BookingDate | date:'shortDate'}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yPly">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">Yarn Ply
+
+                <ng-container matColumnDef="PartyName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Party Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yPly}}
+                        {{contact.PartyName}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yType">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Yarn Type
+                <ng-container matColumnDef="BrokerName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Broker Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yType}}
+                        {{contact.BrokerName}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yBlend">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">
-                        Yarn Blend
+                <ng-container matColumnDef="SizingName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Sizing Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yBlend}}
+                        {{contact.SizingName}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yActualCount">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md style=" margin-top: 8px; ">
-                        Actual Count
+                <ng-container matColumnDef="Brokerage">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header >
+                        Brokerage
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yActualCount}}
+                        {{contact.Brokerage}}
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="yDenierCount">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Denier Count
+                <ng-container matColumnDef="QualityName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Quality Name
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.yDenierCount}}
+                        {{contact.QualityName}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TotalBeams">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>TotalBeams
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.TotalBeams}}
+                    </mat-cell>
+                </ng-container>
+
+                
+                <!-- <ng-container matColumnDef="Pick">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Pick
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.Pick}}
+                    </mat-cell>
+                </ng-container> -->
+
+                <ng-container matColumnDef="JobRate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        JobRate
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.JobRate}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TotalMeter">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        TotalMeter
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.TotalMeter}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="CompleteDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>CompleteDate
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.CompleteDate |date:'shortDate'}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="PaymentTerms">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header >
+                        PaymentTerms
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.PaymentTerms}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Remark">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>Remark
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let contact" fxShow.gt-md>
+                        {{contact.Remark}}
                     </mat-cell>
                 </ng-container>
 
              
 
-                <ng-container matColumnDef="updatedBy">
+                <ng-container matColumnDef="UpdatedBy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
                     UpdatedBy
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.updatedBy}}
+                        {{contact.UpdatedBy}}
                     </mat-cell>
                 </ng-container>
 
               
 
-                <ng-container matColumnDef="updatedOn">
+                <ng-container matColumnDef="UpdatedOn">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxShow.gt-md>
                         UpdatedOn
                     </mat-header-cell>
                     <mat-cell *matCellDef="let contact" fxShow.gt-md>
-                        {{contact.updatedOn | date:'shortDate'}}
+                        {{contact.UpdatedOn | date:'shortDate'}}
                     </mat-cell>
                 </ng-container>
                 <!-- <ng-container matColumnDef="isActive" sticky>
