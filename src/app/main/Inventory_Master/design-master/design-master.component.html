@@ -10,8 +10,8 @@
 
         <div class="close" style="margin-left:1200px;">
 
-            <button mat-raised-button (click)="NewLocationmaster()">
-                <mat-icon color="warn" title="New Location">how_to_reg</mat-icon>
+            <button mat-raised-button (click)="NewDesignendtable()">
+                <mat-icon color="warn" title="New Design">how_to_reg</mat-icon>
             </button>
 
             <!-- <button mat-raised-button (click)="NewShademaster()">
@@ -38,7 +38,7 @@
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="start" placeholder="Start date"
-                                (dateChange)="getLocationDatewiseList($event.value)">
+                                (dateChange)="getDesignendtableList()">
                             <input matEndDate formControlName="end" placeholder="End date">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -48,7 +48,7 @@
 
                     <mat-form-field appearance="outline">
                         <mat-label>Search Location Data</mat-label>
-                        <input name="LocationCode" formControlName="LocationCode" matInput (keyup)="getLocationMasterList()">
+                        <input name="Keyword" formControlName="Keyword" matInput (keyup)="getDesignendtableList()">
                         <!-- <span class="error"
                           *ngIf="f.FirstNameSearch.invalid && f.FirstNameSearch.touched">First Name is
                           required Enter only Alphabets</span> -->
@@ -56,7 +56,7 @@
 
 
 
-                    <button mat-raised-button class="searchButton" (click)="getLocationMasterList()" matTooltip="search"
+                    <button mat-raised-button class="searchButton" (click)="getDesignendtableList()" matTooltip="search"
                         style="margin-left: 5px;">
                         <mat-icon class="searchiconbutton">search</mat-icon>
                     </button>

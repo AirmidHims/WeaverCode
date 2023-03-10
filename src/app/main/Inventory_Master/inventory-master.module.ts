@@ -36,10 +36,10 @@ const appRoutes: Routes = [
         path: "Shade",
         loadChildren: () => import("./shade-master/shade-master.module").then((m) => m.ShadeMasterModule),
     },
-    // {
-    //     path: "Design",
-    //     loadChildren: () => import("./design-master/design-master.module").then((m) => m.DesignMasterModule),
-    // },
+    {
+        path: "Design",
+        loadChildren: () => import("./design-master/design-master.module").then((m) => m.DesignMasterModule),
+    },
    
 
 ];

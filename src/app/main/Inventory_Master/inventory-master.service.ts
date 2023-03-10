@@ -146,7 +146,7 @@ export class InventoryMasterService {
 
   designMasterForm(): FormGroup {
     return this._formBuilder.group({
-
+      DesignName:'',
       ChallanNo:'',
       Rspace:'',
       Reed:'',
@@ -159,6 +159,7 @@ export class InventoryMasterService {
       
       WarapCount:'',
       WarapShade:'',
+      Count:'',
       WarapDnrCount:'',
       WarapEnds:'',
       WarapEndsPer:'',

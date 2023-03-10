@@ -13,6 +13,7 @@ import { AdvanceDataStored } from 'app/main/Invoice/advance';
 import { ReplaySubject, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { InventoryMasterService } from '../inventory-master.service';
+import { NewDesignmasterComponent } from './new-designmaster/new-designmaster.component';
 
 @Component({
   selector: 'app-design-master',
@@ -56,7 +57,7 @@ export class DesignMasterComponent implements OnInit {
     //'updatedO',
     'action'
   ];
-  dataSource = new MatTableDataSource<Locationmaster>();
+  dataSource = new MatTableDataSource<Designendtable>();
   menuActions: Array<string> = [];
 
   public doctorFilterCtrl: FormControl = new FormControl();
@@ -76,13 +77,13 @@ export class DesignMasterComponent implements OnInit {
   ngOnInit(): void {
 
     var D_data = {
-      "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
+      // "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
 
     }
     console.log(D_data);
     this.D_data1 = D_data;
     this._InvoiceListService.getLocationlist(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Locationmaster[];
+      this.dataSource.data = Visit as Designendtable[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource.data);
@@ -97,15 +98,15 @@ export class DesignMasterComponent implements OnInit {
 
 
 
-  getLocationMasterList() {
+  getDesignendtableList() {
      debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
+      // "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
     }
 
     this._InvoiceListService.getLocationlist(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Locationmaster[];
+      this.dataSource.data = Visit as Designendtable[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
@@ -119,47 +120,50 @@ export class DesignMasterComponent implements OnInit {
 
 
   getLocationDatewiseList(eve) {
-    //  debugger;
-    this.sIsLoading = 'loading-data';
-    var D_data = {
-      "From_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value, "MM-dd-yyyy") || "01/01/1900",
-      "To_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value, "MM-dd-yyyy") || "01/01/1900",
+    // //  debugger;
+    // this.sIsLoading = 'loading-data';
+    // var D_data = {
+    //   "From_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value, "MM-dd-yyyy") || "01/01/1900",
+    //   "To_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value, "MM-dd-yyyy") || "01/01/1900",
 
-    }
+    // }
 
-    this._InvoiceListService.getLocationlistDatewise(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Locationmaster[];
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+    // this._InvoiceListService.getLocationlistDatewise(D_data).subscribe(Visit => {
+    //   this.dataSource.data = Visit as Designendtable[];
+    //   this.dataSource.sort = this.sort;
+    //   this.dataSource.paginator = this.paginator;
 
-      this.sIsLoading = '';
-    },
-      error => {
-        this.sIsLoading = '';
-      });
+    //   this.sIsLoading = '';
+    // },
+    //   error => {
+    //     this.sIsLoading = '';
+    //   });
 
   }
 
   onSearch() {
-    this.getLocationMasterList();
+    this.getDesignendtableList();
 
   }
 
 
 
 
-  NewLocationmaster() {
-    // const dialogRef = this._matDialog.open(NewLoactionMasterComponent,
-    //   {
-    //     maxWidth: "45vw",
-    //     height: '450px',
-    //     width: '100%',
+  NewDesignendtable() {
+    const dialogRef = this._matDialog.open(NewDesignmasterComponent,
+      {
+        maxWidth: "95vw",
+        height: '99%',
+        width: '100%',
 
-    //   });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.getLocationMasterList();
-    // });
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getDesignendtableList();
+    });
   }
+
+
+
   toggleSidebar(name): void {
     this._fuseSidebarService.getSidebar(name).toggleOpen();
   }
@@ -182,16 +186,16 @@ export class DesignMasterComponent implements OnInit {
 
 
     var m_data = {
-      "LocationId": row.LocationId,
-      "LocationCode": row.LocationCode,
-      "LocationName": row.LocationName,
+      // "LocationId": row.LocationId,
+      // "LocationCode": row.LocationCode,
+      // "LocationName": row.LocationName,
     
     }
 
     // console.log(m_data);
     // this._InvoiceListService.populateForm5(m_data);
 
-    // const dialogRef = this._matDialog.open(EditLocationMasterComponent,
+    // const dialogRef = this._matDialog.open(EditDesignendtableComponent,
     //   {
     //     maxWidth: "45vw",
     //     height: '450px',
@@ -203,7 +207,7 @@ export class DesignMasterComponent implements OnInit {
 
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log('The dialog was closed - Insert Action', result);
-    //   this.getLocationMasterList();
+    //   this.getDesignendtableList();
     // });
   }
 
@@ -318,30 +322,78 @@ export class DesignMasterComponent implements OnInit {
 
 
 
-
-export class Locationmaster {
-  LocationId: number;
-  LocationCode: string;
-  LocationName: any;
-  isActive: any;
-  createdBy: any;
-  updatedBy: any;
-  createdOn: any;
+export class Designendtable {
+  WarapCount:any
+  WarapShade:any
+  Count:any;
+  WarapDnrCount:any
+  WarapEnds:any
+  WarapEndsPer:any
+  WarapRepeat:any
+  WarapWastage:any
+  WarapExpWt:any
+  isLocallyAdded:boolean
   /**
    * Constructor
    *
    * @param contact
    */
-  constructor(Locationmaster) {
+  constructor(Designendtable) {
     {
-      this.LocationId = Locationmaster.LocationId || 0;
-      this.LocationCode = Locationmaster.LocationCode || '';
-      this.LocationName = Locationmaster.LocationName || '';
-      this.isActive = Locationmaster.isActive || '';
-      this.createdBy = Locationmaster.createdBy || '';
-      this.updatedBy = Locationmaster.updatedBy || '';
-      this.createdOn = Locationmaster.createdOn || '';
-
+      this.WarapCount = Designendtable.WarapCount || '';
+      this.WarapShade = Designendtable.WarapShade || '';
+      this.Count = Designendtable.Count || '';
+      this.WarapDnrCount = Designendtable.WarapDnrCount || '';
+      this.WarapEnds = Designendtable.WarapEnds || '';
+      this.WarapEndsPer = Designendtable.WarapEndsPer || '';
+      this.WarapRepeat = Designendtable.WarapRepeat || '';
+      this.WarapWastage = Designendtable.WarapWastage || '';
+      this.WarapExpWt = Designendtable.WarapExpWt || '';
+      this.isLocallyAdded = Designendtable.isLocallyAdded || '';
+     
     }
   }
 }
+
+
+export class DesignPick {
+
+         
+  WeftCount:any
+  WeftShade:any
+  ActCount:any
+  WeftDnrCount:any
+  Percentage:any
+  DesignPer:any
+  RepeatPic:any
+  DesignPic:any
+  WeftWastagePer:any
+  ExpWt:any
+  Rate:any
+  Costing:any
+  isLocallyAdded1:boolean
+  /**
+   * Constructor
+   *
+   * @param contact
+   */
+  constructor(DesignPick) {
+    {
+      this.WeftCount = DesignPick.WeftCount || '';
+      this.WeftShade = DesignPick.WeftShade || '';
+      this.ActCount = DesignPick.ActCount || '';
+      this.WeftDnrCount = DesignPick.WeftDnrCount || '';
+      this.Percentage = DesignPick.Percentage || '';
+      this.DesignPer=DesignPick.DesignPer || '';
+      this.RepeatPic = DesignPick.RepeatPic || '';
+      this.DesignPic = DesignPick.DesignPic || '';
+      this.WeftWastagePer = DesignPick.WeftWastagePer || '';
+      this.ExpWt = DesignPick.ExpWt || '';
+      this.Rate = DesignPick.Rate || '';
+      this.Costing = DesignPick.Costing || '';
+      this.isLocallyAdded1 = DesignPick.isLocallyAdded1 || '';
+     
+    }
+  }
+}
+
