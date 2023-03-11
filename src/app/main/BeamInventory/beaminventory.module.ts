@@ -37,38 +37,89 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { BeaminventoryService } from './beaminventory.service';
+// import { BeanInwardComponent } from './bean-inward/bean-inward.component';
+// import { NewBeamInwardComponent } from './bean-inward/new-beam-inward/new-beam-inward.component';
 
 
-
-
-const approtes: Routes = [
 
   
-  // {
-  //   path: "BeamInward",
-  //   loadChildren: () =>import("./bean-inward/beam-inward.module").then((m) => m.BeamInwardModule),
-       
-  // },  
   
-  {
-    path: "BeamIssue",
-    loadChildren: () =>  import("./beam-issue/beam-issue.module").then((m)=>m.BeamIssueModule), 
+  
+  
+  
+  // const appRoutes: Routes = [
+  
+  //     {
+  //       path: "**",
+  //       component: BeanInwardComponent
+  //   },
+  //   {
+  //     // Beam
+  //      path: "Masters/party",
+  //      loadChildren: () => BeanInwardComponent
+  //     //  import("./b").then((m) => m.InvoiceListModule),
+      
+  //   },
+   
     
-
-  },
-  {
-    path: "BeamAction",
-    loadChildren: () => import("./beam-action/beam-action.module").then((m)=>m.BeamActionModule), 
-    
-  },
- 
-  
-  
-  ];
+    // ];
   @NgModule({
-    declarations: [],
-    imports: [
-        RouterModule.forChild(approtes),
-    ]
-})
+      declarations: [
+        // BeanInwardComponent,
+        // NewBeamInwardComponent,
+     
+      ],
+      imports: [
+          // RouterModule.forChild(),
+          MatButtonModule,
+          MatCheckboxModule,
+          MatDatepickerModule,
+          MatFormFieldModule,
+          MatIconModule,
+          MatInputModule,
+          MatMenuModule,
+          MatRippleModule,
+          MatTableModule,
+          MatToolbarModule,
+          MatPaginatorModule,
+          MatSortModule,
+          MatSelectModule,
+          MatRadioModule,
+          MatTabsModule,
+          MatCardModule,
+          MatDividerModule,  
+          MatProgressSpinnerModule,
+          FuseSharedModule,
+          FuseConfirmDialogModule,
+          FuseSidebarModule,
+          MatDialogModule,
+          MatGridListModule,
+          MatSnackBarModule,
+          MatSlideToggleModule ,
+          MatDividerModule,
+          MatDialogModule,
+          FuseSharedModule,
+          FuseConfirmDialogModule,
+          FuseSidebarModule,
+          ReactiveFormsModule,
+          MatSnackBarModule,
+          MatStepperModule,
+          MatAutocompleteModule,
+          MatProgressSpinnerModule,
+          FuseSharedModule,
+          NgxMatSelectSearchModule,
+          MatBadgeModule,
+          MatTooltipModule,
+          MatExpansionModule
+        
+      ],
+      providers: [
+        BeaminventoryService,
+          // NotificationServiceService ,
+          DatePipe
+      ],
+      entryComponents: [
+        // BeanInwardComponent
+      ]
+  })
 export class BeaminventoryModule { }

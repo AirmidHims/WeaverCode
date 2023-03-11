@@ -91,8 +91,8 @@
         // font-family: 'Times New Roman', Times, serif;
         font-size: xx-large;
         width: 100%;
-        max-width: 100px;
-        min-width: 1300px;
+        max-width: 1350px;
+        min-width: 1350px;
         min-height: 30px;
 
 
@@ -101,69 +101,77 @@
     .mat-row {
         
         width: 100%;
-        max-width: 1300px;
-        min-width: 1300px;
+        max-width: 1350px;
+        min-width: 1350px;
         min-height: 30px;
 
     }
 
     .mat-column-WarapCount {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
+        width: 140px;
+        max-width: 14px;
+        min-width: 140px;
         text-align: left;
         
 
     }
 
     .mat-column-Count {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
-        text-align: left;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
+        text-align: center;
         
 
     }
 
     .mat-column-WarapShade {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
-        text-align: left;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
+        text-align: center;
         
     }
 
     .mat-column-WarapDnrCount {
-        width: 200px;
-        max-width: 200px;
-        min-width: 200px;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
         text-align: left;
 
 
     }
 
     .mat-column-WarapEnds {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
         text-align: left;
         
 
     }
 
     .mat-column-WarapRepeat {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
+        text-align: left;
+        
+
+    }
+    .mat-column-WarapEndsPer {
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
         text-align: left;
         
 
     }
 
     .mat-column-WarapWastage {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
         text-align: left;
         
 
@@ -171,9 +179,9 @@
     }
 
     .mat-column-WarapExpWt {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
+        width: 140px;
+        max-width: 140px;
+        min-width: 140px;
         text-align: left;
         
     }
@@ -233,8 +241,8 @@
         // font-family: 'Times New Roman', Times, serif;
         font-size: xx-large;
         width: 100%;
-        max-width: 1300px;
-        min-width: 1300px;
+        max-width: 1350px;
+        min-width: 1350px;
         min-height: 30px;
 
 
@@ -242,40 +250,40 @@
 
     .mat-row {
         width: 100%;
-        max-width: 1300px;
-        min-width: 1300px;
+        max-width: 1350px;
+        min-width: 1350px;
         min-height: 30px;
 
     }
 
     .mat-column-WeftCount {
-        width: 120px;
-        max-width: 120px;
-        min-width: 120px;
+        width: 110px;
+        max-width: 110px;
+        min-width: 110px;
         text-align: left;
         
 
     }
 
     .mat-column-WeftShade {
-        width: 100px;
-        max-width: 100px;
-        min-width: 100px;
+        width: 110px;
+        max-width: 110px;
+        min-width: 110px;
         text-align: left;
         
     }
 
     .mat-column-ActCount {
-        width: 100px;
-        max-width: 100px;
-        min-width: 100px;
+        width: 120px;
+        max-width: 120px;
+        min-width: 120px;
         text-align: left;
             }
 
     .mat-column-WeftDnrCount {
-        width: 100px;
-        max-width: 100px;
-        min-width: 100px;
+        width: 120px;
+        max-width: 120px;
+        min-width: 120px;
         text-align: left;
 
 
@@ -300,9 +308,9 @@
     }
 
     .mat-column-RepeatPic {
-        width: 90px;
-        max-width: 90px;
-        min-width: 90px;
+        width: 110px;
+        max-width: 110px;
+        min-width: 110px;
         text-align: left;
         
 
@@ -396,5 +404,8 @@
         // background:#039be5 !important; 
     }
 
+
+    //border
+    
 
 }

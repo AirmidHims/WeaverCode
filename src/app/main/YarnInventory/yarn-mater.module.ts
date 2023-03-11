@@ -37,6 +37,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { YarninwardService } from "./yarninward.service";
 import { YarnIssueComponent } from './yarn-issue/yarn-issue.component';
 import { YarnOutwardComponent } from './yarn-outward/yarn-outward.component';
+// import { EditYarnInwardComponent } from './edit-yarn-inward/edit-yarn-inward.component';
 // import { NewYarnInwardyComponent } from './new-yarn-inwardy/new-yarn-inwardy.component';
 
 

@@ -69,6 +69,15 @@ export class NewDesignmasterComponent implements OnInit {
   TotalDEsignPic:any
   ExpGms:''
 
+
+  totalAmtOfNetAmt: any;
+  netPaybleAmt:any;
+  TotalnetPaybleAmt:any;
+  ExpwtTotal:any;
+
+  TotalDesignpic:any;
+  ExpGmsTotal:any;
+
   date1 = new FormControl(new Date())
   Today=[new Date().toISOString()];
   DesignendData: Designendtable[] = [];
@@ -292,6 +301,67 @@ isRowAdded1: boolean = false;
 
     // this.addEmptyRow();
   }
+
+
+  
+  getNetAmtSum(element) {
+debugger;
+    let netAmt;
+    netAmt = element.reduce((sum, { WarapEnds }) => sum += +(WarapEnds || 0), 0);
+    this.totalAmtOfNetAmt = netAmt;
+    this.netPaybleAmt = netAmt;
+    // this.TotalEnds= this.netPaybleAmt.toString();
+    // console.log(this.TotalEnds);
+    return netAmt
+  }
+
+  getExpwtSum(element){
+    let netAmt;
+    netAmt = element.reduce((sum, { WarapExpWt }) => sum += +(WarapExpWt || 0), 0);
+    this.ExpwtTotal = netAmt;
+  
+    console.log(this.ExpwtTotal);
+    return netAmt
+  }
+
+   
+  getTotalrepeatpicSum(element) {
+    debugger;
+        let netAmt;
+        netAmt = element.reduce((sum, { RepeatPic }) => sum += +(RepeatPic || 0), 0);
+        this.totalAmtOfNetAmt = netAmt;
+        // this.netPaybleAmt = netAmt;
+      
+        return netAmt
+      }
+    
+      getDesignpicSum(element){
+        let netAmt;
+        netAmt = element.reduce((sum, { DesignPic }) => sum += +(DesignPic || 0), 0);
+        this.TotalDesignpic = netAmt;
+              
+        return netAmt
+      }
+
+      getWtSum(){
+        debugger;
+
+        console.log(this.ExpwtTotal);
+        console.log(this.ExpGmsTotal);
+        let tot= parseInt(this.ExpwtTotal) + parseInt(this.ExpGmsTotal)
+        console.log(tot);
+        this.Stdgmmt=tot;
+      }
+
+      getExpGmsSum(element){
+        let netAmt;
+        netAmt = element.reduce((sum, { ExpWt }) => sum += +(ExpWt || 0), 0);
+        this.ExpGmsTotal = netAmt;
+              
+        return netAmt
+      }
+
+
   onClose() {
     this.dialogRef.close();
   }
@@ -372,7 +442,7 @@ isRowAdded1: boolean = false;
     
        }
      }
-
+console.log(m_data)
     //  let insertDesignPaper = {};
     // insertDesignPaper['DesignName'] = this._InventoryMasterService.designForm.get('DesignName').value || '',
     // insertDesignPaper['Rspace'] = this._InventoryMasterService.designForm.get('Rspace').value || 0,
