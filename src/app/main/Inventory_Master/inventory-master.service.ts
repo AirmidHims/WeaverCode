@@ -35,7 +35,7 @@ export class InventoryMasterService {
   SearchForm() {
     return this._formBuilder.group({
       Keyword:'',
-          
+      DesignType:'',
       start: [new Date().toISOString()],
       end: [new Date().toISOString()],
     });
@@ -156,7 +156,7 @@ export class InventoryMasterService {
       HSNNo:'',
       Width:'',
       Stdgmmt:'',
-      
+      shadeID:'',
       WarapCount:'',
       WarapShade:'',
       Count:'',
@@ -200,9 +200,11 @@ export class InventoryMasterService {
   populateForm4(employee){
     this.Itemform.patchValue(employee);
   }
-
   populateForm5(employee){
-    this.invyarnform.patchValue(employee);
+    this.Itemform.patchValue(employee);
+  }
+  populateFormDesign(employee){
+    this.designForm.patchValue(employee);
   }
   populateFormQuality(employee){
     this.qualityform.patchValue(employee);
@@ -236,7 +238,7 @@ public getLocationlist(employee){
 
 
 public getDesignlist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Milllist", employee)
+  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_DesignList", employee)
 }
 
 
@@ -244,7 +246,9 @@ public getShadelist(employee){
   return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ShadeList", employee)
 }
 
-
+public getShadeColorList(){
+  return this._httpClient.post("Generic/GetByProc?procName=Rtrv_ShadecolorName", {})
+}
   public getCityList() {
     return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
   }
@@ -319,10 +323,10 @@ public getShadelist(employee){
   }
 
   public DesignInsert(employee) {
-    return this._httpClient.post("Weaver/NewYarnInsert", employee);
+    return this._httpClient.post("Weaver/NewDesignInsert", employee);
   }
   public DesignUpdate(employee) {
-    return this._httpClient.post("Weaver/YarnUpdate", employee);
+    return this._httpClient.post("Weaver/DesignUpdate", employee);
   }
 
   public InvoicesUpdate(employee) {

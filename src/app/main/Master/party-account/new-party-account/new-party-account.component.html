@@ -3,6 +3,7 @@
     <div class="header-container" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="4px"
       fxLayoutAlign="space-between">
       <span style="font-size: 22px; font-weight: 500; color: #fff;">New Party Account Details</span>
+      <span style="color: aqua;padding-left:850px;">Todays Date :{{Today | date :'shortDate'}} </span>
       <span class="material-icons" (click)="onClose()" style="cursor: pointer; margin-left: 24px; color: #fff;">
         close
       </span>
@@ -16,12 +17,12 @@
       <br/>
 
       <form [formGroup]="_MasterService.accountmaster">
-
+<!-- 
         <div style="float:right;color: blue;font-weight: bold;">
           <h3>Todays Date :{{Today | date :'shortDate'}} </h3>
 
         </div>
-        <br>
+        <br> -->
         <div style="padding: 7px;">
           <div fxFlexFill fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
 

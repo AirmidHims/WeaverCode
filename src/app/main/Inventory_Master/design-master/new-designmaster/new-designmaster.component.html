@@ -3,7 +3,7 @@
     <div class="header-container" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="4px"
       fxLayoutAlign="space-between">
       <span style="font-size: 22px; font-weight: 500; color: #fff;">New Design Details</span>
-      <span style="color: aqua;">Todays Date :{{Today | date :'shortDate'}} </span>
+      <span style="color: aqua;padding-left:900px;">Todays Date :{{Today | date :'shortDate'}} </span>
       <span class="material-icons" (click)="onClose()" style="cursor: pointer; margin-left: 24px; color: #fff;">
         close
       </span>
@@ -24,18 +24,18 @@
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Design Name</mat-label>
               <input name="DesignName" [(ngModel)]="DesignName" formControlName="DesignName"
-                placeholder="Design Name No" matInput type="number">
+                placeholder="Design Name" matInput >
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Rspace</mat-label>
               <input name="Rspace" [(ngModel)]="Rspace" formControlName="Rspace" placeholder="Rspace" matInput
-                type="number">
+                >
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Reed</mat-label>
-              <input name="Reed" [(ngModel)]="Reed" formControlName="Reed" placeholder="Reed" matInput type="number">
+              <input name="Reed" [(ngModel)]="Reed" formControlName="Reed" placeholder="Reed" matInput >
             </mat-form-field>
 
             <mat-form-field>
@@ -77,15 +77,14 @@
 
 
           </div>
-          <span style="color: blue;font-size:larger;">Wrap Design</span>
-          <div fxLayout="row" style="width:100%" >
+          <span style="color: blue;font-size:larger;">Warp  Design</span>
+          <div fxLayout="row" style="width:100%">
 
             <mat-table class="table1" matSort [dataSource]="dataSource" [@animateStagger]="{value:'50'}"
               style="overflow:auto; width:100%;height:200px !important;border-color:rgb(177, 184, 184);border-style:outset; box-shadow: 5px 5px 5px rgb(62, 175, 241) !important;">
-              <br>
-
+              
               <ng-container matColumnDef="WarapCount">
-                <mat-header-cell *matHeaderCellDef mat-sort-header sticky> Count
+                <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Warp Count
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
@@ -95,16 +94,32 @@
                 </mat-cell>
               </ng-container>
 
-              <ng-container matColumnDef="WarapShade">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Shade
+
+              <ng-container matColumnDef="shadeID">
+                <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Shade
                 </mat-header-cell>
-                <mat-cell *matCellDef="let element" fxShow.gt-sm>
-                  <mat-form-field appearance="outline" style="width: 92%;">
-                    <input matInput [(ngModel)]="element.WarapShade" [ngModelOptions]="{standalone: true}"
-                      name="WarapShade">
+                <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
+                  <mat-form-field appearance="outline" style="width: 90%;">
+                    <input matInput [(ngModel)]="element.shadeID" [ngModelOptions]="{standalone: true}"
+                      name="shadeID">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
+
+              <!-- <ng-container matColumnDef="shadeID">
+                <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Shade
+                </mat-header-cell>
+              <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Shade Color</mat-label>
+                <mat-select formControlName="shadeID" name="WarapShade">
+                  <!-- (selectionChange)="onChangeCountryList($event.value)"> -->
+                  <!-- <mat-option></mat-option>
+                  <mat-option *ngFor="let m of ShadeList" [value]="m">
+                    {{m.shadeColor}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+            </ng-container> --> -->
 
               <ng-container matColumnDef="Count">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Count
@@ -131,7 +146,7 @@
 
 
               <ng-container matColumnDef="WarapEnds">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>  Ends
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ends
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
@@ -239,7 +254,7 @@
             </mat-table>
 
           </div>
-
+          <br>
           <div fxFlexFill fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px" style="margin-left:300px ;">
 
             <!-- <mat-form-field appearance="outline" style="width: 300px;" >
@@ -266,8 +281,8 @@
 
           </div>
 
-
-          <span style="color: blue;font-size: xx-larger;">Weft Design</span>
+          <span style="color: blue;font-size:larger;">Weft  Design</span>
+          
           <div fxLayout="row" style="width:100%">
 
             <mat-table class="table2" matSort [dataSource]="dataSource1" [@animateStagger]="{value:'50'}"
@@ -385,7 +400,8 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
-                    <input matInput [(ngModel)]="element.ExpWt" [ngModelOptions]="{standalone: true}" name="ExpWt" (keyup)="getWtSum()">
+                    <input matInput [(ngModel)]="element.ExpWt" [ngModelOptions]="{standalone: true}" name="ExpWt"
+                      (keyup)="getWtSum()">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -465,10 +481,11 @@
             </mat-table>
 
           </div>
+          <br>
 
           <div fxFlexFill fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="10px">
 
-<!-- 
+            <!-- 
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>TotalRepeatPick</mat-label>
@@ -493,23 +510,23 @@
               <span class="net-amt-label" style="margin-left:190px;"> Exp Gms :</span>&nbsp;<span
                 class="net-amt-value">{{getExpGmsSum(dataSource1.data)}}</span>
             </div>
-<!-- 
+            <!-- 
 
             <mat-form-field appearance="outline" style="width: 200px;margin-left: 200px;">
               <mat-label>ExpGms</mat-label>
               <input name="ExpGms" [(ngModel)]="ExpGms" formControlName="ExpGms" placeholder="Exp Gms" matInput
                 readonly>
             </mat-form-field> -->
-
-            <mat-form-field appearance="outline" style="font-weight:bolder;width:300px;margin-right:30px;padding-left: 100px;">
-              <mat-label>Std. Gms/mtr </mat-label>
+            <!-- <span style="color: blue;">ExpWt+ ExpGms = </span> -->
+            <mat-form-field appearance="outline"
+              style="width:150px;font-weight: bolder;color: rgb(235, 32, 144);font-size:medium;padding-right: 20px;">
+              <mat-label>ExpWt+ ExpGms </mat-label>
               <input name="Stdgmmt" formControlName="Stdgmmt" [(ngModel)]="Stdgmmt" placeholder=" Stdgmmt" matInput>
             </mat-form-field>
 
           </div>
-        
 
-          <div style="float: right;margin-top: 30px;">
+          <div style="float: right;margin-top: 10px;">
             <button class="next-btn" (click)="onSave()" style="border-radius: 16px;">Save</button>
             <button class="footer-btn" (click)="onClose()">Cancel</button>
           </div>

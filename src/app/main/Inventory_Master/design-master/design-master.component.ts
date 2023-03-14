@@ -13,6 +13,7 @@ import { AdvanceDataStored } from 'app/main/Invoice/advance';
 import { ReplaySubject, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { InventoryMasterService } from '../inventory-master.service';
+import { EditDesignMasterComponent } from './edit-design-master/edit-design-master.component';
 import { NewDesignmasterComponent } from './new-designmaster/new-designmaster.component';
 
 @Component({
@@ -47,17 +48,27 @@ export class DesignMasterComponent implements OnInit {
 
 
   displayedColumns = [
-   'LocationId',  
-    'LocationCode',
-    'LocationName',
-    'createdBy',
-    // 'updatedBy',
-    'createdOn',
-    'isActive',
-    //'updatedO',
+   'DesignID',  
+    'DesignCode',
+    'DesignName',
+    'RSpace',
+    'Reed',
+    'QualityId',
+    'Pick',
+    'Waste',
+    'HsnNo',
+    'Width',
+    'TotalEnds',
+    'TotalExpWt',
+    'TotalRepeatPick',
+    'TotalDesignPick',
+    'TotalExpGms',
+    'TotalStandardGms',
+    'UpdatedBy',
+    'UpdatedOn',
     'action'
   ];
-  dataSource = new MatTableDataSource<Designendtable>();
+  dataSource = new MatTableDataSource<DesignMain>();
   menuActions: Array<string> = [];
 
   public doctorFilterCtrl: FormControl = new FormControl();
@@ -77,13 +88,16 @@ export class DesignMasterComponent implements OnInit {
   ngOnInit(): void {
 
     var D_data = {
-      // "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
-
+      "Keyword": '',// this._OtherinfoMasterService.Searchform.get("Keyword").value + '%' || '%',
+      "DesignType":'',
+      "From_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : '',//this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
     }
     console.log(D_data);
     this.D_data1 = D_data;
-    this._InvoiceListService.getLocationlist(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Designendtable[];
+    this._InvoiceListService.getDesignlist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as DesignMain[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource.data);
@@ -102,11 +116,14 @@ export class DesignMasterComponent implements OnInit {
      debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      // "LocationCode": this._InvoiceListService.mySearchform.get("LocationCode").value + '%' || '%',
+      "Keyword": this._InvoiceListService.mySearchform.get("Keyword").value + '%' || '%',
+      "DesignType": this._InvoiceListService.mySearchform.get("DesignType").value  || '%',
+      "From_Dt" :this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value,"MM-dd-yyyy") || "",
+      "To_Dt" : this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value,"MM-dd-yyyy") || "", 
     }
 
-    this._InvoiceListService.getLocationlist(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as Designendtable[];
+    this._InvoiceListService.getDesignlist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as DesignMain[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
@@ -119,27 +136,6 @@ export class DesignMasterComponent implements OnInit {
   }
 
 
-  getLocationDatewiseList(eve) {
-    // //  debugger;
-    // this.sIsLoading = 'loading-data';
-    // var D_data = {
-    //   "From_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("start").value, "MM-dd-yyyy") || "01/01/1900",
-    //   "To_Dt": this.datePipe.transform(this._InvoiceListService.mySearchform.get("end").value, "MM-dd-yyyy") || "01/01/1900",
-
-    // }
-
-    // this._InvoiceListService.getLocationlistDatewise(D_data).subscribe(Visit => {
-    //   this.dataSource.data = Visit as Designendtable[];
-    //   this.dataSource.sort = this.sort;
-    //   this.dataSource.paginator = this.paginator;
-
-    //   this.sIsLoading = '';
-    // },
-    //   error => {
-    //     this.sIsLoading = '';
-    //   });
-
-  }
 
   onSearch() {
     this.getDesignendtableList();
@@ -153,7 +149,7 @@ export class DesignMasterComponent implements OnInit {
     const dialogRef = this._matDialog.open(NewDesignmasterComponent,
       {
         maxWidth: "95vw",
-        height: '99%',
+        height: '100%',
         width: '100%',
 
       });
@@ -186,37 +182,71 @@ export class DesignMasterComponent implements OnInit {
 
 
     var m_data = {
-      // "LocationId": row.LocationId,
-      // "LocationCode": row.LocationCode,
-      // "LocationName": row.LocationName,
-    
+      "DesignID":row.DesignID,
+  "DesignName":row.DesignName,
+  "ChallanNo":row.ChallanNo,
+  "Rspace":row.RSpace,
+  "Reed":row.Reed,
+  "Quality":row.QualityId,
+  "Pick":row.Pick,
+  "Waste":row.Waste,
+  "HSNNo":row.HsnNo,
+  "Width":row.Width,
+  "Stdgmmt":row.Stdgmmt,
+  "TotalDesignPick":row.TotalDesignPick,
+"TotalEnds":row.TotalEnds,
+"TotalExpGms":row.TotalExpGms,
+"TotalExpWt":row.TotalExpWt,
+"TotalRepeatPick":row.TotalRepeatPick,
+"TotalStandardGms":row.TotalStandardGms
     }
 
-    // console.log(m_data);
-    // this._InvoiceListService.populateForm5(m_data);
+    console.log(m_data);
+    this._InvoiceListService.populateFormDesign(m_data);
 
-    // const dialogRef = this._matDialog.open(EditDesignendtableComponent,
-    //   {
-    //     maxWidth: "45vw",
-    //     height: '450px',
-    //     width: '100%',
-    //     data: {
-    //       registerObj: m_data,
-    //     }
-    //   });
+    const dialogRef = this._matDialog.open(EditDesignMasterComponent,
+      {
+        maxWidth: "95vw",
+        height: '99%',
+        width: '100%',
+        data: {
+          registerObj: m_data,
+        }
+      });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed - Insert Action', result);
-    //   this.getDesignendtableList();
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed - Insert Action', result);
+      this.getDesignendtableList();
+    });
   }
 
 
   onClear() {
 
 
-    this._InvoiceListService.mySearchform.get('LocationName').reset();
-   
+    this._InvoiceListService.mySearchform.get('Keyword').reset();
+    this._InvoiceListService.mySearchform.get('DesignType').reset();
+ 
+    var D_data = {
+      "Keyword": '',// this._OtherinfoMasterService.Searchform.get("Keyword").value + '%' || '%',
+      "DesignType":'',
+      "From_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : '',//this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
+    
+    }
+    console.log(D_data);
+    this.D_data1 = D_data;
+    this._InvoiceListService.getDesignlist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as DesignMain[];
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      console.log(this.dataSource.data);
+      this.sIsLoading = '';
+    },
+      error => {
+        this.sIsLoading = '';
+      });
+
 
   }
   // Delete row in datatable level
@@ -332,6 +362,7 @@ export class Designendtable {
   WarapRepeat:any
   WarapWastage:any
   WarapExpWt:any
+  shadeID:any;
   isLocallyAdded:boolean
   /**
    * Constructor
@@ -349,6 +380,7 @@ export class Designendtable {
       this.WarapRepeat = Designendtable.WarapRepeat || '';
       this.WarapWastage = Designendtable.WarapWastage || '';
       this.WarapExpWt = Designendtable.WarapExpWt || '';
+      this.shadeID = Designendtable.shadeID || '';
       this.isLocallyAdded = Designendtable.isLocallyAdded || '';
      
     }
@@ -396,4 +428,62 @@ export class DesignPick {
     }
   }
 }
+
+
+
+
+
+export class DesignMain {
+  DesignID:any;
+  DesignName:any;
+  ChallanNo:any;
+  Rspace:any;
+  Reed:any;
+  Quality:any;
+  Pick:any;
+  Waste:any;
+  HSNNo:any;
+  Width:any;
+  Stdgmmt:any;
+  TotalEnds:any;
+  TotalExpWt:any;
+  TotalRepeatPick:any;
+  TotalDesignPick:any;
+  TotalExpGms:any;
+  TotalStandardGms:any;
+  UpdatedBy:any;
+  UpdatedOn:any;
+  /**
+   * Constructor
+   *
+   * @param contact
+   */
+  constructor(DesignMain) {
+    {
+      this.DesignID = DesignMain.DesignID || '';
+      this.DesignName = DesignMain.DesignName || '';
+      this.ChallanNo = DesignMain.ChallanNo || '';
+      this.Rspace = DesignMain.Rspace || '';
+      this.Reed = DesignMain.Reed || '';
+      this.Quality = DesignMain.Quality || '';
+      this.Pick=DesignMain.Pick || '';
+      this.Waste = DesignMain.Waste || '';
+      this.HSNNo = DesignMain.HSNNo || '';
+      this.Width = DesignMain.Width || '';
+      this.Stdgmmt = DesignMain.Stdgmmt || '';
+      this.TotalEnds=DesignMain.TotalEnds || '';
+      this.TotalExpWt = DesignMain.TotalExpWt || '';
+      this.TotalRepeatPick = DesignMain.TotalRepeatPick || '';
+      this.TotalDesignPick = DesignMain.TotalDesignPick || '';
+      this.TotalExpGms = DesignMain.TotalExpGms || '';
+      this.TotalStandardGms = DesignMain.TotalStandardGms || '';
+      this.UpdatedBy = DesignMain.UpdatedBy || '';
+      this.UpdatedOn = DesignMain.UpdatedOn || '';
+    
+    }
+  }
+}
+
+
+
 

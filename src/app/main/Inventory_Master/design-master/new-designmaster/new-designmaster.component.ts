@@ -7,10 +7,33 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthenticationService } from 'app/core/services/authentication.service';
+import { Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { debounceTime, exhaustMap, filter, scan, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { InventoryMasterService } from '../../inventory-master.service';
 import { Designendtable, DesignPick } from '../design-master.component';
+// import { takeWhileInclusive } from 'rxjs-take-while-inclusive';
 
+
+export interface warptable {
+ 
+  WarapCount:any;
+  shadeID: any;
+  WarapDnrCount:any
+  WarapEnds:any
+  WarapEndsPer:any
+  WarapRepeat:any
+  WarapWastage:any
+  WarapExpWt:any
+  isLocallyAdded:boolean
+}
+export class ILookup {
+
+  shadeID:number;
+  shadeCode: String;
+  shadeColour: String;
+ 
+}
 
 @Component({
   selector: 'app-new-designmaster',
@@ -80,14 +103,26 @@ export class NewDesignmasterComponent implements OnInit {
 
   date1 = new FormControl(new Date())
   Today=[new Date().toISOString()];
-  DesignendData: Designendtable[] = [];
+  DesignendData: warptable[] = [];
   DesignPicData: DesignPick[] = [];
-  // lookupsObj: ILookup = new ILookup();
+
+  private nextPage$ = new Subject();
+  ShadeList: any = [];
+  
+  // Shade filter
+  public ShadeFilterCtrl: FormControl = new FormControl();
+  public filteredshade: ReplaySubject<any> = new ReplaySubject<any>(1);
+
+  
+  private _onDestroy = new Subject<void>();
+
+  // filteredShades$: Observable<ILookup[]>;
+
 
   displayColumns1 = [
 
     'WarapCount',
-    'WarapShade',
+    'shadeID',
     'Count',
     'WarapDnrCount',
     'WarapEnds',
@@ -98,7 +133,7 @@ export class NewDesignmasterComponent implements OnInit {
     'action'
     
   ];
-  dataSource= new MatTableDataSource<Designendtable>();
+  dataSource= new MatTableDataSource<warptable>();
 
   displayColumns2 = [
 
@@ -144,6 +179,10 @@ isRowAdded1: boolean = false;
 
     this.addEmptyRow();
     this.addEmptyRow2();
+
+    this.getShadeList();
+
+
   console.log(this.data)
 //  this.GetCreditList();
 //     this.getPartyList();
@@ -155,10 +194,110 @@ isRowAdded1: boolean = false;
     //     this.filterParty();
     //   });
 
-   
+    // this.shadeFilterCtrl.valueChanges
+    // .pipe(takeUntil(this._onDestroy))
+    // .subscribe(() => {
+    //   this.filterShadecolor();
+    // });
+
     
       
   }
+
+
+  // // Fake backend api
+  // private getDrugs(startsWith: string, page: number): Observable<ILookup[]> {
+  //   const take = 10;
+  //   const skip = page > 0 ? (page - 1) * take : 0;
+  //   const filtered = this.lookups
+  //     .filter(option => option.shadeColour.toLowerCase().startsWith(startsWith.toLowerCase()));
+  //   return of(filtered.slice(skip, skip + take));
+  // }
+
+  
+  // drugChange(event, index) {
+  //   console.log(event, index);
+  //   // this.dataSource.data.forEach((element, index1) => {
+  //   //   if(element.drugName && index == index1) {
+  //   //     element.drugName = event ? event : {};
+  //   //   }
+  //   // });
+  //   const filter$ = this._InventoryMasterService.designForm.get(`drugController${index}`).valueChanges.pipe(
+  //     startWith(''),
+  //     debounceTime(200),
+  //     filter(q => typeof q === "string"));
+
+  //   this.filteredShades$ = filter$.pipe(
+  //     switchMap(filter => {
+  //       //Note: Reset the page with every new seach text
+  //       let currentPage = 1;
+  //       return this.nextPage$.pipe(
+  //         startWith(currentPage),
+  //         //Note: Until the backend responds, ignore NextPage requests.
+  //         exhaustMap(_ => this.getDrugs(filter, currentPage)),
+  //         tap(() => currentPage++),
+
+  //         //Note: This is a custom operator because we also need the last emitted value.
+  //         //Note: Stop if there are no more pages, or no results at all for the current search text.
+  //         takeWhileInclusive(p => p.length > 0),
+  //         scan((allProducts, newProducts) => allProducts.concat(newProducts), []),
+  //       );
+  //     }));
+  // }
+  
+  // getSelectedDrug(value, i) {
+  //   // console.log('historyContoller==', this.caseFormGroup.get('historyContoller').value);
+  //   console.log('controll===', value);
+  //   this._InventoryMasterService.designForm.get(`drugController${i}`).setValue(value);
+  //   console.log(this._InventoryMasterService.designForm.get(`drugController${i}`).value);
+
+  // }
+
+  // getShadeList() {
+  //   this._InventoryMasterService.getShadeColorList().subscribe((data: ILookup[]) => {
+  //     this.lookups = data;
+  //     this.ShadeList = data;
+  //     // console.log( this.lookups);
+  //     // console.log( this.ShadeList);
+  //     this.filteredShade.next(this.ShadeList.slice());
+  //   });
+  // }
+
+   
+  getShadeList() {
+    this._InventoryMasterService.getShadeColorList().subscribe(data => {
+      this.ShadeList = data;
+      this.filteredshade.next(this.ShadeList.slice());
+      this._InventoryMasterService.designForm.get('shadeID').setValue(this.ShadeList[0]);
+    });
+  }
+
+  
+  // private filterShadecolor() {
+
+  //   if (!this.ShadeList) {
+  //     return;
+  //   }
+  //   // get the search keyword
+  //   let search = this.shadeFilterCtrl.value;
+  //   if (!search) {
+  //     this.filteredShade.next(this.ShadeList.slice());
+  //     return;
+  //   } else {
+  //     search = search.toLowerCase();
+  //   }
+  //   // filter the history
+  //   this.filteredShade.next(
+  //     this.ShadeList.filter(doseEl => doseEl.shadeColour.toLowerCase().indexOf(search) > -1)
+  //   );
+  // }
+
+  onScroll() {
+    //Note: This is called multiple times after the scroll has reached the 80% threshold position.
+    this.nextPage$.next();
+  }
+
+
 
   closeDialog() {
     console.log("closed")
@@ -176,7 +315,7 @@ isRowAdded1: boolean = false;
   }
 
  
-  addEmptyRow(element?: Designendtable) {
+  addEmptyRow(element?: warptable) {
     // debugger;
     if(this._InventoryMasterService.designForm.invalid) {
       this._InventoryMasterService.designForm.markAllAsTouched();
@@ -193,9 +332,8 @@ isRowAdded1: boolean = false;
       console.log( this.DesignendData);
     }
     let addingRow1 = {
-      WarapCount: element && element.WarapCount ? element.WarapCount : '',
-      WarapShade: element && element.WarapShade ? element.WarapShade : '',
-      Count: element && element.Count ? element.Count : '',
+      WarapCount: element && element.WarapCount ? element.WarapCount :'',
+      shadeID: element && element.shadeID ? element.shadeID :'',
       WarapDnrCount: element && element.WarapDnrCount ? element.WarapDnrCount : '',
       WarapEnds: element && element.WarapEnds ? element.WarapEnds : '',
       WarapEndsPer: element && element. WarapEndsPer ? element. WarapEndsPer : '',
@@ -210,15 +348,15 @@ isRowAdded1: boolean = false;
     // console.log(this.dataSource.data );
     // console.log(this.DesignendData);
     element ? this.addRow() : '';
-    // this._InventoryMasterService.designForm.addControl(`drugController${this.DesignendData.length - 1}`, new FormControl());
-    // this._InventoryMasterService.designForm.get(`drugController${this.DesignendData.length - 1}`).setValidators(Validators.required);
+    this._InventoryMasterService.designForm.addControl(`drugController${this.DesignendData.length - 1}`, new FormControl());
+    this._InventoryMasterService.designForm.get(`drugController${this.DesignendData.length - 1}`).setValidators(Validators.required);
   }
 
   addRow() {
     // debugger;
     let addingRow1 = {
       WarapCount:'',
-      WarapShade: '',
+      shadeID:'',
       Count:'',
       WarapDnrCount: '',
       WarapEnds: '',
@@ -319,7 +457,7 @@ debugger;
     let netAmt;
     netAmt = element.reduce((sum, { WarapExpWt }) => sum += +(WarapExpWt || 0), 0);
     this.ExpwtTotal = netAmt;
-  
+    // this.Stdgmmt =  netAmt;
     console.log(this.ExpwtTotal);
     return netAmt
   }
@@ -343,14 +481,13 @@ debugger;
         return netAmt
       }
 
+      // Std Calculation
       getWtSum(){
         debugger;
-
-        console.log(this.ExpwtTotal);
-        console.log(this.ExpGmsTotal);
+        // this.Stdgmmt =0;
         let tot= parseInt(this.ExpwtTotal) + parseInt(this.ExpGmsTotal)
         console.log(tot);
-        this.Stdgmmt=tot;
+        this.Stdgmmt = tot;
       }
 
       getExpGmsSum(element){
@@ -367,170 +504,174 @@ debugger;
   }
 
 
-  onSave() {
-    // debugger;
+//   onSubmit() {
+//     // debugger;
    
     
-    let Designendftabletemp = [];
-    let Designpicftabletemp = [];
+//     let Designendftabletemp = [];
+//     let Designpicftabletemp = [];
  
      
   
-    debugger;
-    this.DesignendData.splice(this.DesignendData.length - 1, 0);
+//     debugger;
+//     this.DesignendData.splice(this.DesignendData.length - 1, 0);
 
-    this.DesignendData.forEach((element: any, index) => {
-      let obj = {};
-      obj['WarapCount'] = element.WarapCount;
-      obj['WarapShade'] = element.WarapShade;
-      obj['Count'] = element.Count;
-      obj['WarapDnrCount'] = element.WarapDnrCount;
-      obj['WarapEnds'] = element.WarapEnds;
-      obj['WarapEndsPer'] = element.WarapEndsPer;
-      obj['WarapRepeat'] = element.WarapRepeat;
-      obj['WarapWastage'] = element.WarapWastage;
-      obj['WarapExpWt'] = element.WarapExpWt;
+//     this.DesignendData.forEach((element: any, index) => {
+//       let obj = {};
+//       obj['WarapCount'] = element.WarapCount;
+//       obj['WarapShade'] = element.WarapShade;
+//       obj['Count'] = element.Count;
+//       obj['WarapDnrCount'] = element.WarapDnrCount;
+//       obj['WarapEnds'] = element.WarapEnds;
+//       obj['WarapEndsPer'] = element.WarapEndsPer;
+//       obj['WarapRepeat'] = element.WarapRepeat;
+//       obj['WarapWastage'] = element.WarapWastage;
+//       obj['WarapExpWt'] = element.WarapExpWt;
   
-      Designendftabletemp.push(obj);
+//       Designendftabletemp.push(obj);
 
-      console.log(Designendftabletemp);
-    });
+//       console.log(Designendftabletemp);
+//     });
 
-    this.DesignPicData.splice(this.DesignPicData.length - 1, 0);
+//     this.DesignPicData.splice(this.DesignPicData.length - 1, 0);
 
   
-    this.DesignPicData.forEach((element: any, index) => {
-      let obj = {};
-      obj['WeftCount'] = element.WeftCount;
-      obj['WeftShade'] = element.WeftShade;
-      obj['ActCount'] = element.ActCount;
-      obj['WeftDnrCount'] = element.WeftDnrCount;
-      obj['Percentage'] = element.Percentage;
-      obj['RepeatPic'] = element.RepeatPic;
-      obj['DesignPic'] = element.DesignPic;
-      obj['DesignPer'] = element.DesignPer;
-      obj['DesignPer'] = element.DesignPer;
-      obj['WeftWastagePer'] = element.WeftWastagePer;
-      obj['ExpWt'] = element.ExpWt;
-      obj['Rate'] = element.Rate;
-      obj['Costing'] = element.Costing;
-      Designpicftabletemp.push(obj);
+//     this.DesignPicData.forEach((element: any, index) => {
+//       let obj = {};
+//       obj['WeftCount'] = element.WeftCount;
+//       obj['WeftShade'] = element.WeftShade;
+//       obj['ActCount'] = element.ActCount;
+//       obj['WeftDnrCount'] = element.WeftDnrCount;
+//       obj['Percentage'] = element.Percentage;
+//       obj['RepeatPic'] = element.RepeatPic;
+//       obj['DesignPic'] = element.DesignPic;
+//       obj['DesignPer'] = element.DesignPer;
+//       obj['DesignPer'] = element.DesignPer;
+//       obj['WeftWastagePer'] = element.WeftWastagePer;
+//       obj['ExpWt'] = element.ExpWt;
+//       obj['Rate'] = element.Rate;
+//       obj['Costing'] = element.Costing;
+//       Designpicftabletemp.push(obj);
 
-      console.log(Designpicftabletemp);
-    });
+//       console.log(Designpicftabletemp);
+//     });
 
-    var m_data = {
-      "insertContractBooking": {
-         "Id": 0,
-         "DesignName": this._InventoryMasterService.designForm.get('DesignName').value || 0,
-         "ChallanNo": this._InventoryMasterService.designForm.get('ChallanNo').value || 0,
-         "Rspace": this._InventoryMasterService.designForm.get('Rspace').value || 0,
-         "Reed": this._InventoryMasterService.designForm.get('Reed').value || 0,
-         "Quality": this._InventoryMasterService.designForm.get('Quality').value || 0,
+//     var m_data = {
+//       "insertContractBooking": {
+//          "Id": 0,
+//          "DesignName": this._InventoryMasterService.designForm.get('DesignName').value || 0,
+//          "ChallanNo": this._InventoryMasterService.designForm.get('ChallanNo').value || 0,
+//          "Rspace": this._InventoryMasterService.designForm.get('Rspace').value || 0,
+//          "Reed": this._InventoryMasterService.designForm.get('Reed').value || 0,
+//          "Quality": this._InventoryMasterService.designForm.get('Quality').value || 0,
        
-         "Pick": this._InventoryMasterService.designForm.get('Pick').value || 0,
-         "Waste": this._InventoryMasterService.designForm.get('Waste').value || 0,
+//          "Pick": this._InventoryMasterService.designForm.get('Pick').value || 0,
+//          "Waste": this._InventoryMasterService.designForm.get('Waste').value || 0,
          
-         "HSNNo": this._InventoryMasterService.designForm.get('HSNNo').value || 0,
-         "Width": this._InventoryMasterService.designForm.get('Width').value || 0,
-         "Stdgmmt": this._InventoryMasterService.designForm.get('Stdgmmt').value || 0,
-          "TotalEnds":this._InventoryMasterService.designForm.get('TotalEnds').value || 0,
-          "TotalExpWt":this._InventoryMasterService.designForm.get('TotalExpWt').value || 0,
-          "TotalRepeatPick":this._InventoryMasterService.designForm.get('TotalRepeatPick').value || 0,
-          "TotalDEsignPic":this._InventoryMasterService.designForm.get('TotalDEsignPic').value || 0,
-          "ExpGms":this._InventoryMasterService.designForm.get('ExpGms').value || 0,
+//          "HSNNo": this._InventoryMasterService.designForm.get('HSNNo').value || 0,
+//          "Width": this._InventoryMasterService.designForm.get('Width').value || 0,
+//          "Stdgmmt": this._InventoryMasterService.designForm.get('Stdgmmt').value || 0,
+//           "TotalEnds":this._InventoryMasterService.designForm.get('TotalEnds').value || 0,
+//           "TotalExpWt":this._InventoryMasterService.designForm.get('TotalExpWt').value || 0,
+//           "TotalRepeatPick":this._InventoryMasterService.designForm.get('TotalRepeatPick').value || 0,
+//           "TotalDEsignPic":this._InventoryMasterService.designForm.get('TotalDEsignPic').value || 0,
+//           "ExpGms":this._InventoryMasterService.designForm.get('ExpGms').value || 0,
     
-       }
-     }
-console.log(m_data)
-    //  let insertDesignPaper = {};
-    // insertDesignPaper['DesignName'] = this._InventoryMasterService.designForm.get('DesignName').value || '',
-    // insertDesignPaper['Rspace'] = this._InventoryMasterService.designForm.get('Rspace').value || 0,
-    // insertDesignPaper['Reed'] =this._InventoryMasterService.designForm.get('Reed').value || 0,
-    // insertDesignPaper['Quality'] = this._InventoryMasterService.designForm.get('Quality').value || 0,
-    // insertDesignPaper['Pick'] = this._InventoryMasterService.designForm.get('Pick').value || 0,
+//        }
+//      }
+// console.log(m_data)
+//     //  let insertDesignPaper = {};
+//     // insertDesignPaper['DesignName'] = this._InventoryMasterService.designForm.get('DesignName').value || '',
+//     // insertDesignPaper['Rspace'] = this._InventoryMasterService.designForm.get('Rspace').value || 0,
+//     // insertDesignPaper['Reed'] =this._InventoryMasterService.designForm.get('Reed').value || 0,
+//     // insertDesignPaper['Quality'] = this._InventoryMasterService.designForm.get('Quality').value || 0,
+//     // insertDesignPaper['Pick'] = this._InventoryMasterService.designForm.get('Pick').value || 0,
     
-    // insertDesignPaper['Waste'] = this._InventoryMasterService.designForm.get('Waste').value || 0,
-    // insertDesignPaper['HSNNo'] =  this._InventoryMasterService.designForm.get('HSNNo').value || 0,
-    // insertDesignPaper['Width'] = this._InventoryMasterService.designForm.get('Width').value || 0,
-    // insertDesignPaper['Stdgmmt'] = this._InventoryMasterService.designForm.get('Stdgmmt').value || 0,
+//     // insertDesignPaper['Waste'] = this._InventoryMasterService.designForm.get('Waste').value || 0,
+//     // insertDesignPaper['HSNNo'] =  this._InventoryMasterService.designForm.get('HSNNo').value || 0,
+//     // insertDesignPaper['Width'] = this._InventoryMasterService.designForm.get('Width').value || 0,
+//     // insertDesignPaper['Stdgmmt'] = this._InventoryMasterService.designForm.get('Stdgmmt').value || 0,
     
-    let DesignSaveObj = {};
+//     let DesignSaveObj = {};
 
-    DesignSaveObj['insertDesignPaper'] = Designendftabletemp;
-    DesignSaveObj['iDesignenftabletemp'] = Designpicftabletemp;
+//     DesignSaveObj['insertDesignPaper'] = Designendftabletemp;
+//     DesignSaveObj['iDesignenftabletemp'] = Designpicftabletemp;
 
-    console.log(DesignSaveObj);
+//     console.log(DesignSaveObj);
 
-    this._InventoryMasterService.DesignInsert(DesignSaveObj).subscribe(response => {
+//     this._InventoryMasterService.DesignInsert(DesignSaveObj).subscribe(response => {
    
-    if (response) {
-      Swal.fire('Congratulations !', 'Design Master save Successfully !', 'success').then((result) => {
-        if (result.isConfirmed) {
+//     if (response) {
+//       Swal.fire('Congratulations !', 'Design Master save Successfully !', 'success').then((result) => {
+//         if (result.isConfirmed) {
        
-            this._matDialog.closeAll();
-        }
-      });
-    } else {
-      Swal.fire('Error !', 'Design Master not saved', 'error');
-    }
+//             this._matDialog.closeAll();
+//         }
+//       });
+//     } else {
+//       Swal.fire('Error !', 'Design Master not saved', 'error');
+//     }
    
-    //this.isLoading = '';
-  });
+//     //this.isLoading = '';
+//   });
 
 
 
+//   }
+
+  onSave(){
+
+    this.isLoading = 'submit';
+
+    console.log()
+ 
+      
+        var m_data = {
+
+         "insertDesign":{
+            "DesignID": 0,
+            "DesignCode":'DS103',// this._InventoryMasterService.designForm.get('DesignCode').value || '',
+            "DesignName": this._InventoryMasterService.designForm.get('DesignName').value || '',
+            "RSpace": this._InventoryMasterService.designForm.get('Rspace').value || '',
+            "Reed": this._InventoryMasterService.designForm.get('Reed').value || 0,
+            "QualityId":1,// this._InventoryMasterService.designForm.get('Quality').value || '',
+            "Pick": this._InventoryMasterService.designForm.get('Pick').value || 0,
+            "Waste": this._InventoryMasterService.designForm.get('Waste').value || 0,
+            "HsnNo":  this._InventoryMasterService.designForm.get('HSNNo').value || '',
+            "Width":  parseInt(this._InventoryMasterService.designForm.get('Width').value) || 0,
+            "TotalEnds": this.totalAmtOfNetAmt,// this._InventoryMasterService.designForm.get('TotalEnds').value || '',
+            "TotalExpWt":this.ExpwtTotal,// this._InventoryMasterService.designForm.get('TotalExpWt').value || '',
+            "TotalRepeatPick":  this.totalAmtOfNetAmt,//this._InventoryMasterService.designForm.get('TotalRepeatPick').value || '',
+            "TotalDesignPick": this.TotalDesignpic,//this._InventoryMasterService.designForm.get('TotalDesignPick').value || 0,
+            "TotalExpGms": this.ExpGmsTotal,// this._InventoryMasterService.designForm.get('TotalExpGms').value || '',
+            "TotalStandardGms":this.Stdgmmt,// this._InventoryMasterService.designForm.get('TotalStandardGms').value || '',
+                      
+            "CreatedBy": this.accountService.currentUserValue.user.id,
+            "UpdatedBy":this.accountService.currentUserValue.user.id,
+                  }
+        }
+        console.log(m_data);
+        this._InventoryMasterService.DesignInsert(m_data).subscribe(response => {
+          if (response) {
+            Swal.fire('Congratulations !', 'Design Master  Data  save Successfully !', 'success').then((result) => {
+              if (result.isConfirmed) {
+                this._matDialog.closeAll();
+
+              }
+            });
+          } else {
+            Swal.fire('Error !', 'Design Master Data  not saved', 'error');
+          }
+
+        });
+            
   }
 
-  // onSubmit(){
 
-  //   this.isLoading = 'submit';
-
-  //   console.log()
-  
-      
-  //       var m_data = {
-
-  //        "insertPartyAccount":{
-  //           "AccountId": 0,
-  //           "AccountType": this._InventoryMasterService.designForm.get('AccountType').value || '',
-  //           "Name": this._InventoryMasterService.designForm.get('PartyName').value || '',
-  //           "ContactPerson": this._InventoryMasterService.designForm.get('ContactPerson').value || '',
-  //           "ContactNo": this._InventoryMasterService.designForm.get('Mobile').value || 0,
-  //           "EmailAddress": this._InventoryMasterService.designForm.get('EMail').value || '',
-  //           "Website": this._InventoryMasterService.designForm.get('Website').value || 0,
-  //           "BussAddress": this._InventoryMasterService.designForm.get('BAddress').value || 0,
-  //           "City":  this._InventoryMasterService.designForm.get('City').value || '',
-  //           "District": this._InventoryMasterService.designForm.get('District').value || '',
-  //           "State": this._InventoryMasterService.designForm.get('State').value || '',
-  //           "Country": this._InventoryMasterService.designForm.get('Country').value || '',
-  //           "PinCode": this._InventoryMasterService.designForm.get('pin').value || 0,
-  //           "gstn": this._InventoryMasterService.designForm.get('GSTno').value || '',
-  //           "pan": this._InventoryMasterService.designForm.get('PanNo').value || '',
-  //           "cin": this._InventoryMasterService.designForm.get('CINNo').value || '',
-  //           "CreditDebit": this._InventoryMasterService.designForm.get('CreditDebit').value || '',
-  //           "OpeningBalance": parseInt(this._InventoryMasterService.designForm.get('OpeningBalance').value) || 0,
-  //           "CreatedBy": this.accountService.currentUserValue.user.id,
-  //           "UpdatedBy":this.accountService.currentUserValue.user.id,
-  //                 }
-  //       }
-  //       console.log(m_data);
-  //       this._InventoryMasterService.DesignInsert(m_data).subscribe(response => {
-  //         if (response) {
-  //           Swal.fire('Congratulations !', 'Design Master  Data  save Successfully !', 'success').then((result) => {
-  //             if (result.isConfirmed) {
-  //               this._matDialog.closeAll();
-
-  //             }
-  //           });
-  //         } else {
-  //           Swal.fire('Error !', 'Design Master Data  not saved', 'error');
-  //         }
-
-  //       });
-            
-  // }
+}
 
 
+function takeWhileInclusive(arg0: (p: any) => boolean): import("rxjs").OperatorFunction<ILookup[], unknown> {
+  throw new Error('Function not implemented.');
 }
 
