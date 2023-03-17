@@ -132,7 +132,7 @@ export class DesignMasterComponent implements OnInit {
       error => {
         this.sIsLoading = '';
       });
-    this._InvoiceListService.mySearchform.get('itemCode').reset();
+    this._InvoiceListService.mySearchform.get('Keyword').reset();
   }
 
 

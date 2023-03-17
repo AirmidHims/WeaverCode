@@ -150,7 +150,7 @@ export class PartyAccountComponent implements OnInit {
     var D_data = {
       "Keyword": this._MasterService.myFilterform.get("Keyword").value + '%' || '%',
       "AccountType": this._MasterService.myFilterform.get("AccountId").value.AccountType  || '%',
-      "From_Dt" :this.datePipe.transform(this._MasterService.myFilterform.get("start").value,"MM-dd-yyyy") || "",
+      "From_Dt" : this.datePipe.transform(this._MasterService.myFilterform.get("start").value,"MM-dd-yyyy") || "",
       "To_Dt" : this.datePipe.transform(this._MasterService.myFilterform.get("end").value,"MM-dd-yyyy") || "", 
     }
     console.log(D_data);

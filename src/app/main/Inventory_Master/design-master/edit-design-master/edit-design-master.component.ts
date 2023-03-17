@@ -16,7 +16,7 @@ import { DesignPick } from '../design-master.component';
 export interface warptable {
  
   WarapCount:any;
-  WarapShade: ILookup;
+  shadeID: any;
   WarapDnrCount:any
   WarapEnds:any
   WarapEndsPer:any
@@ -96,11 +96,11 @@ export class EditDesignMasterComponent implements OnInit {
   TotalnetPaybleAmt:any;
   ExpwtTotal:any;
   TotalDesignPick:any;
-
+  totalwrapEnds:any;
 
   TotalDesignpic:any;
   ExpGmsTotal:any;
-
+  totalrepeatpic:any;
   date1 = new FormControl(new Date())
   Today=[new Date().toISOString()];
   DesignendData: warptable[] = [];
@@ -122,7 +122,7 @@ export class EditDesignMasterComponent implements OnInit {
   displayColumns1 = [
 
     'WarapCount',
-    'WarapShade',
+    'shadeID',
     'Count',
     'WarapDnrCount',
     'WarapEnds',
@@ -290,7 +290,7 @@ isRowAdded1: boolean = false;
   // }
 
   getShadeList() {
-    this._InventoryMasterService.getShadeColorList().subscribe((data: ILookup[]) => {
+    this._InventoryMasterService.getShadeColorList('%').subscribe((data: ILookup[]) => {
       this.lookups = data;
       this.ShadeList = data;
       console.log( this.lookups);
@@ -360,7 +360,7 @@ isRowAdded1: boolean = false;
     }
     let addingRow1 = {
       WarapCount: element && element.WarapCount ? element.WarapCount :'',
-      WarapShade: element && element.WarapShade ? element.WarapShade : this.lookupsObj,
+      shadeID: element && element.shadeID ? element.shadeID : '',
       WarapDnrCount: element && element.WarapDnrCount ? element.WarapDnrCount : '',
       WarapEnds: element && element.WarapEnds ? element.WarapEnds : '',
       WarapEndsPer: element && element. WarapEndsPer ? element. WarapEndsPer : '',
@@ -383,7 +383,7 @@ isRowAdded1: boolean = false;
     // debugger;
     let addingRow1 = {
       WarapCount:'',
-      WarapShade: this.lookupsObj,
+      shadeID: '',
       Count:'',
       WarapDnrCount: '',
       WarapEnds: '',
@@ -468,64 +468,85 @@ isRowAdded1: boolean = false;
   }
 
 
-  
+
   getNetAmtSum(element) {
-debugger;
+    debugger;
     let netAmt;
     netAmt = element.reduce((sum, { WarapEnds }) => sum += +(WarapEnds || 0), 0);
-    this.totalAmtOfNetAmt = netAmt;
-    this.netPaybleAmt = netAmt;
+    this.totalwrapEnds = netAmt;
+    // this.netPaybleAmt = netAmt;
     // this.TotalEnds= this.netPaybleAmt.toString();
-    // console.log(this.TotalEnds);
+    console.log(this.totalwrapEnds);
     return netAmt
   }
 
-  getExpwtSum(element){
+  getExpwtSum(element) {
     let netAmt;
     netAmt = element.reduce((sum, { WarapExpWt }) => sum += +(WarapExpWt || 0), 0);
     this.ExpwtTotal = netAmt;
-  
+    // this.Stdgmmt =  netAmt;
     console.log(this.ExpwtTotal);
     return netAmt
   }
 
-   
+
   getTotalrepeatpicSum(element) {
     debugger;
-        let netAmt;
-        netAmt = element.reduce((sum, { RepeatPic }) => sum += +(RepeatPic || 0), 0);
-        this.totalAmtOfNetAmt = netAmt;
-        // this.netPaybleAmt = netAmt;
-      
-        return netAmt
-      }
-    
-      getDesignpicSum(element){
-        let netAmt;
-        netAmt = element.reduce((sum, { DesignPic }) => sum += +(DesignPic || 0), 0);
-        this.TotalDesignpic = netAmt;
-              
-        return netAmt
-      }
+    let netAmt;
+    netAmt = element.reduce((sum, { RepeatPic }) => sum += +(RepeatPic || 0), 0);
+    this.totalrepeatpic = netAmt;
+    // this.netPaybleAmt = netAmt;
 
-      getWtSum(){
-        debugger;
+    return netAmt
+  }
 
-        console.log(this.ExpwtTotal);
-        console.log(this.ExpGmsTotal);
-        let tot= parseInt(this.ExpwtTotal) + parseInt(this.ExpGmsTotal)
-        console.log(tot);
-        this.Stdgmmt=tot;
-      }
+  getDesignpicSum(element) {
+    let netAmt;
+    netAmt = element.reduce((sum, { DesignPic }) => sum += +(DesignPic || 0), 0);
+    this.TotalDesignpic = netAmt;
 
-      getExpGmsSum(element){
-        let netAmt;
-        netAmt = element.reduce((sum, { ExpWt }) => sum += +(ExpWt || 0), 0);
-        this.ExpGmsTotal = netAmt;
-              
-        return netAmt
-      }
+    return netAmt
+  }
 
+  // Std Calculation
+  getWtSum() {
+    debugger;
+    // this.Stdgmmt =0;
+    let tot = parseInt(this.ExpwtTotal) + parseInt(this.ExpGmsTotal)
+    console.log(tot);
+    this.Stdgmmt = tot;
+  }
+
+  getExpGmsSum(element) {
+    let netAmt;
+    netAmt = element.reduce((sum, { ExpWt }) => sum += +(ExpWt || 0), 0);
+    this.ExpGmsTotal = netAmt;
+
+    return netAmt
+  }
+
+
+  getEndper(element) {
+
+    let netAmt;
+
+    netAmt = ((parseInt(element.WarapEnds) / parseInt(this.totalwrapEnds)) * 100);
+
+    element.WarapEndsPer = Math.round(netAmt) + '%';
+    // console.log(this.TotalEndeper);
+  }
+
+
+  
+  getDesignPicper(element) {
+
+    let netAmt;
+
+    netAmt = ((parseInt(element.DesignPic) / parseInt(this.TotalDesignpic)) * 100);
+
+    element.DesignPer = Math.round(netAmt) + '%';
+    // console.log(this.TotalEndeper);
+  }
 
   onClose() {
     this.dialogRef.close();
@@ -669,9 +690,9 @@ console.log(m_data)
             "Waste": parseInt(this._InventoryMasterService.designForm.get('Waste').value) || 0,
             "HsnNo":  this._InventoryMasterService.designForm.get('HSNNo').value || '',
             "Width":  this._InventoryMasterService.designForm.get('Width').value || 0,
-            "TotalEnds": this.totalAmtOfNetAmt,// this._InventoryMasterService.designForm.get('TotalEnds').value || '',
+            "TotalEnds": this.totalwrapEnds,// this._InventoryMasterService.designForm.get('TotalEnds').value || '',
             "TotalExpWt":this.ExpwtTotal,// this._InventoryMasterService.designForm.get('TotalExpWt').value || '',
-            "TotalRepeatPick":  this.totalAmtOfNetAmt,//this._InventoryMasterService.designForm.get('TotalRepeatPick').value || '',
+            "TotalRepeatPick":  this.totalrepeatpic,//this._InventoryMasterService.designForm.get('TotalRepeatPick').value || '',
             "TotalDesignPick": this.TotalDesignpic,//this._InventoryMasterService.designForm.get('TotalDesignPick').value || 0,
             "TotalExpGms": this.ExpGmsTotal,// this._InventoryMasterService.designForm.get('TotalExpGms').value || '',
             "TotalStandardGms":this.Stdgmmt,// this._InventoryMasterService.designForm.get('TotalStandardGms').value || '',

@@ -23,19 +23,18 @@
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Design Name</mat-label>
-              <input name="DesignName" [(ngModel)]="DesignName" formControlName="DesignName"
-                placeholder="Design Name" matInput >
+              <input name="DesignName" [(ngModel)]="DesignName" formControlName="DesignName" placeholder="Design Name"
+                matInput>
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Rspace</mat-label>
-              <input name="Rspace" [(ngModel)]="Rspace" formControlName="Rspace" placeholder="Rspace" matInput
-                >
+              <input name="Rspace" [(ngModel)]="Rspace" formControlName="Rspace" placeholder="Rspace" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="outline" fxFlex>
               <mat-label>Reed</mat-label>
-              <input name="Reed" [(ngModel)]="Reed" formControlName="Reed" placeholder="Reed" matInput >
+              <input name="Reed" [(ngModel)]="Reed" formControlName="Reed" placeholder="Reed" matInput>
             </mat-form-field>
 
             <mat-form-field>
@@ -77,12 +76,12 @@
 
 
           </div>
-          <span style="color: blue;font-size:larger;">Warp  Design</span>
+          <span style="color: rgb(149, 149, 160);font-size:larger;">Warp Design</span>
           <div fxLayout="row" style="width:100%">
 
             <mat-table class="table1" matSort [dataSource]="dataSource" [@animateStagger]="{value:'50'}"
-              style="overflow:auto; width:100%;height:200px !important;border-color:rgb(177, 184, 184);border-style:outset; box-shadow: 5px 5px 5px rgb(62, 175, 241) !important;">
-              
+              style="overflow:auto; width:100%;height:200px !important;border-color:rgb(177, 184, 184);border-style:outset;">
+
               <ng-container matColumnDef="WarapCount">
                 <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Warp Count
                 </mat-header-cell>
@@ -95,7 +94,7 @@
               </ng-container>
 
 
-              <ng-container matColumnDef="shadeID">
+              <!-- <ng-container matColumnDef="shadeID">
                 <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Shade
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
@@ -104,29 +103,36 @@
                       name="shadeID">
                   </mat-form-field>
                 </mat-cell>
-              </ng-container>
+              </ng-container> -->
 
-              <!-- <ng-container matColumnDef="shadeID">
-                <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Shade
+              <ng-container matColumnDef="shadeID" sticky>
+                <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Shade
                 </mat-header-cell>
-              <mat-form-field appearance="outline" fxFlex>
-                <mat-label>Shade Color</mat-label>
-                <mat-select formControlName="shadeID" name="WarapShade">
-                  <!-- (selectionChange)="onChangeCountryList($event.value)"> -->
-                  <!-- <mat-option></mat-option>
-                  <mat-option *ngFor="let m of ShadeList" [value]="m">
-                    {{m.shadeColor}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> 
-            </ng-container> --> -->
+                <mat-cell *matCellDef="let element; let i = index;" fxHide fxShow.gt-sm>
+                  <mat-form-field appearance="outline" class="drug-field" style="width: 90%; margin-right: 5px;">
+                    <input id="drug-{{i}}" type="text" #text matInput formControlName="drugController{{i}}"
+                      (focus)="drugChange($event, i)" [matAutocomplete]="auto" [ngModelOptions]="{standalone: true}"
+                      matAutocompletePosition="below">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" showPanel="true"
+                      (optionsScroll)="onScroll()" (optionSelected)='getSelectedDrug($event.option.value, i)'
+                      panelWidth="50%">
+                      <mat-option *ngFor="let option of filteredShades$ | async" [value]="option">
+                        {{option.shadeColour}}
+                        <b>|</b>
+                        {{option.shadeCode}}
+                      
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </mat-cell>
+              </ng-container>
 
               <ng-container matColumnDef="Count">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Count
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
-                    <input matInput [(ngModel)]="element.Count" [ngModelOptions]="{standalone: true}" name="Count">
+                    <input matInput [(ngModel)]="element.Count" [ngModelOptions]="{standalone: true}" name="Count" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -137,7 +143,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.WarapDnrCount" [ngModelOptions]="{standalone: true}"
-                      name="WarapDnrCount">
+                      name="WarapDnrCount" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -151,7 +157,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.WarapEnds" [ngModelOptions]="{standalone: true}"
-                      name="WarapEnds">
+                      name="WarapEnds" (keyup)="getEndper(element)" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -174,7 +180,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.WarapRepeat" [ngModelOptions]="{standalone: true}"
-                      name="WarapRepeat">
+                      name="WarapRepeat" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -186,7 +192,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.WarapWastage" [ngModelOptions]="{standalone: true}"
-                      name="WarapWastage">
+                      name="WarapWastage" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -197,7 +203,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.WarapExpWt" [ngModelOptions]="{standalone: true}"
-                      name="WarapExpWt">
+                      name="WarapExpWt" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -270,23 +276,23 @@
                 matInput readonly>
             </mat-form-field> -->
 
-            <div class="net-amt" style="font-size:large;color: blue;">
+            <div class="net-amt" style="font-size:large;color: rgb(65, 65, 66);;">
               <span class="net-amt-label" style="margin-left:610px;">Total Ends :</span>&nbsp;<span
                 class="net-amt-value">{{getNetAmtSum(dataSource.data)}}</span>
             </div>
-            <div class="net-amt" style="font-size:large;color: blue;">
+            <div class="net-amt" style="font-size:large;color: rgb(65, 65, 66);">
               <span class="net-amt-label" style="margin-left:300px;">Total Exp Wt. :</span>&nbsp;<span
                 class="net-amt-value">{{getExpwtSum(dataSource.data)}}</span>
             </div>
 
           </div>
 
-          <span style="color: blue;font-size:larger;">Weft  Design</span>
-          
+          <span style="color: rgb(149, 149, 160);font-size:larger;">Weft Design</span>
+
           <div fxLayout="row" style="width:100%">
 
             <mat-table class="table2" matSort [dataSource]="dataSource1" [@animateStagger]="{value:'50'}"
-              style="overflow:auto; width:100%;height:200px !important;border-color: rgb(193, 191, 196);border-style: groove; box-shadow: 5px 5px 5px rgb(62, 175, 241) !important;">
+              style="overflow:auto; width:100%;height:200px !important;border-color: rgb(193, 191, 196);border-style: groove;">
 
               <ng-container matColumnDef="WeftCount">
                 <mat-header-cell *matHeaderCellDef mat-sort-header sticky>Count
@@ -294,7 +300,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.WeftCount" [ngModelOptions]="{standalone: true}"
-                      name="WeftCount">
+                      name="WeftCount" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -305,7 +311,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.WeftShade" [ngModelOptions]="{standalone: true}"
-                      name="WeftShade">
+                      name="WeftShade" >
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -316,7 +322,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.ActCount" [ngModelOptions]="{standalone: true}"
-                      name="ActCount">
+                      name="ActCount" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -330,7 +336,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.WeftDnrCount" [ngModelOptions]="{standalone: true}"
-                      name="WeftDnrCount">
+                      name="WeftDnrCount" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -341,7 +347,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.Percentage" [ngModelOptions]="{standalone: true}"
-                      name="Percentage">
+                      name="Percentage" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -353,7 +359,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.RepeatPic" [ngModelOptions]="{standalone: true}"
-                      name="RepeatPic">
+                      name="RepeatPic" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -365,8 +371,8 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.DesignPic" [ngModelOptions]="{standalone: true}"
-                      name="DesignPic">
-                  </mat-form-field>
+                      name="DesignPic" (keyup)="getDesignPicper(element)" type="number">
+                  </mat-form-field >
                 </mat-cell>
               </ng-container>
 
@@ -376,7 +382,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.DesignPer" [ngModelOptions]="{standalone: true}"
-                      name="DesignPer">
+                      name="DesignPer" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -390,7 +396,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.WeftWastagePer" [ngModelOptions]="{standalone: true}"
-                      name="WeftWastagePer">
+                      name="WeftWastagePer" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -401,7 +407,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.ExpWt" [ngModelOptions]="{standalone: true}" name="ExpWt"
-                      (keyup)="getWtSum()">
+                      (keyup)="getWtSum()" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -412,7 +418,7 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
-                    <input matInput [(ngModel)]="element.Rate" [ngModelOptions]="{standalone: true}" name="Rate">
+                    <input matInput [(ngModel)]="element.Rate" [ngModelOptions]="{standalone: true}" name="Rate" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -422,7 +428,7 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
-                    <input matInput [(ngModel)]="element.Costing" [ngModelOptions]="{standalone: true}" name="Costing">
+                    <input matInput [(ngModel)]="element.Costing" [ngModelOptions]="{standalone: true}" name="Costing" type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -498,19 +504,19 @@
                 placeholder="Total DEsignPic" matInput readonly>
             </mat-form-field> -->
 
-            <div class="net-amt" style="font-size:large;color: blue;">
-              <span class="net-amt-label" style="margin-left:440px;">Total RepeatPick :</span>&nbsp;<span
+            <div class="net-amt" style="font-size:large;color: rgb(65, 65, 66);">
+              <span class="net-amt-label" style="margin-left:20px;">Total RepeatPick :</span>&nbsp;<span
                 class="net-amt-value">{{getTotalrepeatpicSum(dataSource1.data)}}</span>
             </div>
-            <div class="net-amt" style="font-size:large;color: blue;">
-              <span class="net-amt-label" style="margin-left:10px;">DesignPic. :</span>&nbsp;<span
+            <div class="net-amt" style="font-size:large;color: rgb(65, 65, 66);">
+              <span class="net-amt-label" style="margin-left: 400px;">DesignPic. :</span>&nbsp;<span
                 class="net-amt-value">{{getDesignpicSum(dataSource1.data)}}</span>
             </div>
-            <div class="net-amt" style="font-size:large;color: blue;">
-              <span class="net-amt-label" style="margin-left:190px;"> Exp Gms :</span>&nbsp;<span
+            <div class="net-amt" style="font-size:large;color: rgb(65, 65, 66);width: 300px;">
+              <span class="net-amt-label" style="margin-left:180px;"> Exp Gms :</span>&nbsp;<span
                 class="net-amt-value">{{getExpGmsSum(dataSource1.data)}}</span>
             </div>
-            <!-- 
+            <!-- style="margin-left:190px;"
 
             <mat-form-field appearance="outline" style="width: 200px;margin-left: 200px;">
               <mat-label>ExpGms</mat-label>
@@ -518,12 +524,13 @@
                 readonly>
             </mat-form-field> -->
             <!-- <span style="color: blue;">ExpWt+ ExpGms = </span> -->
-            <mat-form-field appearance="outline"
-              style="width:150px;font-weight: bolder;color: rgb(235, 32, 144);font-size:medium;padding-right: 20px;">
-              <mat-label>ExpWt+ ExpGms </mat-label>
-              <input name="Stdgmmt" formControlName="Stdgmmt" [(ngModel)]="Stdgmmt" placeholder=" Stdgmmt" matInput>
-            </mat-form-field>
+      
 
+            <mat-form-field appearance="outline" style="padding-left:100px;font-size: large;color: coral;font-weight: bold;">
+              <mat-label>ExpWt + ExpGms</mat-label>
+              <input name="Stdgmmt" [(ngModel)]="Stdgmmt" formControlName="Stdgmmt" placeholder="Stdgmmt"
+                matInput>
+            </mat-form-field>
           </div>
 
           <div style="float: right;margin-top: 10px;">

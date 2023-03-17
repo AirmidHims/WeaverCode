@@ -12,11 +12,11 @@ export class InventoryMasterService {
   invyarnform: FormGroup;
   accountmasterform: FormGroup;
   qualityform: FormGroup;
-    Millform:FormGroup;
-  mySearchform:FormGroup;
-  designForm:FormGroup;
+  Millform: FormGroup;
+  mySearchform: FormGroup;
+  designForm: FormGroup;
 
-  Today=[new Date().toISOString()];
+  Today = [new Date().toISOString()];
 
   constructor(public _httpClient: HttpClient,
     private _formBuilder: FormBuilder) {
@@ -25,17 +25,17 @@ export class InventoryMasterService {
     this.invyarnform = this.filteryarninvForm();
     this.designForm = this.designMasterForm();
     this.qualityform = this.createQualityForm();
-   this.Millform = this.invMillForm();
-   this.mySearchform = this.SearchForm();
+    this.Millform = this.invMillForm();
+    this.mySearchform = this.SearchForm();
 
   }
 
 
- 
+
   SearchForm() {
     return this._formBuilder.group({
-      Keyword:'',
-      DesignType:'',
+      Keyword: '',
+      DesignType: '',
       start: [new Date().toISOString()],
       end: [new Date().toISOString()],
     });
@@ -44,20 +44,20 @@ export class InventoryMasterService {
 
   createInvallForm() {
     return this._formBuilder.group({
-      shadeID:'',
-      shadeNumber:'',
-      shadeColour:'',
-      millCode:'',
-      MillName:'',
-      ItemName:'',
-      Maker:'',
-      Category:'',
-      Unit:'',
-      PartNo:'',
-      Rate:'',
-      LocationName:'',
-      LocationId:'',
-      LocationCode:'',
+      shadeID: '',
+      shadeNumber: '',
+      shadeColour: '',
+      millCode: '',
+      MillName: '',
+      ItemName: '',
+      Maker: '',
+      Category: '',
+      Unit: '',
+      PartNo: '',
+      Rate: '',
+      LocationName: '',
+      LocationId: '',
+      LocationCode: '',
       Today: [new Date().toISOString()],
       start: [new Date().toISOString()],
       end: [new Date().toISOString()],
@@ -66,17 +66,17 @@ export class InventoryMasterService {
 
   createQualityForm() {
     return this._formBuilder.group({
-      
-      Date:'',
+
+      Date: '',
       Partyname: '',
       Wastageper: '',
       QualityName: '',
-      QualityCode:'',
+      QualityCode: '',
       Construction: '',
-      AccountId:'',
-      Waste:'',
+      AccountId: '',
+      Waste: '',
       WidthInch: '',
-      WidthCms:'',
+      WidthCms: '',
       RsInch: '',
       RsCms: '',
       ReedInch: '',
@@ -91,8 +91,8 @@ export class InventoryMasterService {
       WeftSort3: '',
       Type: '0',
       Remark: '',
-      construction:'',
-      IsDesign:''
+      construction: '',
+      IsDesign: ''
     });
   }
 
@@ -108,22 +108,22 @@ export class InventoryMasterService {
       blend: '',
       Actualcnt: '',
       deniercnt: '',
-      shadeNumber:'',
-      shadeColour:'',
-      createdOn:[new Date().toISOString()],
+      shadeNumber: '',
+      shadeColour: '',
+      createdOn: [new Date().toISOString()],
 
-          });
+    });
   }
 
-  
-  
+
+
 
   invMillForm(): FormGroup {
     return this._formBuilder.group({
-     
+
       millID: '',
       millName: '',
-     
+
     });
   }
 
@@ -132,60 +132,60 @@ export class InventoryMasterService {
   ItemForm(): FormGroup {
     return this._formBuilder.group({
 
-     
+
       itemName: '',
       itemMaker: '',
       itemCategory: '',
       itemUnit: '',
       itemPartNumber: '',
       itemRate: '',
-     
+
     });
   }
 
 
   designMasterForm(): FormGroup {
     return this._formBuilder.group({
-      DesignName:'',
-      ChallanNo:'',
-      Rspace:'',
-      Reed:'',
-      Quality:'',
-      Pick:'',
-      Waste:'',
-      HSNNo:'',
-      Width:'',
-      Stdgmmt:'',
-      shadeID:'',
-      WarapCount:'',
-      WarapShade:'',
-      Count:'',
-      WarapDnrCount:'',
-      WarapEnds:'',
-      WarapEndsPer:'',
-      WarapRepeat:'',
-      WarapWastage:'',
-      WarapExpWt:'',
-      TotalEnds:'',
-      TotalExpWt:'',
-      
-      WeftCount:'',
-      WeftShade:'',
-      ActCount:'',
-      WeftDnrCount:'',
-      Percentage:'',
-      RepeatPic:'',
-      DesignPic:'',
-      DesignPer:'',
-      WeftWastagePer:'',
-      ExpWt:'',
-      Rate:'',
-      Costing:'',
-      TotalRepeatPick:'',
-      TotalDEsignPic:'',
-      ExpGms:''
+      DesignName: '',
+      ChallanNo: '',
+      Rspace: '',
+      Reed: '',
+      Quality: '',
+      Pick: '',
+      Waste: '',
+      HSNNo: '',
+      Width: '',
+      Stdgmmt: '',
+      shadeID: '',
+      WarapCount: '',
+      WarapShade: '',
+      Count: '',
+      WarapDnrCount: '',
+      WarapEnds: '',
+      WarapEndsPer: '',
+      WarapRepeat: '',
+      WarapWastage: '',
+      WarapExpWt: '',
+      TotalEnds: '',
+      TotalExpWt: '',
 
-     
+      WeftCount: '',
+      WeftShade: '',
+      ActCount: '',
+      WeftDnrCount: '',
+      Percentage: '',
+      RepeatPic: '',
+      DesignPic: '',
+      DesignPer: '',
+      WeftWastagePer: '',
+      ExpWt: '',
+      Rate: '',
+      Costing: '',
+      TotalRepeatPick: '',
+      TotalDEsignPic: '',
+      ExpGms: ''
+
+
     });
   }
 
@@ -197,58 +197,58 @@ export class InventoryMasterService {
     this.invyarnform.patchValue(employee);
   }
 
-  populateForm4(employee){
+  populateForm4(employee) {
     this.Itemform.patchValue(employee);
   }
-  populateForm5(employee){
+  populateForm5(employee) {
     this.Itemform.patchValue(employee);
   }
-  populateFormDesign(employee){
+  populateFormDesign(employee) {
     this.designForm.patchValue(employee);
   }
-  populateFormQuality(employee){
+  populateFormQuality(employee) {
     this.qualityform.patchValue(employee);
   }
   public InvoiceInsert(employee) {
     return this._httpClient.post("Invoice/InvoiceSave", employee);
   }
 
-public getYarnlist(employee){
- 
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Yarnlist", employee)
-}
+  public getYarnlist(employee) {
 
-public getItemlist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Itemlist", employee)
-}
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Yarnlist", employee)
+  }
 
-
-
-public getMilllist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_MillList", employee)
-}
+  public getItemlist(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Itemlist", employee)
+  }
 
 
 
-public getLocationlist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LocationList", employee)
-}
+  public getMilllist(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_MillList", employee)
+  }
+
+
+
+  public getLocationlist(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_LocationList", employee)
+  }
 
 
 
 
-public getDesignlist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_DesignList", employee)
-}
+  public getDesignlist(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_DesignList", employee)
+  }
 
 
-public getShadelist(employee){
-  return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ShadeList", employee)
-}
+  public getShadelist(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_ShadeList", employee)
+  }
 
-public getShadeColorList(){
-  return this._httpClient.post("Generic/GetByProc?procName=Rtrv_ShadecolorName", {})
-}
+  public getShadeColorList(svalue) {
+    return this._httpClient.post("Generic/GetByProc?procName=Rtrv_ShadecolorName", { "shadeColour": svalue })
+  }
   public getCityList() {
     return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
   }
@@ -271,20 +271,20 @@ public getShadeColorList(){
     return this._httpClient.post("Weaver/YarnUpdate", employee);
   }
 
-  public getDeleteYarnmaster(data){
-    return this._httpClient.post("Generic/GetBySelectQuery?query="+data, {})
+  public getDeleteYarnmaster(data) {
+    return this._httpClient.post("Generic/GetBySelectQuery?query=" + data, {})
   }
 
   public getYarnlistbydate(element) {
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_YarnlistbyDate",element);
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_YarnlistbyDate", element);
   }
 
-  public getQualitylist(element){
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_QualityList",element);
+  public getQualitylist(element) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_QualityList", element);
   }
 
-  public getQualityDatewiselist(element){
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_QualitylistbyDate",element);
+  public getQualityDatewiselist(element) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_QualitylistbyDate", element);
   }
 
   public ShadeInsert(employee) {
@@ -334,8 +334,8 @@ public getShadeColorList(){
   }
 
 
-  public getDeleteLocationmaster(data){
-    return this._httpClient.post("Generic/GetBySelectQuery?query="+data, {})
+  public getDeleteLocationmaster(data) {
+    return this._httpClient.post("Generic/GetBySelectQuery?query=" + data, {})
   }
 
 }

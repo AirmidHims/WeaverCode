@@ -1,3 +1,5 @@
+
+import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,42 +35,87 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
-
-import { YarninwardService } from "./yarninward.service";
-import { YarnIssueComponent } from './yarn-issue/yarn-issue.component';
-import { YarnOutwardComponent } from './yarn-outward/yarn-outward.component';
-// import { EditYarnInwardComponent } from './edit-yarn-inward/edit-yarn-inward.component';
-// import { NewYarnInwardyComponent } from './new-yarn-inwardy/new-yarn-inwardy.component';
-
-
+import { YarnInwardComponent } from './yarn-inward.component';
+import { YarninwardService } from '../yarninward.service';
+import { NewYarnInwardComponent } from './new-yarn-inward/new-yarn-inward.component';
+import { EditYarnInwardComponent } from '../edit-yarn-inward/edit-yarn-inward.component';
 
 
 const appRoutes: Routes = [
 
- 
     {
-        path: "YarnInward",
-        loadChildren: () => import("./yarn-inward/yarn-inward.module").then((m) => m.YarnInwardModule),
-            
-    },
-   
-    {
-        path: 'YarnIssue',
-        loadChildren: () =>  import('./yarn-issue/yarn-issue.module').then(m => m.YarnIssueModule)
-        
-    },
-    {
-      path: 'YarnOutward',
-      loadChildren: () =>  import('./yarn-outward/yarn-outward.module').then(m => m.YarnOutwardModule)
-      
+      path: "**",
+      component: YarnInwardComponent
   },
-     
+  {
+    // Yarn
+     path: "InventoryMaster/Yarn",
+     loadChildren: () =>
+    //  import("./invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
+    YarnInwardComponent
+  },
+ 
   
   ];
-  @NgModule({
-    declarations: [],
+@NgModule({
+    declarations: [
+      YarnInwardComponent,
+      NewYarnInwardComponent,
+      EditYarnInwardComponent
+      // YarnMasterComponent,
+      
+    ],
     imports: [
         RouterModule.forChild(appRoutes),
+        MatButtonModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatMenuModule,
+        MatRippleModule,
+        MatTableModule,
+        MatToolbarModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatTabsModule,
+        MatCardModule,
+        MatDividerModule,  
+        MatProgressSpinnerModule,
+        FuseSharedModule,
+        FuseConfirmDialogModule,
+        FuseSidebarModule,
+        MatDialogModule,
+        MatGridListModule,
+        MatSnackBarModule,
+        MatSlideToggleModule ,
+        MatDividerModule,
+        MatDialogModule,
+        FuseSharedModule,
+        FuseConfirmDialogModule,
+        FuseSidebarModule,
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatStepperModule,
+        MatAutocompleteModule,
+        MatProgressSpinnerModule,
+        FuseSharedModule,
+        NgxMatSelectSearchModule,
+        MatBadgeModule,
+        MatTooltipModule,
+        MatExpansionModule
+      
+    ],
+    providers: [
+      YarninwardService,
+        // NotificationServiceService ,
+        DatePipe
+    ],
+    entryComponents: [
+      YarnInwardComponent
     ]
 })
-export class YarnMaterModule { }
+export class YarnInwardModule { }

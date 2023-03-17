@@ -11,20 +11,21 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { AuthenticationService } from 'app/core/services/authentication.service';
 import { AdvanceDataStored } from 'app/main/Invoice/advance';
 import { ReplaySubject, Subject } from 'rxjs';
-import { ContractbookingService } from '../contractbooking.service';
-import { EditContractBookingComponent } from './edit-contract-booking/edit-contract-booking.component';
-import { NewContractBookingComponent } from './new-contract-booking/new-contract-booking.component';
+import { EditYarnInwardComponent } from '../edit-yarn-inward/edit-yarn-inward.component';
+import { YarninwardService } from '../yarninward.service';
+import { NewYarnInwardComponent } from './new-yarn-inward/new-yarn-inward.component';
 
 @Component({
-  selector: 'app-contract-booking',
-  templateUrl: './contract-booking.component.html',
-  styleUrls: ['./contract-booking.component.scss'],
+  selector: 'app-yarn-inward',
+  templateUrl: './yarn-inward.component.html',
+  styleUrls: ['./yarn-inward.component.scss'],
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations
 })
-export class ContractBookingComponent implements OnInit {
+export class YarnInwardComponent implements OnInit {
 
- 
+  
+
   sIsLoading: string = '';
   isLoading = true;
   
@@ -38,32 +39,38 @@ export class ContractBookingComponent implements OnInit {
 
   displayedColumns = [
 
-    "ContractBookingID",
-    "BookingNo",
-    "BookingDate",
-    "PartyName",
-    "BrokerName",
-    "SizingName",
-    "Brokerage",
-    "QualityName",
-    "TotalBeams",
-    // "Pick",
-    "JobRate",
-    "TotalMeter",
-    "CompleteDate",
-    "PaymentTerms",
-    "Remark",
-    
-    "UpdatedBy",
-    "UpdatedOn",
+    'YarnInwardID',
+    'YarnInwardCode',
+    'EntryDate',
+    'ChallanNo',
+    'ChallanDate',
+    'LotNo',
+    'PartyName',
+    // 'PartyName',
+  
+    'TotalBags',
+    'TotalWeight',
+    'TotalAmount',
+    'AuthorisedBy',
+    'CheckedBy',
+    // 'TransportId',
+    'VehichleNo',
+    'Remarks',
+    // 'UpdatedBy',
+    // 'yin.updatedon',
+   
     // 'isActive',
     'action'
   ];
-  dataSource = new MatTableDataSource<ContractMaster>();
+  dataSource = new MatTableDataSource<YarnInwardMaster>();
   menuActions: Array<string> = [];
 
+  public doctorFilterCtrl: FormControl = new FormControl();
+  public filtereddoctor: ReplaySubject<any> = new ReplaySubject<any>(1);
+  private _onDestroy = new Subject<void>();
 
-  constructor(public _ContractbookingService: ContractbookingService,
+
+  constructor(public _YarninwardService: YarninwardService,
     private _ActRoute: Router,
     public _matDialog: MatDialog,
     private advanceDataStored: AdvanceDataStored,
@@ -73,18 +80,19 @@ export class ContractBookingComponent implements OnInit {
   ) { }
   D_data1: any;
   ngOnInit(): void {
-  
+
     var D_data = {
-      "Keyword": '',//this._ContractbookingService.mySearchform.get("Keyword").value + '%' || '',
-      "From_Dt" :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
-      "To_Dt " :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
+      "Keyword": '',// this._OtherinfoMasterService.Searchform.get("Keyword").value + '%' || '%',
+      "AccountName":'',
+      "From_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : '',//this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
     
 
     }
     console.log(D_data);
     this.D_data1 = D_data;
-    this._ContractbookingService.getBookingList(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as ContractMaster[];
+    this._YarninwardService.getYarnInventorylist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as YarnInwardMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource.data);
@@ -100,18 +108,19 @@ export class ContractBookingComponent implements OnInit {
 
 
 
-  getContractbookingList() {
+  getYarnInwardList() {
     //  debugger;
     this.sIsLoading = 'loading-data';
     var D_data = {
-      "Keyword": this._ContractbookingService.Searchform.get("Keyword").value + '%' || '',
-      "From_Dt" : this.datePipe.transform(this._ContractbookingService.Searchform.get("start").value,"MM-dd-yyyy") || '',
-      "To_Dt" : this.datePipe.transform(this._ContractbookingService.Searchform.get("end").value,"MM-dd-yyyy") || '', 
-    
+      "Keyword": this._YarninwardService.yarnsearchform.get("Keyword").value + '%' || '%',
+       "AccountName": this._YarninwardService.yarnsearchform.get("AccountName").value + '%' || '%',
+       "From_Dt": this.datePipe.transform(this._YarninwardService.yarnsearchform.get("start").value,"MM-dd-yyyy") || "",
+       "To_Dt": this.datePipe.transform(this._YarninwardService.yarnsearchform.get("start").value,"MM-dd-yyyy") || "",
+
     }
 
-    this._ContractbookingService.getBookingList(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as ContractMaster[];
+    this._YarninwardService.getYarnInventorylist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as YarnInwardMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
@@ -124,27 +133,24 @@ export class ContractBookingComponent implements OnInit {
 
 
 
-
- 
-
   onSearch() {
-    this.getContractbookingList();
+    this.getYarnInwardList();
 
   }
 
 
 
-  NewContractnmaster() {
-    const dialogRef = this._matDialog.open(NewContractBookingComponent,
+  NewYarnmaster() {
+    const dialogRef = this._matDialog.open(NewYarnInwardComponent,
       {
-        maxWidth: "75vw",
-        height: '510px',
+        maxWidth: "98%",
+        height: '85%',
         width: '100%',
         // height: "100%"
       });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed - Insert Action', result);
-      this.getContractbookingList();
+      this.getYarnInwardList();
     });
   }
 
@@ -170,37 +176,32 @@ export class ContractBookingComponent implements OnInit {
   onEdit(row) {
     console.log(row);
     var m_data = {
-    
-      "ContractBookingID":row.ContractBookingID,
-      "Bookingno":row.BookingNo,
-      "Bookdate":row.BookingDate,
-      "Partyname":row.PartyName,
-      "Brokername":row.BrokerName,
-      "Sizingname":row.SizingName,
-      "Brokerage":row.Brokerage,
-      "Quality":row.QualityName,
-       "Design":row.Design,
-      "Noofbeam":row.TotalBeams,
-      "Pick":row.Pick,
-      "Jobrate":row.JobRate,
-      "Totalmeter":row.TotalMeter,
-      "Completedate":row.CompleteDate,
-      "PaymentTerm":row.PaymentTerms,
-      "Remark":row.Remark,
-      "PartyID":1,
-      "BrokerID":1,
-      "SizingID":1,
-
+      "YarnInwardID": row.YarnInwardID,
+      "YarnInwardCode": row.YarnInwardCode,
+      "PartyName":row.PartyName,
+      "EntryDate": row.EntryDate,
+      "ChallanNo": row.ChallanNo,
+      "ChallanDate": row.ChallanDate,
+      "LotNo": row.LotNo,
+      "AccountId": row.AccountId,
+      "TotalBag": row.TotalBags,
+      "TotalWeight": row.TotalWeight,
+      "TotalAmount": row.TotalAmount,
+      "Authorisedby": row.AuthorisedBy,
+      "TransportId": row.TransportId,
+      "CheckedBy": row.CheckedBy,
+      "VehichleNo": row.VehichleNo,
+      "Remarks": row.Remarks,
 
     }
 
     console.log(m_data);
-    this._ContractbookingService.populateForm2(m_data);
+    this._YarninwardService.populateFormYarnInward(m_data);
 
-    const dialogRef = this._matDialog.open(EditContractBookingComponent,
+    const dialogRef = this._matDialog.open(EditYarnInwardComponent,
       {
-        maxWidth: "75vw",
-        height: '510px',
+        maxWidth: "98%",
+        height: '85%',
         width: '100%',
         data: {
           registerObj: m_data,
@@ -209,25 +210,28 @@ export class ContractBookingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed - Insert Action', result);
-      this.getContractbookingList();
+      this.getYarnInwardList();
     });
   }
 
 
   onClear() {
 
-    this._ContractbookingService.Searchform.get('Keyword').reset();
+    this._YarninwardService.yarnsearchform.get('Keyword').reset();
+    this._YarninwardService.yarnsearchform.get('AccountName').reset();
+
     var D_data = {
-      "Keyword": '',//this._ContractbookingService.mySearchform.get("Keyword").value + '%' || '',
-      "From_Dt" :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("start").value,"MM-dd-yyyy") || '',
-      "To_Dt" :'',// this.datePipe.transform(this._ContractbookingService.mySearchform.get("end").value,"MM-dd-yyyy") || '', 
+      "Keyword": '',// this._OtherinfoMasterService.Searchform.get("Keyword").value + '%' || '%',
+      "AccountName":'',
+      "From_Dt" :'',// this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("start").value,"MM-dd-yyyy") || "01/01/1900",
+      "To_Dt" : '',//this.datePipe.transform(this._OtherinfoMasterService.Searchform.get("end").value,"MM-dd-yyyy") || "01/01/1900", 
     
 
     }
     console.log(D_data);
     this.D_data1 = D_data;
-    this._ContractbookingService.getBookingList(D_data).subscribe(Visit => {
-      this.dataSource.data = Visit as ContractMaster[];
+    this._YarninwardService.getYarnInventorylist(D_data).subscribe(Visit => {
+      this.dataSource.data = Visit as YarnInwardMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource.data);
@@ -244,9 +248,9 @@ export class ContractBookingComponent implements OnInit {
     // debugger;
     // //  let Query = "Select DischargeId from Discharge where  AdmissionID=" + this.selectedAdvanceObj.AdmissionID + " ";
 
-    // let Query = "update ContractMaster set isActive=0 where yID=" + element.yID + "";
+    // let Query = "update YarnMaster set isActive=0 where yID=" + element.yID + "";
     // console.log(Query);
-    // this._ContractbookingService.getDeleteYarnmaster(Query).subscribe(data => {
+    // this._YarninwardService.getDeleteYarnmaster(Query).subscribe(data => {
     //   if (data)
     //     Swal.fire('Success !', 'ChargeList Row Deleted Successfully', 'success');
 
@@ -343,46 +347,114 @@ export class ContractBookingComponent implements OnInit {
 }
 
 
-export class ContractMaster {
-  ContractBookingID:any;
-  BookingNo:any;
-  BookingDate:any;
-  PartyName:any;
-  BrokerName:any;
-  SizingName:any;
-  Brokerage:any;
-  QualityName:any;
-  
-  DesignId:any;
-  TotalBeams:any;
-  Pick:any;
-  JobRate:any;
-  TotalMeter:any;
-  CompleteDate:any;
-  PaymentTerms:any;
-  Remark:any;
+export class YarnMaster {
+  yID: number;
+  yName: string;
+  yCount: any;
+  yCode: any;
+  yPly: string;
+  yType: any;
+  yBlend: string;
+  yActualCount: any;
+  yDenierCount: any;
+  isActive: boolean;
+
+  Created: any;
   /**
    * Constructor
    *
    * @param contact
    */
-  constructor(ContractMaster) {
+  constructor(YarnMaster) {
     {
-      this.ContractBookingID = ContractMaster.ContractBookingID || '';
-      this.BookingNo = ContractMaster.BookingNo || '';
-      this.BookingDate = ContractMaster.BookingDate || '';
-      this.PartyName = ContractMaster.PartyName || '';
-      this.BrokerName = ContractMaster.BrokerName || '';
-      this.SizingName = ContractMaster.SizingName || '';
-      this.Brokerage = ContractMaster.Brokerage || '';
-      this.QualityName = ContractMaster.QualityName || '';
-      this.TotalBeams = ContractMaster.TotalBeams || '';
-      this.Pick = ContractMaster.Pick || '';
-      this.JobRate = ContractMaster.JobRate || '';
-      this.TotalMeter = ContractMaster.TotalMeter || '';
-      this.CompleteDate = ContractMaster.CompleteDate || '';
-      this.PaymentTerms = ContractMaster.PaymentTerms || '';
-      this.Remark = ContractMaster.Remark || '';
+      this.yID = YarnMaster.yID || '';
+      this.yName = YarnMaster.yName || '';
+      this.yCode = YarnMaster.yCode || '';
+      this.yPly = YarnMaster.yPly || '';
+      this.yCount = YarnMaster.yCount || '';
+      this.yType = YarnMaster.yType || '';
+      this.yBlend = YarnMaster.yBlend || '';
+      this.yActualCount = YarnMaster.yActualCount || '';
+      this.yDenierCount = YarnMaster.yDenierCount || '';
+      this.isActive = YarnMaster.isActive || '';
+      this.Created = YarnMaster.Created || '';
+
+    }
   }
+}
+
+
+
+export class YarnInwardMaster {
+  YarnInwardID:any;
+  YarnInwardCode:any;
+  EntryDate:any;
+  ChallanNo:any;
+  ChallanDate:any;
+  LotNo:any;
+  AccountId:any;
+  PartyName:any;
+
+  TotalBags:any;
+  TotalWeight:any;
+  TotalAmount:any;
+  AuthorisedBy:any;
+  CheckedBy:any;
+  TransportId:any;
+  VehichleNo:any;
+  Remarks:any;
+
+  constructor(YarnInwardMaster){
+    this.YarnInwardID = YarnInwardMaster.YarnInwardID || '';
+    this.YarnInwardCode = YarnInwardMaster.YarnInwardCode || '';
+    this.ChallanNo = YarnInwardMaster.ChallanNo || '';
+    this.LotNo = YarnInwardMaster.LotNo || '';
+    this.PartyName = YarnInwardMaster.PartyName || '';
+  
+    this.AccountId = YarnInwardMaster.AccountId || 0;
+    this.TotalBags = YarnInwardMaster.TotalBags || '';
+    this.TotalWeight = YarnInwardMaster.TotalWeight || '';
+    this.TotalAmount = YarnInwardMaster.TotalAmount || '';
+    this.AuthorisedBy = YarnInwardMaster.AuthorisedBy || '';
+    this.CheckedBy = YarnInwardMaster.CheckedBy || '';
+    this.TransportId = YarnInwardMaster.TransportId || '';
+    this.VehichleNo = YarnInwardMaster.VehichleNo || '';
+    this.Remarks = YarnInwardMaster.Remarks || '';
+  
+
+  }
+
+}
+
+export class YarnInwardTableMaster {
+YarnCount:any;
+MillName:any;
+Shade:any;
+Wtbag:any;
+Conebag:any;
+Totalbags:any;
+Totalgrwt:any;
+Totalntwt:any;
+Category:any;
+Scale:any;
+Rate:any;
+Amount:any;
+isLocallyAdded:any;
+
+constructor(YarnInwardTableMaster){
+ 
+  this.YarnCount = YarnInwardTableMaster.YarnCount || '';
+  this.MillName = YarnInwardTableMaster.MillName || '';
+  this.Shade = YarnInwardTableMaster.Shade || '';
+  this.Wtbag = YarnInwardTableMaster.Wtbag || '';
+  this.Conebag = YarnInwardTableMaster.Conebag || '';
+  this.Totalbags = YarnInwardTableMaster.Totalbags || '';
+  this.Totalgrwt = YarnInwardTableMaster.Totalgrwt || '';
+  this.Totalntwt = YarnInwardTableMaster.Totalntwt || '';
+  this.Category = YarnInwardTableMaster.Category || '';
+  this.Scale = YarnInwardTableMaster.Scale || '';
+  this.Rate = YarnInwardTableMaster.Rate || '';
+  this.Amount = YarnInwardTableMaster.Amount || '';
+  this.isLocallyAdded = YarnInwardTableMaster.isLocallyAdded || '';
 }
 }

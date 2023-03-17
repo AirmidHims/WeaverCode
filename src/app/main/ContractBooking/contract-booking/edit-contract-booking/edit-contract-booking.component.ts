@@ -354,7 +354,7 @@ this.setDropdownObjs();
        }
      }
         console.log(m_data);
-        this._ContractbookingService.ContractBookingInsert(m_data).subscribe(response => {
+        this._ContractbookingService.ContractBookingUpdate(m_data).subscribe(response => {
           if (response) {
             Swal.fire('Congratulations !', 'Contract Booking Master  Data  save Successfully !', 'success').then((result) => {
               if (result.isConfirmed) {

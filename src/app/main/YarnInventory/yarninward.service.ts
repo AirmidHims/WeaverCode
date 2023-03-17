@@ -22,17 +22,8 @@ export class YarninwardService {
   YARNSearchForm() {
     return this._formBuilder.group({
     
-      yCode:'',
-      yName:'',
-      itemCode:'',
-         
-      // millCode:'',
-           
-      // shadeCode:'',
-     
-      // LocationCode:'',
-      // QualityCode:'',
-      
+      AccountName:''  ,
+      Keyword:'',
       start: [new Date().toISOString()],
       end: [new Date().toISOString()],
     });
@@ -40,9 +31,9 @@ export class YarninwardService {
 
  yarnInventoryForm(): FormGroup {
     return this._formBuilder.group({
-      Entrydate:'',
+      EntryDate:[(new Date()).toISOString()],
       ChallanNo:'',
-      ChallanDate:'',
+      ChallanDate:[(new Date()).toISOString()],
       LotNo:'',
       PartyName:'',
       YarnCount:'',
@@ -65,7 +56,7 @@ export class YarninwardService {
       Tanspoerttype:'',
       Vechicleno:'',
       Remark:'',
-
+      date1:''
      
     });
   }
@@ -74,18 +65,25 @@ export class YarninwardService {
   populateForm3(employee) {
 
   }
-  populateForm2(employee) {
-    // this.myInvoiceFormGroup.patchValue(employee);
+  populateFormYarnInward(employee) {
+    this.yarninventoryform.patchValue(employee);
   }
   public InvoiceInsert(employee) {
     return this._httpClient.post("Invoice/InvoiceSave", employee);
   }
 
+  
+  public getPartyaccountList() {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_From_AccountType",{})
+  }
+
+
+
   public YarnInwardInsert(employee) {
-    return this._httpClient.post("Invoice/InvoiceSave", employee);
+    return this._httpClient.post("Weaver/NewYarnInwardInsert", employee);
   }
   public YarnInwardUpdate(employee) {
-    return this._httpClient.post("Invoice/InvoiceSave", employee);
+    return this._httpClient.post("Weaver/YarnInwardUpdate", employee);
   }
 
 
@@ -117,7 +115,7 @@ export class YarninwardService {
   }
 
   getYarnInventorylist(employee){
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_Yarnlist", employee)
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_YarnInwardList", employee)
   }
   ///Weaver project
 

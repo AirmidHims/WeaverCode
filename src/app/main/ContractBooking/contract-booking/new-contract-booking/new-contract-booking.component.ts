@@ -280,7 +280,7 @@ debugger
          "insertContractBooking": {
             "ContractBookingID": 0,
             "BookingNo": this._ContractbookingService.contractbookingform.get('Bookingno').value || '',
-            "BookingDate": this.datePipe.transform(this._ContractbookingService.contractbookingform.get('date1').value,"yyyy-Mm-dd") || '01/01/1900',
+            "BookingDate": this.datePipe.transform(this._ContractbookingService.contractbookingform.get('Bookdate').value,"yyyy-Mm-dd") || '01/01/1900',
             "PartyID": parseInt(this._ContractbookingService.contractbookingform.get('PartyID').value.PartyID) || 0,
             "BrokerID": parseInt(this._ContractbookingService.contractbookingform.get('BrokerID').value.BrokerID) || 0,
             "SizingID": parseInt(this._ContractbookingService.contractbookingform.get('SizingID').value.SizingID) || 0,
@@ -294,7 +294,7 @@ debugger
             "JobRate": this._ContractbookingService.contractbookingform.get('Jobrate').value || 0,
             "TotalMeter": this._ContractbookingService.contractbookingform.get('Totalmeter').value || 0,
             
-            "CompleteDate": this.datePipe.transform(this._ContractbookingService.contractbookingform.get('date2').value,"yyyy-Mm-dd") || '01/01/1900',
+            "CompleteDate": this.datePipe.transform(this._ContractbookingService.contractbookingform.get('Completedate').value,"yyyy-Mm-dd") || '01/01/1900',
             "PaymentTerms": this._ContractbookingService.contractbookingform.get('PaymentTerm').value || 0,
             "Remark": this._ContractbookingService.contractbookingform.get('Remark').value || '',
             "createdBy": this.accountService.currentUserValue.user.id,
