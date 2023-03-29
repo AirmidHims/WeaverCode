@@ -35,39 +35,32 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatFormFieldModule } from "@angular/material/form-field";
-
-import { YarninwardService } from '../yarninward.service';
-
-import { EditYarnInwardComponent } from '../edit-yarn-inward/edit-yarn-inward.component';
-import { YarnOutwardComponent } from './yarn-outward.component';
-import { NewYarnOutwordComponent } from './new-yarn-outword/new-yarn-outword.component';
-import { EditYarnoutwordComponent } from './edit-yarnoutword/edit-yarnoutword.component';
-
+import { BeamInwardComponent } from './beam-inward.component';
+import { BeamInventoryService } from '../beam-inventory.service';
+import { NewBramInventoryComponent } from './new-bram-inventory/new-bram-inventory.component';
+import { EditBeamInwardComponent } from '../edit-beam-inward/edit-beam-inward.component';
 
 const appRoutes: Routes = [
 
     {
       path: "**",
-      component: YarnOutwardComponent
+      component: BeamInwardComponent
   },
   {
     // Yarn
-     path: "InventoryMaster/Yarn",
+     path: "Beam Inventory/BeamInward",
      loadChildren: () =>
     //  import("./invoice-list/invoice-list.module").then((m) => m.InvoiceListModule),
-    YarnOutwardComponent
+    BeamInwardComponent
   },
  
   
   ];
 @NgModule({
     declarations: [
-      YarnOutwardComponent,
-      NewYarnOutwordComponent,
-      EditYarnoutwordComponent,
-      
-      // YarnMasterComponent,
-      
+      BeamInwardComponent,
+      NewBramInventoryComponent,
+      EditBeamInwardComponent
     ],
     imports: [
         RouterModule.forChild(appRoutes),
@@ -114,12 +107,12 @@ const appRoutes: Routes = [
       
     ],
     providers: [
-      YarninwardService,
+      BeamInventoryService,
         // NotificationServiceService ,
         DatePipe
     ],
     entryComponents: [
-      YarnOutwardComponent
+      BeamInwardComponent
     ]
 })
-export class YarnOutwardModule { }
+export class BeamInwardModule { }

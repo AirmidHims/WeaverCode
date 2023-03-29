@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class BeaminventoryService {
+export class BeamInventoryService {
 
 
   accountmasterform: FormGroup;
@@ -21,8 +21,6 @@ export class BeaminventoryService {
   }
 
 
-
-
   filterForm(): FormGroup {
     return this._formBuilder.group({
 
@@ -33,7 +31,7 @@ export class BeaminventoryService {
         Validators.pattern("^[A-Za-z]*[a-zA-Z]*$"),
       ]],
 
-      BeamCode: '',
+      Keyword: '',
       start: [(new Date()).toISOString()],
       end: [(new Date()).toISOString()],
 
@@ -44,17 +42,20 @@ export class BeaminventoryService {
   beaminventoryForm(): FormGroup {
     return this._formBuilder.group({
 
-      Beaminwardid: '',
+      BeamInListID: '',
+      BeamInListCode: '',
       Inwardtime: '',
-      Inwarddate: '',
+      Inwarddate: [(new Date()).toISOString()],
       Gpchalno: '',
-      Chaldate: '',
+      Chaldate: [(new Date()).toISOString()],
       Partyname: '',
+      PartyID: '',
       Sizingname: '',
+      SizingID: '',
       Partysetno: '',
       BalanceMeters: '',
-      Contactno: '',
-      Contactdate: '',
+      Contractno: '',
+      Contactdate: [(new Date()).toISOString()],
       Contmeters: '',
       Currrecmtrs: '',
       Prerecmtrs: '',
@@ -62,35 +63,39 @@ export class BeaminventoryService {
       Totalbeammtrs: '',
       Totalproduction: '',
       Totalweftcons: '',
-      Transporttype: '',
+      TransportID: '',
       Vechicleno: '',
       Remark: '',
+      YarnCount: '',
 
-
-
+      RoundNo:'',
+      SizeSetNo: '',
+      BeamSrNo: '',
       BeamNo: '',
       SetBeamNo: '',
-      Quality: '',
-      Design: '',
-      FlagNo: '',
+      QualityId: '',
+      DesignId: '',
+      FlangeNo: '',
       Ends: '',
       RSpace: '',
       Reed: '',
       DesignPick: '',
       LoomPick: '',
       Lasa: '',
-      YM: '',
+      YardMeter: '',
       Cuts: '',
-      BMWt: '',
-      BMMeters: '',
+      BeamWt: '',
+      BeamMeter: '',
       Shrink: '',
-      ProdMeters: '',
+      ProdMeter: '',
       ReqL: '',
-      ReqFold: '',
+      Addless: '',
+      ReqFolds: '',
+      ReqMeter: '',
       WeftCons: '',
       JobPick: '',
-      Rate: '',
-
+      RatePerMeter: ''
+      
     });
   }
 
@@ -106,8 +111,13 @@ export class BeaminventoryService {
   }
 
   public BeamInwardInsert(employee) {
-    return this._httpClient.post("Invoice/InvoiceSave", employee);
+    return this._httpClient.post("Weaver/NewBeamInwardInsert", employee);
   }
+
+  public BeamInwardUpdate(employee) {
+    return this._httpClient.post("Weaver/BeamInwardUpdate", employee);
+  }
+
 
   public getCityList() {
     return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
@@ -121,11 +131,17 @@ export class BeaminventoryService {
     return this._httpClient.post("Generic/GetByProc?procName=Retrieve_CountryMasterForCombo_Conditional", { "Id": StateId })
   }
 
-
+  public geContractList() {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_From_ContractBookingNO", {})
+  }
   ///Weaver project
 
   public getBeamInventoryList(employee) {
-    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_BeamList", employee)
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_BeamInwardList1", employee)
+  }
+
+  public geBeamItemList(employee) {
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_BeamInwardItemList1", employee)
   }
 
   public accountInsert(employee) {
@@ -135,7 +151,17 @@ export class BeaminventoryService {
     return this._httpClient.post("Invoice/InvoiceUpdate", employee);
   }
 
+  public getPartyCombo() {
+    return this._httpClient.post("Generic/GetByProc?procName=Rtrv_PartyName", {})
+  }
 
+  public getTransportCombo() {
+    return this._httpClient.post("Generic/GetByProc?procName=Rtrv_TransportName", {})
+  }
+
+  public getSizingCombo() {
+    return this._httpClient.post("Generic/GetByProc?procName=Rtrv_SizingName", {})
+  }
 
   public InvoicesUpdate(employee) {
     return this._httpClient.post("Invoice/InvoiceUpdate", employee);

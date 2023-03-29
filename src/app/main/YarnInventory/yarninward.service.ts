@@ -31,6 +31,8 @@ export class YarninwardService {
 
  yarnInventoryForm(): FormGroup {
     return this._formBuilder.group({
+
+      EntryNo:'',
       EntryDate:[(new Date()).toISOString()],
       ChallanNo:'',
       ChallanDate:[(new Date()).toISOString()],
@@ -38,26 +40,32 @@ export class YarninwardService {
       PartyName:'',
       YarnCount:'',
       MillName:'',
+      MillID:'',
       Shade:'',
-      Wtbag:'',
+      ShadeId:'',
+      WtPerBag:'',
       Conebag:'',
       Totalbags:'',
+      TotalBags:'',
       Totalgrwt:'',
+      TotalGrossWt:'',
+      
       Totalntwt:'',
+      TotalNetWt:'',
       Category:'',
       Scale:'',
       Rate:'',
       Amount:'',
       TotalBag:'',
-      Totalweight:'',
+      TotalWeight:'',
       Totalamount:'',
       Authorisedby:'',
       Checkedby:'',
       Tanspoerttype:'',
       Vechicleno:'',
       Remark:'',
-      date1:''
-     
+      date1:'',
+      TransportID:''
     });
   }
 
@@ -102,6 +110,9 @@ export class YarninwardService {
     return this._httpClient.post("Invoice/InvoiceSave", employee);
   }
 
+  geYarnItemList(employee){
+    return this._httpClient.post("Generic/GetByProc?procName=Retrieve_YarnInwardItemList1", employee)
+  }
   public getCityList() {
     return this._httpClient.post("Generic/GetByProc?procName=RetrieveCityMasterForCombo", {})
   }
@@ -126,7 +137,10 @@ export class YarninwardService {
     return this._httpClient.post("Invoice/InvoiceUpdate", employee);
   }
 
-
+  public getTransportCombo(){
+    return this._httpClient.post("Generic/GetByProc?procName=Rtrv_TransportName",{})
+  }
+    
 
   public InvoicesUpdate(employee) {
     return this._httpClient.post("Invoice/InvoiceUpdate", employee);

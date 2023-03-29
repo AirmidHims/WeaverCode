@@ -28,7 +28,9 @@ export class YarnInwardComponent implements OnInit {
 
   sIsLoading: string = '';
   isLoading = true;
-  
+  TotalBag:any;
+  TotalWeight:any;
+  Totalamount:any;
   screenFromString = 'admission-form';
   
   registerObj: any;
@@ -95,14 +97,17 @@ export class YarnInwardComponent implements OnInit {
       this.dataSource.data = Visit as YarnInwardMaster[];
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.getWeightSum(this.dataSource.data);
+      this.getAmountSum(this.dataSource.data);
+      this.getBagsSum(this.dataSource.data);
       console.log(this.dataSource.data);
       this.sIsLoading = '';
     },
       error => {
         this.sIsLoading = '';
       });
-
-
+// console.log(this.dataSource.data);
+     
   }
 
 
@@ -144,7 +149,7 @@ export class YarnInwardComponent implements OnInit {
     const dialogRef = this._matDialog.open(NewYarnInwardComponent,
       {
         maxWidth: "98%",
-        height: '85%',
+        height: '95%',
         width: '100%',
         // height: "100%"
       });
@@ -154,6 +159,32 @@ export class YarnInwardComponent implements OnInit {
     });
   }
 
+  getWeightSum(element) {
+    debugger;
+    let netAmt;
+    netAmt = element.reduce((sum, { TotalWeight }) => sum += +( TotalWeight || 0), 0);
+    console.log(netAmt);
+    this.TotalWeight = netAmt;
+        
+  }
+
+  getAmountSum(element) {
+    debugger;
+    let netAmt;
+    netAmt = element.reduce((sum, { TotalAmount }) => sum += +( TotalAmount || 0), 0);
+    console.log(netAmt);
+    this.Totalamount = netAmt;
+        
+  }
+
+  getBagsSum(element) {
+    debugger;
+    let netAmt;
+    netAmt = element.reduce((sum, { TotalBags }) => sum += +( TotalBags || 0), 0);
+    console.log(netAmt);
+    this.TotalBag = netAmt;
+        
+  }
 
 
   toggleSidebar(name): void {
@@ -176,6 +207,7 @@ export class YarnInwardComponent implements OnInit {
   onEdit(row) {
     console.log(row);
     var m_data = {
+      "YarnInListID":row.YarnInListID,
       "YarnInwardID": row.YarnInwardID,
       "YarnInwardCode": row.YarnInwardCode,
       "PartyName":row.PartyName,
@@ -426,15 +458,20 @@ export class YarnInwardMaster {
 
 }
 
+
+
 export class YarnInwardTableMaster {
+
+  // YarnInListID:any;
 YarnCount:any;
-MillName:any;
-Shade:any;
-Wtbag:any;
-Conebag:any;
-Totalbags:any;
-Totalgrwt:any;
-Totalntwt:any;
+MillID:any;
+ShadeId:any;
+WtPerBag:any;
+ConePerBag:any;
+TotalBags:any;
+TotalGrossWt:any;
+TotalNetWt:any;
+
 Category:any;
 Scale:any;
 Rate:any;
@@ -442,15 +479,15 @@ Amount:any;
 isLocallyAdded:any;
 
 constructor(YarnInwardTableMaster){
- 
+//  this.YarnInListID=YarnInwardTableMaster.YarnInListID || 0;
   this.YarnCount = YarnInwardTableMaster.YarnCount || '';
-  this.MillName = YarnInwardTableMaster.MillName || '';
-  this.Shade = YarnInwardTableMaster.Shade || '';
-  this.Wtbag = YarnInwardTableMaster.Wtbag || '';
-  this.Conebag = YarnInwardTableMaster.Conebag || '';
-  this.Totalbags = YarnInwardTableMaster.Totalbags || '';
-  this.Totalgrwt = YarnInwardTableMaster.Totalgrwt || '';
-  this.Totalntwt = YarnInwardTableMaster.Totalntwt || '';
+  this.MillID = YarnInwardTableMaster.MillID || '';
+  this.ShadeId = YarnInwardTableMaster.ShadeId || '';
+  this.WtPerBag = YarnInwardTableMaster.WtPerBag || '';
+  this.ConePerBag = YarnInwardTableMaster.ConePerBag || '';
+  this.TotalBags = YarnInwardTableMaster.TotalBags || '';
+  this.TotalGrossWt = YarnInwardTableMaster.TotalGrossWt || '';
+  this.TotalNetWt = YarnInwardTableMaster.TotalNetWt || '';
   this.Category = YarnInwardTableMaster.Category || '';
   this.Scale = YarnInwardTableMaster.Scale || '';
   this.Rate = YarnInwardTableMaster.Rate || '';

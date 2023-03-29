@@ -28,6 +28,7 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { JwtInterceptor } from "./core/jwt.interceptor";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { SpinnerInterceptor } from "./core/spinner.interceptor";
+import { BeamInwardComponent } from './main/Beam_Inventory/beam-inward/beam-inward.component';
 
 
 
@@ -75,7 +76,7 @@ const appRoutes: Routes = [
     {
         path:"Beam Inventory",
         loadChildren: () =>
-        import("./main/BeamInventory/beaminventory.module").then((m) => m.BeaminventoryModule),
+        import("./main/Beam_Inventory/beam-invemtoryall.module").then((m) => m.BeamInvemtoryallModule),
     },
     {
         path:"Contract Booking",
@@ -134,8 +135,8 @@ export const PICK_FORMATS = {
 
 @NgModule({
     declarations: [
-        AppComponent
-        
+        AppComponent,
+               
         
     ],
     imports: [

@@ -4,7 +4,7 @@
 .mat-form-field-wrapper {
   padding-bottom: 0.34375em;
 }
-app-yarn-outward{
+app-beam-inward{
   display: flex;
   flex: 1 1 auto;
   width: 100%;
@@ -60,19 +60,19 @@ app-yarn-outward{
 }
 
   
-app-yarn-outward{
+app-beam-inward {
 
     .table1{
 
-        height: 350px !important;
+        height: 450px !important;
   
   .mat-header-row {
     background-color: #165c7f !important;
     // font-family: 'Times New Roman', Times, serif;
-    font-size: xx-large;
+    font-size: x-large;
     width: 100%;
-    max-width: 2000px;
-    min-width: 2000px;  
+    max-width: 2500px;
+    min-width: 2500px;  
     min-height: 30px; 
    
        
@@ -80,35 +80,34 @@ app-yarn-outward{
   
   .mat-row {
     width: 100%;
-    max-width: 2000px;
-    min-width: 2000px;      
+    max-width: 2500px;
+    min-width: 2500px;      
     min-height: 30px;  
                
   }
 
-  
-  .mat-column-YarnInwardID {
+
+
+  .mat-column-BeamInwardID {
     width:130px;
     max-width:130px;
     min-width:130px;
     text-align: left;
-    
       
   }
-  .mat-column-YarnInwardCode {
+  .mat-column-BeamInwardCode {
     width: 130px; 
     max-width: 130px;
     min-width: 130px;
     text-align: left;
-    
   }
 
-  .mat-column-EntryDate {
-    width: 100px;
-    max-width:100px;
-    min-width:100px;
+  .mat-column-BeamInwardDate {
+    width: 130px;
+    max-width:130px;
+    min-width:130px;
     text-align: left;
-    
+   
     
   }
   
@@ -117,127 +116,177 @@ app-yarn-outward{
     max-width:110px;
     min-width:110px;
     text-align: left;
-    
-    // white-space: nowrap; 
-    // // overflow: hidden;
-    // // text-overflow: ellipsis; 
-    //  overflow: hidden !important;  
   
     
   }
   
+
+  
   .mat-column-ChallanDate {
+    width:110px;
+    max-width:110px;
+    min-width:110px;
+    text-align: left;
+      
+  }
+  .mat-column-PartyName {
+    width: 130px; 
+    max-width: 130px;
+    min-width: 130px;
+    text-align: left;
+  }
+
+  .mat-column-BrokerName {
+    width: 130px;
+    max-width:130px;
+    min-width:130px;
+    text-align: left;
+   
+    
+  }
+  
+  .mat-column-PartySetNo {
     width: 110px;
     max-width:110px;
     min-width:110px;
     text-align: left;
-
-        
-  }
- 
-  .mat-column-LotNo{
-    width:110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
-    
-
-
-  }
- 
-  .mat-column-AccountId {
-    width:110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
+  
     
   }
+
+
+
+    .mat-column-ContractBookingId {
+      width: 130px; 
+      max-width: 130px;
+      min-width: 130px;
+      text-align: left;
+    }
+  
+    .mat-column-ContractDate {
+      width: 110px;
+      max-width:110px;
+      min-width:110px;
+      text-align: left;
+     
+      
+    }
+    
+    .mat-column-ContractMeters {
+      width: 110px;
+      max-width:110px;
+      min-width:110px;
+      text-align: left;
+    
+      
+    }
+
+    
+    .mat-column-CurrentMeters {
+      width: 110px; 
+      max-width: 110px;
+      min-width: 110px;
+      text-align: left;
+    }
   
   
-  .mat-column-TotalBags {
-    width: 110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
+    .mat-column-PreviousMeters {
+      width: 110px;
+      max-width:110px;
+      min-width:110px;
+      text-align: left;
+     
+      
+    }
     
-  }
-  .mat-column-TotalWeight{
-    width:110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
+    .mat-column-BalanceMeters {
+      width: 110px;
+      max-width:110px;
+      min-width:110px;
+      text-align: left;
     
+      
+    }
 
+    
+    .mat-column-TotalCuts {
+      width: 100px;
+      max-width:100px;
+      min-width:100px;
+      text-align: left;
+     
+      
+    }
+    
+    .mat-column-TotalBeamMeters {
+      width: 130px;
+      max-width:130px;
+      min-width:130px;
+      text-align: left;
+    
+      
+    }
 
-  }
- 
-  .mat-column-TotalAmount {
-    width:110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
+    .mat-column-TotalProductionMeters {
+      width: 130px;
+      max-width:130px;
+      min-width:130px;
+      text-align: left;
+     
+      
+    }
     
-  }
-  
-  
-  .mat-column-AuthorisedBy {
-    width: 110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
+    .mat-column-TotalWeftCons {
+      width: 110px;
+      max-width:110px;
+      min-width:110px;
+      text-align: left;
     
-  }
-  .mat-column-CheckedBy{
-    width:110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
-    
-
-
-  }
- 
-  .mat-column-TransportId {
-    width:110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
-    
-  }
-  
+      
+    }
    
-  .mat-column-VehichleNo {
-    width: 110px;
-    max-width: 110px;
-    min-width: 110px;
-    text-align: left;
+
+    .mat-column-VehicleNo {
+      width: 130px;
+      max-width:130px;
+      min-width:130px;
+      text-align: left;
+     
+      
+    }
     
-  }
-  .mat-column-PartyName {
-    width: 250px;
-    max-width: 250px;
-    min-width: 250px;
-    text-align: left;
+    .mat-column-Remark {
+      width: 210px;
+      max-width:210px;
+      min-width:210px;
+      text-align: left;
     
-  }
-  .mat-column-Remarks {
-    width: 200px;
-    max-width:200px;
-    min-width:150px;
-    text-align: left;
-    // white-space: nowrap; 
-    //     overflow: hidden; 
-    //  overflow: hidden !important;
-    //  display: inline-block; 
+      
+    }
+ 
+  .mat-column-UpdatedBy {
+    width: 160px;
+    max-width: 160px;
+    min-width: 160px;
+    text-align: center;
+    margin-right: 7px;
    
   }
- 
+
+  .mat-column-UpdatedOn {
+    width: 100px;
+    max-width:100px;
+    min-width: 100px;
+    text-align: center;
+    margin-right: 7px;
+   
+  }
   .mat-column-action{
     width:100px;
     max-width: 100px;
     min-width: 100px;
     text-align: center;
-    
+    justify-content: center;
     
   }
   
@@ -315,7 +364,7 @@ app-yarn-outward{
     color: white;
      }
      
-     .header {
+  .header {
       display: flex;
       justify-content: space-between;
       // background-color: #3C9CE5;

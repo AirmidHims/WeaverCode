@@ -149,7 +149,7 @@
               </ng-container>
 
 
-
+              <!-- (keyup)="getEndper(element)" -->
 
               <ng-container matColumnDef="WarapEnds">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Ends
@@ -157,7 +157,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.WarapEnds" [ngModelOptions]="{standalone: true}"
-                      name="WarapEnds" (keyup)="getEndper(element)" type="number">
+                      name="WarapEnds"  type="number">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -300,7 +300,7 @@
                 <mat-cell *matCellDef="let element; let i = index" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 90%;">
                     <input matInput [(ngModel)]="element.WeftCount" [ngModelOptions]="{standalone: true}"
-                      name="WeftCount" type="number">
+                      name="WeftCount" type="number" (focus)='getEndper(event)'>
                   </mat-form-field>
                 </mat-cell>
               </ng-container>
@@ -382,7 +382,7 @@
                 <mat-cell *matCellDef="let element" fxShow.gt-sm>
                   <mat-form-field appearance="outline" style="width: 92%;">
                     <input matInput [(ngModel)]="element.DesignPer" [ngModelOptions]="{standalone: true}"
-                      name="DesignPer" type="number">
+                      name="DesignPer">
                   </mat-form-field>
                 </mat-cell>
               </ng-container>

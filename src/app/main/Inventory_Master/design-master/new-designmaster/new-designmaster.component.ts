@@ -103,6 +103,8 @@ export class NewDesignmasterComponent implements OnInit {
   totalrepeatpic: any;
   totalwrapEnds: any = 0;
 
+  Ends:any;
+
   date1 = new FormControl(new Date())
   Today = [new Date().toISOString()];
   DesignendData: warptable[] = [];
@@ -110,6 +112,9 @@ export class NewDesignmasterComponent implements OnInit {
   private lookups: ILookup[] = [];
   private nextPage$ = new Subject();
   ShadeList: any = [];
+
+  Endsarray: any = [];
+  Endperarray: any = [];
 
   // Shade filter
   public ShadeFilterCtrl: FormControl = new FormControl();
@@ -325,6 +330,9 @@ export class NewDesignmasterComponent implements OnInit {
       this.isRowAdded = true;
       this.DesignendData && this.DesignendData.length > 0 ? this.DesignendData.splice(this.DesignendData.indexOf(element), 1) : '';
       console.log(this.DesignendData);
+      let Endvalue =element.WarapEnds;
+      this.Endsarray.push(Endvalue);
+      console.log(this.Endsarray);
     }
     let addingRow1 = {
       WarapCount: element && element.WarapCount ? element.WarapCount : '',
@@ -373,15 +381,15 @@ export class NewDesignmasterComponent implements OnInit {
 
   addEmptyRow2(element?: DesignPick) {
     // debugger;
-    if (this._InventoryMasterService.designForm.invalid) {
-      this._InventoryMasterService.designForm.markAllAsTouched();
-      this._snackBar.open('Please fill mandetory fields', 'Ok', {
-        horizontalPosition: 'end',
-        verticalPosition: 'bottom',
-        duration: 3000
-      });
-      return;
-    }
+    // if (this._InventoryMasterService.designForm.invalid) {
+    //   this._InventoryMasterService.designForm.markAllAsTouched();
+    //   this._snackBar.open('Please fill mandetory fields', 'Ok', {
+    //     horizontalPosition: 'end',
+    //     verticalPosition: 'bottom',
+    //     duration: 3000
+    //   });
+    //   return;
+    // }
     if (element) {
       this.isRowAdded1 = true;
       this.DesignPicData && this.DesignPicData.length > 0 ? this.DesignPicData.splice(this.DesignPicData.indexOf(element), 1) : '';
@@ -497,11 +505,17 @@ export class NewDesignmasterComponent implements OnInit {
   getEndper(element) {
 
     let netAmt;
+    
+    let Endsvalue
+  
+    this.dataSource.data.forEach((element) => {
+    
+    Endsvalue = element.WarapEnds/this.totalwrapEnds;
+    element.WarapEndsPer = (Endsvalue * 100).toFixed (1);
+       
+    })
 
-    netAmt = ((parseInt(element.WarapEnds) / parseInt(this.totalwrapEnds)) * 100);
 
-    element.WarapEndsPer = (netAmt) + '%';
-    // console.log(this.TotalEndeper);
   }
 
 
@@ -509,11 +523,14 @@ export class NewDesignmasterComponent implements OnInit {
   getDesignPicper(element) {
 
     let netAmt;
-
-    netAmt = ((parseInt(element.DesignPic) / parseInt(this.TotalDesignpic)) * 100);
+  
+    // element.DesignPer = Math.round(netAmt.toFixed(2)) + '%';
+    
+    this.dataSource1.data.forEach((element) => {
+      netAmt = ((parseInt(element.DesignPic) / parseInt(this.TotalDesignpic)) * 100);
 
     element.DesignPer = Math.round(netAmt.toFixed(2)) + '%';
-    // console.log(this.TotalEndeper);
+    })
   }
 
   onClose() {
@@ -521,120 +538,106 @@ export class NewDesignmasterComponent implements OnInit {
   }
 
 
-  //   onSubmit() {
-  //     // debugger;
+    onSubmit() {
+      // debugger;
 
 
-  //     let Designendftabletemp = [];
-  //     let Designpicftabletemp = [];
-
-
-
-  //     debugger;
-  //     this.DesignendData.splice(this.DesignendData.length - 1, 0);
-
-  //     this.DesignendData.forEach((element: any, index) => {
-  //       let obj = {};
-  //       obj['WarapCount'] = element.WarapCount;
-  //       obj['WarapShade'] = element.WarapShade;
-  //       obj['Count'] = element.Count;
-  //       obj['WarapDnrCount'] = element.WarapDnrCount;
-  //       obj['WarapEnds'] = element.WarapEnds;
-  //       obj['WarapEndsPer'] = element.WarapEndsPer;
-  //       obj['WarapRepeat'] = element.WarapRepeat;
-  //       obj['WarapWastage'] = element.WarapWastage;
-  //       obj['WarapExpWt'] = element.WarapExpWt;
-
-  //       Designendftabletemp.push(obj);
-
-  //       console.log(Designendftabletemp);
-  //     });
-
-  //     this.DesignPicData.splice(this.DesignPicData.length - 1, 0);
-
-
-  //     this.DesignPicData.forEach((element: any, index) => {
-  //       let obj = {};
-  //       obj['WeftCount'] = element.WeftCount;
-  //       obj['WeftShade'] = element.WeftShade;
-  //       obj['ActCount'] = element.ActCount;
-  //       obj['WeftDnrCount'] = element.WeftDnrCount;
-  //       obj['Percentage'] = element.Percentage;
-  //       obj['RepeatPic'] = element.RepeatPic;
-  //       obj['DesignPic'] = element.DesignPic;
-  //       obj['DesignPer'] = element.DesignPer;
-  //       obj['DesignPer'] = element.DesignPer;
-  //       obj['WeftWastagePer'] = element.WeftWastagePer;
-  //       obj['ExpWt'] = element.ExpWt;
-  //       obj['Rate'] = element.Rate;
-  //       obj['Costing'] = element.Costing;
-  //       Designpicftabletemp.push(obj);
-
-  //       console.log(Designpicftabletemp);
-  //     });
-
-  //     var m_data = {
-  //       "insertContractBooking": {
-  //          "Id": 0,
-  //          "DesignName": this._InventoryMasterService.designForm.get('DesignName').value || 0,
-  //          "ChallanNo": this._InventoryMasterService.designForm.get('ChallanNo').value || 0,
-  //          "Rspace": this._InventoryMasterService.designForm.get('Rspace').value || 0,
-  //          "Reed": this._InventoryMasterService.designForm.get('Reed').value || 0,
-  //          "Quality": this._InventoryMasterService.designForm.get('Quality').value || 0,
-
-  //          "Pick": this._InventoryMasterService.designForm.get('Pick').value || 0,
-  //          "Waste": this._InventoryMasterService.designForm.get('Waste').value || 0,
-
-  //          "HSNNo": this._InventoryMasterService.designForm.get('HSNNo').value || 0,
-  //          "Width": this._InventoryMasterService.designForm.get('Width').value || 0,
-  //          "Stdgmmt": this._InventoryMasterService.designForm.get('Stdgmmt').value || 0,
-  //           "TotalEnds":this._InventoryMasterService.designForm.get('TotalEnds').value || 0,
-  //           "TotalExpWt":this._InventoryMasterService.designForm.get('TotalExpWt').value || 0,
-  //           "TotalRepeatPick":this._InventoryMasterService.designForm.get('TotalRepeatPick').value || 0,
-  //           "TotalDEsignPic":this._InventoryMasterService.designForm.get('TotalDEsignPic').value || 0,
-  //           "ExpGms":this._InventoryMasterService.designForm.get('ExpGms').value || 0,
-
-  //        }
-  //      }
-  // console.log(m_data)
-  //     //  let insertDesignPaper = {};
-  //     // insertDesignPaper['DesignName'] = this._InventoryMasterService.designForm.get('DesignName').value || '',
-  //     // insertDesignPaper['Rspace'] = this._InventoryMasterService.designForm.get('Rspace').value || 0,
-  //     // insertDesignPaper['Reed'] =this._InventoryMasterService.designForm.get('Reed').value || 0,
-  //     // insertDesignPaper['Quality'] = this._InventoryMasterService.designForm.get('Quality').value || 0,
-  //     // insertDesignPaper['Pick'] = this._InventoryMasterService.designForm.get('Pick').value || 0,
-
-  //     // insertDesignPaper['Waste'] = this._InventoryMasterService.designForm.get('Waste').value || 0,
-  //     // insertDesignPaper['HSNNo'] =  this._InventoryMasterService.designForm.get('HSNNo').value || 0,
-  //     // insertDesignPaper['Width'] = this._InventoryMasterService.designForm.get('Width').value || 0,
-  //     // insertDesignPaper['Stdgmmt'] = this._InventoryMasterService.designForm.get('Stdgmmt').value || 0,
-
-  //     let DesignSaveObj = {};
-
-  //     DesignSaveObj['insertDesignPaper'] = Designendftabletemp;
-  //     DesignSaveObj['iDesignenftabletemp'] = Designpicftabletemp;
-
-  //     console.log(DesignSaveObj);
-
-  //     this._InventoryMasterService.DesignInsert(DesignSaveObj).subscribe(response => {
-
-  //     if (response) {
-  //       Swal.fire('Congratulations !', 'Design Master save Successfully !', 'success').then((result) => {
-  //         if (result.isConfirmed) {
-
-  //             this._matDialog.closeAll();
-  //         }
-  //       });
-  //     } else {
-  //       Swal.fire('Error !', 'Design Master not saved', 'error');
-  //     }
-
-  //     //this.isLoading = '';
-  //   });
+      let Designendftabletemp = [];
+      let Designpicftabletemp = [];
 
 
 
-  //   }
+      debugger;
+      this.DesignendData.splice(this.DesignendData.length - 1, 0);
+
+      this.DesignendData.forEach((element: any, index) => {
+        let obj = {};
+        obj['WarapCount'] = element.WarapCount;
+        obj['WarapShade'] = element.WarapShade;
+        obj['Count'] = element.Count;
+        obj['WarapDnrCount'] = element.WarapDnrCount;
+        obj['WarapEnds'] = element.WarapEnds;
+        obj['WarapEndsPer'] = element.WarapEndsPer;
+        obj['WarapRepeat'] = element.WarapRepeat;
+        obj['WarapWastage'] = element.WarapWastage;
+        obj['WarapExpWt'] = element.WarapExpWt;
+
+        Designendftabletemp.push(obj);
+
+        console.log(Designendftabletemp);
+      });
+
+      this.DesignPicData.splice(this.DesignPicData.length - 1, 0);
+
+
+      this.DesignPicData.forEach((element: any, index) => {
+        let obj = {};
+        obj['WeftCount'] = element.WeftCount;
+        obj['WeftShade'] = element.WeftShade;
+        obj['ActCount'] = element.ActCount;
+        obj['WeftDnrCount'] = element.WeftDnrCount;
+        obj['Percentage'] = element.Percentage;
+        obj['RepeatPic'] = element.RepeatPic;
+        obj['DesignPic'] = element.DesignPic;
+        obj['DesignPer'] = element.DesignPer;
+        obj['DesignPer'] = element.DesignPer;
+        obj['WeftWastagePer'] = element.WeftWastagePer;
+        obj['ExpWt'] = element.ExpWt;
+        obj['Rate'] = element.Rate;
+        obj['Costing'] = element.Costing;
+        Designpicftabletemp.push(obj);
+
+        console.log(Designpicftabletemp);
+      });
+
+       let insertDesignPaper = {};
+       insertDesignPaper['DesignID'] = 0;
+       insertDesignPaper['DesignCode'] = 'DS1-3';
+      insertDesignPaper['DesignName'] = this._InventoryMasterService.designForm.get('DesignName').value || '';
+      insertDesignPaper['Rspace'] = this._InventoryMasterService.designForm.get('Rspace').value || 0;
+      insertDesignPaper['Reed'] =this._InventoryMasterService.designForm.get('Reed').value || 0;
+      insertDesignPaper['QualityId'] = this._InventoryMasterService.designForm.get('Quality').value || 0;
+      insertDesignPaper['Pick'] = this._InventoryMasterService.designForm.get('Pick').value || 0;
+
+      insertDesignPaper['Waste'] = this._InventoryMasterService.designForm.get('Waste').value || 0;
+      insertDesignPaper['HSNNo'] =  this._InventoryMasterService.designForm.get('HSNNo').value || 0;
+      insertDesignPaper['Width'] = this._InventoryMasterService.designForm.get('Width').value || 0;
+      insertDesignPaper['TotalEnds'] = this.totalAmtOfNetAmt;
+
+      insertDesignPaper['TotalExpWt'] = this.ExpwtTotal;
+      insertDesignPaper['TotalRepeatPick'] = this.totalAmtOfNetAmt;
+      insertDesignPaper['TotalDesignPick'] =  this.TotalDesignpic
+      insertDesignPaper['TotalExpGms'] = this.ExpGmsTotal;
+      insertDesignPaper['TotalStandardGms'] = this.Stdgmmt;
+
+      let DesignSaveObj = {};
+
+      DesignSaveObj['insertDesignPaper'] = insertDesignPaper;
+      DesignSaveObj['iDesignenftabletemp'] = Designendftabletemp;
+      DesignSaveObj['iDesignenftabletemp'] = Designpicftabletemp;
+
+
+      console.log(DesignSaveObj);
+
+      this._InventoryMasterService.DesignInsert(DesignSaveObj).subscribe(response => {
+
+      if (response) {
+        Swal.fire('Congratulations !', 'Design Master save Successfully !', 'success').then((result) => {
+          if (result.isConfirmed) {
+
+              this._matDialog.closeAll();
+          }
+        });
+      } else {
+        Swal.fire('Error !', 'Design Master not saved', 'error');
+      }
+
+      //this.isLoading = '';
+    });
+
+
+
+    }
 
   onSave() {
 

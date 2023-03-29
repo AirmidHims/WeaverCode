@@ -11,17 +11,16 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { YarninwardService } from '../../yarninward.service';
-import { YarnInwardMaster, YarnInwardTableMaster } from '../yarn-inward.component';
-
+import { YarnInwardTableMaster } from '../yarn-outward.component';
 
 @Component({
-  selector: 'app-new-yarn-inward',
-  templateUrl: './new-yarn-inward.component.html',
-  styleUrls: ['./new-yarn-inward.component.scss'],
+  selector: 'app-new-yarn-outword',
+  templateUrl: './new-yarn-outword.component.html',
+  styleUrls: ['./new-yarn-outword.component.scss'],
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations
 })
-export class NewYarnInwardComponent implements OnInit {
+export class NewYarnOutwordComponent implements OnInit {
 
   submitted = false;
   
@@ -58,7 +57,7 @@ export class NewYarnInwardComponent implements OnInit {
   Tanspoerttype:any;
   Vechicleno:any;
   Remark:any;
-
+  EntryNo:any;
   PartyName:any;
   YarnListData:any=[];
   TransportList: any =[];
@@ -101,7 +100,7 @@ export class NewYarnInwardComponent implements OnInit {
   
   constructor(
     public _YarninwardService: YarninwardService,
-    public dialogRef: MatDialogRef<NewYarnInwardComponent>,
+    public dialogRef: MatDialogRef<NewYarnOutwordComponent>,
     private accountService: AuthenticationService,
     private formBuilder: FormBuilder,
     public datePipe: DatePipe,
@@ -140,7 +139,7 @@ export class NewYarnInwardComponent implements OnInit {
       this.Rate=this.data.registerObj.Rate;
       this.Amount=this.data.registerObj.Amount;
       this.TotalBag=this.data.registerObj.TotalBag;
-      this.TotalWeight=this.data.registerObj.TotalWeight;
+      this.Totalweight=this.data.registerObj.Totalweight;
       this.Totalamount=this.data.registerObj.Totalamount;
       this.Authorisedby=this.data.registerObj.Authorisedby;
       
@@ -448,7 +447,7 @@ debugger;
 
     console.log(YarnInwardSaveObj);
 
-    this._YarninwardService.YarnInwardInsert(YarnInwardSaveObj).subscribe(response => {
+    this._YarninwardService.YarnOutwardInsert(YarnInwardSaveObj).subscribe(response => {
    
     if (response) {
       Swal.fire('Congratulations !', 'Yarn Inward save Successfully !', 'success').then((result) => {
@@ -471,5 +470,6 @@ debugger;
   
 
 }
+
 
 
